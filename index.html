@@ -2,1090 +2,1618 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>EyeSmart AI - Intelligent Eye Screening</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>EyeSmart AI – Intelligent Eye Screening</title>
 <style>
-* { box-sizing: border-box; }
-html, body {
-    margin: 0; width: 100%; height: 100%;
-    overflow: hidden;
-    font-family: Arial, Helvetica, sans-serif;
-    background: linear-gradient(135deg, #eef8ff, #f7f3ff);
-    color: #172033;
-    font-size: 16px; /* Increased overall size */
+*{box-sizing:border-box}
+html,body{
+  margin:0;width:100%;height:100%;
+  overflow:hidden;
+  font-family:Arial,Helvetica,sans-serif;
+  background:linear-gradient(135deg,#eef8ff,#f7f3ff);
+  color:#172033;
 }
-button, input, select, textarea { font: inherit; }
-button { cursor: pointer; }
-
-header {
-    position: fixed; top: 0; left: 0; right: 0; height: 60px;
-    background: #fff;
-    border-bottom: 1px solid #dce7f3;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 16px; z-index: 100;
+.bgDecor{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.bgDecor span{position:absolute;border-radius:50%;filter:blur(70px);opacity:.28}
+.bgDecor span:nth-child(1){width:340px;height:340px;background:#7b4dcc;top:-90px;left:-90px}
+.bgDecor span:nth-child(2){width:300px;height:300px;background:#1769aa;bottom:-110px;right:-70px}
+.bgDecor span:nth-child(3){width:220px;height:220px;background:#18865b;top:42%;right:6%}
+.titleIcon{margin-right:7px;font-size:20px;vertical-align:middle}
+.heroEye{width:96px;margin:0 auto 8px}
+.eyeIconWrap{display:inline-block;vertical-align:middle;margin-right:5px}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+header{
+  position:fixed;top:0;left:0;right:0;height:58px;
+  background:#fff;
+  border-bottom:1px solid #dce7f3;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 16px;z-index:100;
 }
-.logo { font-size: 20px; font-weight: 800; color: #1769aa; }
-.logo span { color: #7b4dcc; }
-#voiceStatus { font-size: 12px; color: #65758b; max-width: 52%; text-align: right; }
-
-main {
-    position: absolute; top: 60px; bottom: 64px; left: 0; right: 0;
-    overflow: hidden;
+.logo{font-size:20px;font-weight:800;color:#1769aa}
+.logo span{color:#7b4dcc}
+#voiceStatus{font-size:12px;color:#65758b;max-width:52%;text-align:right}
+main{
+  position:absolute;top:58px;bottom:62px;left:0;right:0;
+  overflow:hidden;
+  z-index:1;
 }
-.page { display: none; width: 100%; height: 100%; padding: 12px; overflow-y: auto; }
-.page.active { display: block; }
-
-.card {
-    width: 100%; height: 100%;
-    max-width: 1200px; margin: auto;
-    background: rgba(255,255,255,.96);
-    border: 1px solid #dce7f3;
-    border-radius: 16px;
-    box-shadow: 0 7px 25px rgba(38,75,110,.09);
-    padding: 16px;
-    overflow-y: auto;
+.page{display:none;width:100%;height:100%;padding:10px}
+.page.active{display:block}
+.card{
+  width:100%;height:100%;
+  max-width:1250px;margin:auto;
+  background:rgba(255,255,255,.96);
+  border:1px solid #dce7f3;
+  border-radius:18px;
+  box-shadow:0 8px 28px rgba(38,75,110,.10);
+  padding:16px;
+  overflow-y:auto;
 }
-h1, h2, h3, p { margin: 0; }
-h1 { font-size: 28px; color: #1769aa; margin-bottom: 5px; }
-h2 { font-size: 22px; color: #1769aa; margin-bottom: 8px; }
-h3 { font-size: 17px; color: #31445c; margin-bottom: 8px; }
-.subtitle { font-size: 14px; color: #65758b; margin: 4px 0 12px; }
-.small { font-size: 12px; color: #66778b; }
-.center { text-align: center; }
-
-.section {
-    border: 1px solid #dfe9f3;
-    border-radius: 12px;
-    padding: 12px;
-    margin-bottom: 10px;
-    background: #fbfdff;
+h1,h2,h3,p{margin:0}
+h1{font-size:28px;color:#1769aa}
+h2{font-size:23px;color:#1769aa;margin-bottom:6px}
+h3{font-size:16px;color:#31445c;margin-bottom:6px}
+.subtitle{font-size:13px;color:#65758b;margin:4px 0 10px}
+small{font-size:12px;color:#66778b}
+.center{text-align:center}
+.section{
+  border:1px solid #dfe9f3;
+  border-radius:13px;
+  padding:10px;
+  margin-bottom:9px;
+  background:#fbfdff;
 }
-.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-label { display: block; font-size: 13px; font-weight: 700; color: #53667b; margin-bottom: 4px; }
-input, select, textarea {
-    width: 100%; border: 1px solid #ccd9e6; border-radius: 8px;
-    padding: 10px 12px; background: #fff; color: #172033; outline: none;
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+label{display:block;font-size:12px;font-weight:700;color:#53667b;margin-bottom:4px}
+input,select,textarea{
+  width:100%;
+  border:1px solid #ccd9e6;
+  border-radius:9px;
+  padding:8px 9px;
+  background:#fff;
+  color:#172033;
+  outline:none;
 }
-textarea { resize: none; height: 60px; }
-
-.btn {
-    border: 0; border-radius: 9px; padding: 10px 16px;
-    font-weight: 700; font-size: 14px; background: #1769aa; color: #fff;
+textarea{resize:none;height:52px}
+.btn{
+  border:0;border-radius:10px;
+  padding:9px 14px;
+  font-weight:700;
+  font-size:13px;
+  background:#1769aa;
+  color:#fff;
 }
-.btn:hover { opacity: .9; }
-.btn.secondary { background: #e9f2fa; color: #1769aa; }
-.btn.green { background: #18865b; }
-.btn.purple { background: #7048b8; }
-.btn.red { background: #c54d57; }
-.btn.gray { background: #6b7785; }
-.btn.smallbtn { padding: 8px 12px; font-size: 13px; }
-
-.langGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 10px 0; }
-.langBtn {
-    border: 1px solid #d4e1ec; background: #fff; border-radius: 8px;
-    padding: 8px 5px; font-size: 12px; line-height: 1.2; min-height: 44px;
+.btn:hover{opacity:.9}
+.btn.secondary{background:#e9f2fa;color:#1769aa}
+.btn.green{background:#18865b}
+.btn.purple{background:#7048b8}
+.btn.red{background:#c54d57}
+.btn.gray{background:#6b7785}
+.btn.smallbtn{padding:7px 10px;font-size:12px}
+.langGrid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:6px;
+  margin:8px 0;
 }
-.langBtn.active { background: #1769aa; color: white; border-color: #1769aa; }
-
-.instructions {
-    background: #eef7ff; border-left: 4px solid #1769aa;
-    border-radius: 7px; padding: 10px; font-size: 13px;
-    line-height: 1.4; margin-bottom: 10px;
+.langBtn{
+  border:1px solid #d4e1ec;
+  background:#fff;
+  border-radius:9px;
+  padding:7px 4px;
+  font-size:11px;
+  line-height:1.2;
+  min-height:42px;
 }
-.audioRow { display: flex; gap: 8px; align-items: center; margin: 8px 0; }
-.audioBtn {
-    background: #fff0c9; color: #765400; border: 1px solid #efd27a;
-    border-radius: 8px; padding: 8px 12px; font-size: 13px; font-weight: 700;
+.langBtn.active{background:#1769aa;color:white;border-color:#1769aa}
+.instructions{
+  background:#eef7ff;
+  border-left:4px solid #1769aa;
+  border-radius:8px;
+  padding:8px;
+  font-size:12px;
+  line-height:1.4;
+  margin-bottom:8px;
 }
-
-.symptomGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-.check {
-    display: flex; align-items: center; gap: 6px; background: #fff;
-    border: 1px solid #dce6ef; border-radius: 7px; padding: 8px; font-size: 12px;
+.audioRow{display:flex;gap:7px;align-items:center;margin:6px 0}
+.audioBtn{
+  background:#fff0c9;
+  color:#765400;
+  border:1px solid #efd27a;
+  border-radius:9px;
+  padding:7px 10px;
+  font-size:12px;font-weight:700;
 }
-.check input { width: auto; margin: 0; }
-
-.eyeTabs { display: flex; gap: 8px; margin-bottom: 10px; }
-.eyeTab {
-    flex: 1; border: 1px solid #ccd9e6; background: #fff; color: #53667b;
-    border-radius: 8px; padding: 10px; font-weight: 700; font-size: 13px;
+.symptomGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.check{
+  display:flex;align-items:center;gap:6px;
+  background:#fff;border:1px solid #dce6ef;border-radius:8px;padding:6px;
+  font-size:11px;
 }
-.eyeTab.active { background: #1769aa; color: #fff; }
-
-.vaChart { border: 1px solid #d6e1ec; border-radius: 10px; overflow: hidden; margin-bottom: 10px; }
-.vaRow {
-    display: grid; grid-template-columns: 65px 1fr; align-items: center;
-    min-height: 40px; border-bottom: 1px solid #e5edf4;
+.check input{width:auto}
+.eyeTabs{display:flex;gap:6px;margin-bottom:7px}
+.eyeTab{
+  flex:1;border:1px solid #ccd9e6;
+  background:#fff;color:#53667b;
+  border-radius:9px;padding:8px;
+  font-weight:700;font-size:12px;
 }
-.vaRow:last-child { border-bottom: 0; }
-.vaLabel { text-align: center; font-size: 13px; font-weight: 800; color: #1769aa; }
-.vaLetters { display: flex; justify-content: center; gap: 16px; font-weight: 800; letter-spacing: 2px; }
-.vaRow:nth-child(1) .vaLetters { font-size: 34px; }
-.vaRow:nth-child(2) .vaLetters { font-size: 30px; }
-.vaRow:nth-child(3) .vaLetters { font-size: 26px; }
-.vaRow:nth-child(4) .vaLetters { font-size: 24px; }
-.vaRow:nth-child(5) .vaLetters { font-size: 22px; }
-.vaRow:nth-child(6) .vaLetters { font-size: 20px; }
-.vaRow:nth-child(7) .vaLetters { font-size: 18px; }
-
-.distanceMark { text-align: center; font-weight: 800; color: #1769aa; font-size: 15px; margin: 5px; }
-
-.amsler {
-    width: min(75vw, 400px); aspect-ratio: 1; margin: 12px auto; position: relative;
-    background: linear-gradient(#7ca4c8 1px, transparent 1px), linear-gradient(90deg, #7ca4c8 1px, transparent 1px);
-    background-size: 10% 10%; border: 2px solid #1769aa;
+.eyeTab.active{background:#1769aa;color:#fff}
+.vaChart{border:1px solid #d6e1ec;border-radius:11px;overflow:hidden;margin-bottom:8px}
+.vaRow{
+  display:grid;
+  grid-template-columns:60px 1fr;
+  align-items:center;
+  min-height:36px;
+  border-bottom:1px solid #e5edf4;
 }
-.amsler:after {
-    content: ""; position: absolute; left: 50%; top: 50%;
-    width: 12px; height: 12px; transform: translate(-50%, -50%);
-    background: #d62626; border-radius: 50%; border: 2px solid #fff;
+.vaRow:last-child{border-bottom:0}
+.vaLabel{text-align:center;font-size:12px;font-weight:800;color:#1769aa}
+.vaLetters{display:flex;justify-content:center;gap:14px;font-size:22px;font-weight:800;letter-spacing:2px}
+.vaRow:nth-child(1) .vaLetters{font-size:31px}
+.vaRow:nth-child(2) .vaLetters{font-size:29px}
+.vaRow:nth-child(3) .vaLetters{font-size:27px}
+.vaRow:nth-child(4) .vaLetters{font-size:25px}
+.vaRow:nth-child(5) .vaLetters{font-size:23px}
+.vaRow:nth-child(6) .vaLetters{font-size:20px}
+.vaRow:nth-child(7) .vaLetters{font-size:18px}
+.distanceMark{text-align:center;font-weight:800;color:#1769aa;font-size:14px;margin:4px}
+.amsler{
+  width:min(68vw,400px);
+  aspect-ratio:1;
+  margin:9px auto;
+  position:relative;
+  background:
+    linear-gradient(#7ca4c8 1px,transparent 1px),
+    linear-gradient(90deg,#7ca4c8 1px,transparent 1px);
+  background-size:10% 10%;
+  border:2px solid #1769aa;
 }
-
-.colourGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-.plate {
-    position: relative; 
-    border-radius: 50%; /* Rounded updates */
-    aspect-ratio: 1;
-    overflow: hidden; 
-    border: 1px solid #cbd8e5; 
-    display: flex; align-items: center; justify-content: center;
+.amsler:after{
+  content:"";
+  position:absolute;
+  left:50%;top:50%;
+  width:11px;height:11px;
+  transform:translate(-50%,-50%);
+  background:#d62626;
+  border-radius:50%;
+  border:2px solid #fff;
 }
-.plate:before {
-    content: ""; position: absolute; inset: 8px; border-radius: 50%;
-    background: 
-    radial-gradient(circle at 15% 20%, rgba(255,255,255,.7) 0 4px, transparent 5px),
-    radial-gradient(circle at 35% 65%, rgba(255,255,255,.55) 0 5px, transparent 6px),
-    radial-gradient(circle at 70% 30%, rgba(255,255,255,.65) 0 3px, transparent 4px),
-    radial-gradient(circle at 82% 72%, rgba(255,255,255,.5) 0 6px, transparent 7px),
-    radial-gradient(circle at 52% 45%, rgba(255,255,255,.4) 0 4px, transparent 5px),
-    radial-gradient(circle at 25% 82%, rgba(255,255,255,.6) 0 3px, transparent 4px);
+.colourGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.plate{
+  position:relative;
+  width:100%;
+  aspect-ratio:1/1;
+  border-radius:50%;
+  overflow:hidden;
+  border:1px solid #cbd8e5;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.15);
 }
-.plate:nth-child(1){background: #d9a55b;}
-.plate:nth-child(2){background: #78b7a2;}
-.plate:nth-child(3){background: #9c83c9;}
-.plate:nth-child(4){background: #d47d91;}
-.plate:nth-child(5){background: #7ca9d6;}
-.plate:nth-child(6){background: #c4a35f;}
-
-.plateNumber {
-    position: relative; z-index: 2; font-size: 38px; font-weight: 900;
-    opacity: .75; color: #243b53; text-shadow: 0 1px 2px rgba(255,255,255,.6);
+.plate:before{
+  content:"";
+  position:absolute;
+  inset:8px;
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 15% 20%,rgba(255,255,255,.7) 0 4px,transparent 5px),
+    radial-gradient(circle at 35% 65%,rgba(255,255,255,.55) 0 5px,transparent 6px),
+    radial-gradient(circle at 70% 30%,rgba(255,255,255,.65) 0 3px,transparent 4px),
+    radial-gradient(circle at 82% 72%,rgba(255,255,255,.5) 0 6px,transparent 7px),
+    radial-gradient(circle at 52% 45%,rgba(255,255,255,.4) 0 4px,transparent 5px),
+    radial-gradient(circle at 25% 82%,rgba(255,255,255,.6) 0 3px,transparent 4px);
 }
-
-.cameraGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.cameraBox { border: 1px solid #d5e0ea; border-radius: 11px; padding: 10px; background: #fbfdff; }
-.videoWrap {
-    width: 100%; aspect-ratio: 4/3; background: #15202b;
-    border-radius: 8px; overflow: hidden; position: relative;
+.plate:nth-child(1){background:#d9a55b}
+.plate:nth-child(2){background:#78b7a2}
+.plate:nth-child(3){background:#9c83c9}
+.plate:nth-child(4){background:#d47d91}
+.plate:nth-child(5){background:#7ca9d6}
+.plate:nth-child(6){background:#c4a35f}
+.plateNumber{
+  position:relative;
+  z-index:2;
+  font-size:37px;
+  font-weight:900;
+  opacity:.75;
+  color:#243b53;
+  text-shadow:0 1px 2px rgba(255,255,255,.6);
 }
-video { width: 100%; height: 100%; object-fit: cover; }
-.guide {
-    position: absolute; left: 50%; top: 50%; width: 45%; height: 58%;
-    transform: translate(-50%, -50%); border: 2px dashed rgba(255,255,255,.85);
-    border-radius: 50%; pointer-events: none;
+.cameraGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cameraBox{border:1px solid #d5e0ea;border-radius:12px;padding:8px;background:#fbfdff}
+.videoWrap{
+  width:100%;
+  aspect-ratio:4/3;
+  background:#15202b;
+  border-radius:9px;
+  overflow:hidden;
+  position:relative;
 }
-.photoPreview { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 8px; background: #eef2f5; }
-.photoEmpty {
-    width: 100%; aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center;
-    color: #7b8a99; font-size: 13px; background: #eef2f5; border-radius: 8px;
+video{width:100%;height:100%;object-fit:cover}
+.guide{
+  position:absolute;
+  left:50%;top:50%;
+  width:45%;height:58%;
+  transform:translate(-50%,-50%);
+  border:2px dashed rgba(255,255,255,.85);
+  border-radius:50%;
+  pointer-events:none;
 }
-
-.status {
-    font-size: 12px; padding: 6px 8px; border-radius: 6px;
-    background: #edf4fa; color: #50657a; display: inline-block;
+.photoPreview{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:9px;background:#eef2f5}
+.photoEmpty{
+  width:100%;aspect-ratio:4/3;
+  display:flex;align-items:center;justify-content:center;
+  color:#7b8a99;font-size:12px;
+  background:#eef2f5;border-radius:9px;
 }
-
-.bottomNav {
-    position: fixed; bottom: 0; left: 0; right: 0; height: 64px;
-    background: #fff; border-top: 1px solid #dce7f3;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 10px 16px; z-index: 100;
+/* ---- Report / Summary page ---- */
+.report{height:calc(100% - 74px);overflow:auto;padding-right:3px}
+.summaryBanner{
+  background:linear-gradient(135deg,#0e6f7d,#125f77);
+  color:#fff;
+  border-radius:16px;
+  padding:26px 16px;
+  text-align:center;
+  margin-bottom:14px;
 }
-.navGroup { display: flex; gap: 10px; }
-.pageNo { font-size: 13px; color: #718096; align-self: center; }
-
-@media(max-width: 700px) {
-    .langGrid { grid-template-columns: repeat(3, 1fr); }
-    .symptomGrid { grid-template-columns: repeat(2, 1fr); }
-    .grid3 { grid-template-columns: 1fr 1fr; }
-    .colourGrid { grid-template-columns: repeat(2, 1fr); }
-    .cameraGrid { grid-template-columns: 1fr 1fr; }
-    .vaLetters { gap: 10px; }
+.summaryBanner .eyeIcon{font-size:40px}
+.summaryBanner h1{color:#fff;font-size:26px;margin-top:4px}
+.summaryBanner p{color:#dff3f7;font-size:13px;margin-top:4px}
+.summaryHeading{font-size:19px;color:#0e6f7d;font-weight:800;margin-bottom:6px}
+.summaryDesc{font-size:13px;color:#5b6b7a;line-height:1.45;margin-bottom:12px}
+.examBox{
+  border:1px solid #d9e5ef;
+  background:#fbfdff;
+  border-radius:12px;
+  padding:14px 16px;
+  margin-bottom:12px;
 }
-
-@media(max-width: 450px) {
-    h1 { font-size: 24px; }
-    h2 { font-size: 20px; }
-    .card { padding: 12px; }
-    .langGrid { grid-template-columns: repeat(3, 1fr); }
-    .cameraGrid { grid-template-columns: 1fr; }
+.examBox b.examBoxTitle{display:block;margin-bottom:8px;color:#125f77;font-size:14px}
+.examMetaRow{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:12px;color:#53667b;margin-bottom:10px}
+.examMetaRow span b{color:#31445c}
+.examTestGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.examTestItem{
+  border:1px solid #e2ebf3;
+  border-radius:9px;
+  padding:8px 10px;
+  background:#fff;
+  font-size:12px;
+}
+.examTestItem .tName{font-weight:700;color:#31445c;display:flex;align-items:center;gap:6px;margin-bottom:3px}
+.examTestItem .tResult{color:#53667b}
+.examStatusDot{width:8px;height:8px;border-radius:50%;display:inline-block}
+.dotOk{background:#1e9e63}
+.dotWarn{background:#e8a63c}
+.dotNeutral{background:#9aa7b5}
+.flagsBox{
+  border-left:5px solid #e8a63c;
+  background:#fdf3e0;
+  border-radius:10px;
+  padding:14px 16px;
+  margin-bottom:12px;
+}
+.flagsBox b{display:block;margin-bottom:6px;color:#31445c;font-size:14px}
+.flagsBox ul{margin:0;padding-left:18px;font-size:13px;line-height:1.6;color:#31445c}
+.recBox{
+  border-left:5px solid #1e9e63;
+  background:#e9f7ef;
+  border-radius:10px;
+  padding:14px 16px;
+  margin-bottom:14px;
+}
+.recBox b{display:block;margin-bottom:6px;color:#31445c;font-size:14px}
+.recBox p{font-size:13px;line-height:1.5;color:#31445c}
+.viewReportBtn{
+  width:100%;
+  background:#125f77;
+  color:#fff;
+  border:0;
+  border-radius:11px;
+  padding:14px;
+  font-size:15px;
+  font-weight:700;
+  margin-bottom:10px;
+}
+.footerTag{text-align:center;color:#8a97a6;font-size:12px;margin:10px 0}
+.reportDetail{display:none;margin-top:8px}
+.reportDetail.open{display:block}
+.reportGrid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.reportBox{border:1px solid #d9e5ef;border-radius:10px;padding:8px;background:#fbfdff}
+.reportBox h3{color:#1769aa;font-size:13px}
+.reportBox p,.reportBox li{font-size:11px;line-height:1.4}
+.reportBox ul{padding-left:16px;margin:3px 0}
+.full{grid-column:1/-1}
+.status{font-size:11px;padding:4px 7px;border-radius:7px;background:#edf4fa;color:#50657a;display:inline-block}
+#aiResults{min-height:30px}
+.bottomNav{
+  position:fixed;bottom:0;left:0;right:0;height:62px;
+  background:#fff;
+  border-top:1px solid #dce7f3;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:8px 12px;z-index:100;
+}
+.navGroup{display:flex;gap:7px}
+.pageNo{font-size:11px;color:#718096;align-self:center}
+@media(max-width:700px){
+  .langGrid{grid-template-columns:repeat(3,1fr)}
+  .symptomGrid{grid-template-columns:repeat(2,1fr)}
+  .grid3{grid-template-columns:1fr 1fr}
+  .colourGrid{grid-template-columns:repeat(2,1fr)}
+  .cameraGrid{grid-template-columns:1fr 1fr}
+  .reportGrid{grid-template-columns:1fr 1fr}
+  .vaLetters{gap:8px}
+}
+@media(max-width:450px){
+  h1{font-size:22px}
+  h2{font-size:19px}
+  .card{padding:10px}
+  .langGrid{grid-template-columns:repeat(3,1fr)}
+  .cameraGrid,.reportGrid{grid-template-columns:1fr}
+  .full{grid-column:auto}
+  .report{height:calc(100% - 64px)}
 }
 </style>
 </head>
 <body>
-
 <header>
-    <div class="logo">EyeSmart AI</div>
-    <div id="voiceStatus">Voice: -</div>
+  <div class="logo">👁 EyeSmart AI</div>
+  <div id="voiceStatus">Voice: —</div>
 </header>
-
 <main>
-    <!-- PAGE 1 -->
-    <section class="page active" id="page1">
-        <div class="card">
-            <div class="center">
-                <h1>EyeSmart AI</h1>
-                <p class="subtitle" id="subtitle">AI-Assisted Preliminary Eye Screening System</p>
-            </div>
-            <div class="section">
-                <h3 id="selectLanguageTitle">Select Language</h3>
-                <div class="langGrid" id="languageGrid"></div>
-            </div>
-            <div class="instructions" id="welcomeText">
-                Select your language before starting the examination
-            </div>
-            <button class="audioBtn" onclick="testAudio()">
-                <div class="audioRow">
-                    <span id="testAudioText">Test Audio</span>
-                </div>
-            </button>
-            <span class="small" id="audioHint">Audio instructions are available in the selected language.</span>
-            
-            <div class="center" style="margin-top: 15px;">
-                <button class="btn purple" onclick="showPage(2)" id="startBtn">► Start Examination</button>
-            </div>
-            <p class="small center" style="margin-top: 12px;">Preliminary screening only. Not a diagnosis.</p>
+
+<!-- PAGE 1 -->
+<section class="page active" id="page1">
+  <div class="card">
+    <div class="center">
+      <h1>EyeSmart AI</h1>
+      <p class="subtitle" id="subtitle">AI-Assisted Preliminary Eye Screening System</p>
+    </div>
+    <div class="section">
+      <h3 id="selectLanguageTitle">Select Language</h3>
+      <div class="langGrid" id="languageGrid"></div>
+    </div>
+    <div class="instructions" id="welcomeText">Select your language before starting the examination</div>
+    <div class="audioRow">
+      <button class="audioBtn" onclick="testAudio()">🔊 <span id="testAudioText">Test Audio</span></button>
+      <span class="small" id="audioHint">Audio instructions are available in the selected language.</span>
+    </div>
+    <div class="center" style="margin-top:10px">
+      <button class="btn purple" onclick="showPage(2)" id="startBtn">▶ Start Examination</button>
+    </div>
+    <p class="small center" style="margin-top:8px">Preliminary screening only • Not a diagnosis</p>
+  </div>
+</section>
+
+<!-- PAGE 2 -->
+<section class="page" id="page2">
+  <div class="card">
+    <h2 id="patientTitle">Patient Details</h2>
+    <div class="grid2 section">
+      <div>
+        <label id="nameLabel">Name</label>
+        <input id="patientName" type="text">
+      </div>
+      <div>
+        <label id="ageLabel">Age</label>
+        <input id="patientAge" type="number" min="1" max="120">
+      </div>
+      <div>
+        <label id="genderLabel">Gender</label>
+        <select id="gender">
+          <option value="">—</option>
+          <option value="male" id="maleOpt">Male</option>
+          <option value="female" id="femaleOpt">Female</option>
+          <option value="other" id="otherGenderOpt">Other</option>
+        </select>
+      </div>
+      <div>
+        <label id="phoneLabel">Phone</label>
+        <input id="phone" type="text">
+      </div>
+    </div>
+
+    <div class="section">
+      <h3 id="symptomTitle">Patient-Reported Symptoms</h3>
+      <div class="symptomGrid" id="symptomGrid"></div>
+      <div style="margin-top:8px">
+        <label id="whichEyeLabel">Which eye?</label>
+        <div class="eyeTabs">
+          <button class="eyeTab" id="symptomRightBtn" onclick="selectSymptomEye('right')">Right Eye</button>
+          <button class="eyeTab" id="symptomLeftBtn" onclick="selectSymptomEye('left')">Left Eye</button>
+          <button class="eyeTab active" id="symptomBothBtn" onclick="selectSymptomEye('both')">Both Eyes</button>
         </div>
-    </section>
+      </div>
+      <div style="margin-top:6px">
+        <label id="sinceLabel">Since / Duration</label>
+        <input id="symptomSince" type="text">
+      </div>
+    </div>
 
-    <!-- PAGE 2 -->
-    <section class="page" id="page2">
-        <div class="card">
-            <h2 id="patientTitle">Patient Details</h2>
-            <div class="grid2 section">
-                <div>
-                    <label id="nameLabel">Name</label>
-                    <input id="patientName" type="text">
-                </div>
-                <div>
-                    <label id="ageLabel">Age</label>
-                    <input id="patientAge" type="number" min="1" max="120">
-                </div>
-                <div>
-                    <label id="genderLabel">Gender</label>
-                    <select id="gender">
-                        <option value="">-</option>
-                        <option value="male" id="maleOpt">Male</option>
-                        <option value="female" id="femaleOpt">Female</option>
-                        <option value="other" id="otherGenderOpt">Other</option>
-                    </select>
-                </div>
-                <div>
-                    <label id="phoneLabel">Phone</label>
-                    <input id="phone" type="text">
-                </div>
-            </div>
-            
-            <div class="section">
-                <h3 id="symptomTitle">Patient-Reported Symptoms</h3>
-                <div class="symptomGrid" id="symptomGrid"></div>
-                <!-- Added "Which eye?" option to match other sections -->
-                <div class="eyeTabs" style="margin-top: 12px;">
-                    <button class="eyeTab active" id="symptomRightBtn" onclick="selectSymptomEye('right')">Right Eye</button>
-                    <button class="eyeTab" id="symptomLeftBtn" onclick="selectSymptomEye('left')">Left Eye</button>
-                </div>
-                <div style="margin-top: 10px;">
-                    <label id="sinceLabel">Since / Duration</label>
-                    <input id="symptomSince" type="text">
-                </div>
-            </div>
-
-            <div class="section">
-                <h3 id="historyTitle">Ocular History</h3>
-                <div class="grid3">
-                    <div>
-                        <label id="specsLabel">Spectacles</label>
-                        <select id="specs"></select>
-                    </div>
-                    <div>
-                        <label id="contactsLabel">Contact Lenses</label>
-                        <select id="contacts"></select>
-                    </div>
-                    <div>
-                        <label id="surgeryLabel">Previous Eye Surgery</label>
-                        <select id="surgery"></select>
-                    </div>
-                </div>
-                <div style="margin-top: 10px;">
-                    <label id="otherHistoryLabel">Other Ocular History</label>
-                    <textarea id="otherHistory"></textarea>
-                </div>
-            </div>
-            <div class="instructions" id="patientInstruction">
-                Enter the patient's information and select only symptoms reported by the patient.
-            </div>
+    <div class="section">
+      <h3 id="historyTitle">Ocular History</h3>
+      <div class="grid3">
+        <div>
+          <label id="specsLabel">Spectacles</label>
+          <select id="specs"></select>
         </div>
-    </section>
-
-    <!-- PAGE 3 -->
-    <section class="page" id="page3">
-        <div class="card">
-            <h2 id="distanceTitle">Distance Visual Acuity</h2>
-            <div class="instructions" id="distanceInstruction">
-                Sit exactly 1 metre from the screen. Keep the screen at eye level. Cover one eye without pressing it and read from top to bottom.
-            </div>
-            <div class="distanceMark">1 metre</div>
-            <div class="eyeTabs">
-                <button class="eyeTab active" id="distanceRightBtn" onclick="selectDistanceEye('right')">Right Eye</button>
-                <button class="eyeTab" id="distanceLeftBtn" onclick="selectDistanceEye('left')">Left Eye</button>
-            </div>
-            
-            <div class="vaChart">
-                <div class="vaRow"><div class="vaLabel">6/60</div><div class="vaLetters">E F P T O</div></div>
-                <div class="vaRow"><div class="vaLabel">6/36</div><div class="vaLetters">T O Z L P E</div></div>
-                <div class="vaRow"><div class="vaLabel">6/24</div><div class="vaLetters">P E C F D Z L</div></div>
-                <div class="vaRow"><div class="vaLabel">6/18</div><div class="vaLetters">L P E D C T O</div></div>
-                <div class="vaRow"><div class="vaLabel">6/12</div><div class="vaLetters">E D F C Z P T</div></div>
-                <div class="vaRow"><div class="vaLabel">6/9</div><div class="vaLetters">P E C F D Z L</div></div>
-                <div class="vaRow"><div class="vaLabel">6/6</div><div class="vaLetters">E D F C Z P T O</div></div>
-            </div>
-
-            <div class="section">
-                <label id="distanceResultLabel">Best line read</label>
-                <select id="distanceResult">
-                    <option>6/60</option>
-                    <option>6/36</option>
-                    <option>6/24</option>
-                    <option>6/18</option>
-                    <option>6/12</option>
-                    <option>6/9</option>
-                    <option selected>6/6</option>
-                </select>
-            </div>
-            <div class="small center" id="distanceEyeStatus">Right eye selected</div>
+        <div>
+          <label id="contactsLabel">Contact Lenses</label>
+          <select id="contacts"></select>
         </div>
-    </section>
-
-    <!-- PAGE 4 -->
-    <section class="page" id="page4">
-        <div class="card">
-            <h2 id="nearTitle">Near Visual Acuity</h2>
-            <div class="instructions" id="nearInstruction">
-                Hold the screen at exactly 40 cm. Cover one eye without pressing it and read from top to bottom.
-            </div>
-            <div class="distanceMark">40 cm</div>
-            <div class="eyeTabs">
-                <button class="eyeTab active" id="nearRightBtn" onclick="selectNearEye('right')">Right Eye</button>
-                <button class="eyeTab" id="nearLeftBtn" onclick="selectNearEye('left')">Left Eye</button>
-            </div>
-            
-            <div class="vaChart">
-                <div class="vaRow"><div class="vaLabel">N36</div><div class="vaLetters">N H V T O</div></div>
-                <div class="vaRow"><div class="vaLabel">N24</div><div class="vaLetters">D K N R H V</div></div>
-                <div class="vaRow"><div class="vaLabel">N18</div><div class="vaLetters">O N H V D K R</div></div>
-                <div class="vaRow"><div class="vaLabel">N12</div><div class="vaLetters">R H K N V O D</div></div>
-                <div class="vaRow"><div class="vaLabel">N10</div><div class="vaLetters">V D N H R K O</div></div>
-                <div class="vaRow"><div class="vaLabel">N8</div><div class="vaLetters">K O R V N D H</div></div>
-                <div class="vaRow"><div class="vaLabel">N6</div><div class="vaLetters">H N D O K R V</div></div>
-            </div>
-
-            <div class="section">
-                <label id="nearResultLabel">Best line read</label>
-                <select id="nearResult">
-                    <option>N36</option>
-                    <option>N24</option>
-                    <option>N18</option>
-                    <option>N12</option>
-                    <option>N10</option>
-                    <option>N8</option>
-                    <option selected>N6</option>
-                </select>
-            </div>
-            <div class="small center" id="nearEyeStatus">Right eye selected</div>
+        <div>
+          <label id="surgeryLabel">Previous Eye Surgery</label>
+          <select id="surgery"></select>
         </div>
-    </section>
+      </div>
+      <div style="margin-top:6px">
+        <label id="otherHistoryLabel">Other Ocular History</label>
+        <textarea id="otherHistory"></textarea>
+      </div>
+    </div>
 
-    <!-- PAGE 5 -->
-    <section class="page" id="page5">
-        <div class="card">
-            <h2 id="colourTitle">Colour Vision Screening</h2>
-            <div class="instructions" id="colourInstruction">
-                Identify the number shown in each plate. The number is displayed directly and is not formed by dots.
-            </div>
-            <div class="colourGrid">
-                <div>
-                    <div class="plate"><div class="plateNumber">12</div></div>
-                    <select class="colourAnswer" data-correct="12" style="margin-top: 8px;">
-                        <option value="">-</option><option>12</option><option>8</option><option>29</option><option>74</option><option>6</option><option>15</option>
-                    </select>
-                </div>
-                <div>
-                    <div class="plate"><div class="plateNumber">8</div></div>
-                    <select class="colourAnswer" data-correct="8" style="margin-top: 8px;">
-                        <option value="">-</option><option>12</option><option>8</option><option>29</option><option>74</option><option>6</option><option>15</option>
-                    </select>
-                </div>
-                <div>
-                    <div class="plate"><div class="plateNumber">29</div></div>
-                    <select class="colourAnswer" data-correct="29" style="margin-top: 8px;">
-                        <option value="">-</option><option>12</option><option>8</option><option>29</option><option>74</option><option>6</option><option>15</option>
-                    </select>
-                </div>
-                <div>
-                    <div class="plate"><div class="plateNumber">74</div></div>
-                    <select class="colourAnswer" data-correct="74" style="margin-top: 8px;">
-                        <option value="">-</option><option>12</option><option>8</option><option>29</option><option>74</option><option>6</option><option>15</option>
-                    </select>
-                </div>
-                <div>
-                    <div class="plate"><div class="plateNumber">6</div></div>
-                    <select class="colourAnswer" data-correct="6" style="margin-top: 8px;">
-                        <option value="">-</option><option>12</option><option>8</option><option>29</option><option>74</option><option>6</option><option>15</option>
-                    </select>
-                </div>
-                <div>
-                    <div class="plate"><div class="plateNumber">15</div></div>
-                    <select class="colourAnswer" data-correct="15" style="margin-top: 8px;">
-                        <option value="">-</option><option>12</option><option>8</option><option>29</option><option>74</option><option>6</option><option>15</option>
-                    </select>
-                </div>
-            </div>
-            
-            <div class="section" style="margin-top: 15px;">
-                <label id="colourSummaryLabel">Screening response</label>
-                <select id="colourSummary"></select>
-            </div>
+    <div class="instructions" id="patientInstruction">Enter the patient's information and select only symptoms reported by the patient</div>
+  </div>
+</section>
+
+<!-- PAGE 3 -->
+<section class="page" id="page3">
+  <div class="card">
+    <h2 id="distanceTitle">Distance Visual Acuity</h2>
+    <div class="instructions" id="distanceInstruction">Sit exactly 1 metre from the screen. Keep the screen at eye level. Cover one eye without pressing it and read from top to bottom.</div>
+    <div class="distanceMark">📏 1 metre</div>
+    <div class="eyeTabs">
+      <button class="eyeTab active" id="distanceRightBtn" onclick="selectDistanceEye('right')">Right Eye</button>
+      <button class="eyeTab" id="distanceLeftBtn" onclick="selectDistanceEye('left')">Left Eye</button>
+    </div>
+    <div class="vaChart">
+      <div class="vaRow"><div class="vaLabel">6/60</div><div class="vaLetters">E F P T O</div></div>
+      <div class="vaRow"><div class="vaLabel">6/36</div><div class="vaLetters">T O Z L P E</div></div>
+      <div class="vaRow"><div class="vaLabel">6/24</div><div class="vaLetters">P E C F D Z L</div></div>
+      <div class="vaRow"><div class="vaLabel">6/18</div><div class="vaLetters">L P E D C T O</div></div>
+      <div class="vaRow"><div class="vaLabel">6/12</div><div class="vaLetters">E D F C Z P T</div></div>
+      <div class="vaRow"><div class="vaLabel">6/9</div><div class="vaLetters">P E C F D Z L</div></div>
+      <div class="vaRow"><div class="vaLabel">6/6</div><div class="vaLetters">E D F C Z P T O</div></div>
+    </div>
+    <div class="section">
+      <label id="distanceResultLabel">Best line read</label>
+      <select id="distanceResult">
+        <option>6/60</option><option>6/36</option><option>6/24</option>
+        <option>6/18</option><option>6/12</option><option>6/9</option>
+        <option selected>6/6</option>
+      </select>
+    </div>
+    <div class="small center" id="distanceEyeStatus">Right eye selected</div>
+  </div>
+</section>
+
+<!-- PAGE 4 -->
+<section class="page" id="page4">
+  <div class="card">
+    <h2 id="nearTitle">Near Visual Acuity</h2>
+    <div class="instructions" id="nearInstruction">Hold the screen at exactly 40 cm. Cover one eye without pressing it and read from top to bottom.</div>
+    <div class="distanceMark">📏 40 cm</div>
+    <div class="eyeTabs">
+      <button class="eyeTab active" id="nearRightBtn" onclick="selectNearEye('right')">Right Eye</button>
+      <button class="eyeTab" id="nearLeftBtn" onclick="selectNearEye('left')">Left Eye</button>
+    </div>
+    <div class="vaChart">
+      <div class="vaRow"><div class="vaLabel">N36</div><div class="vaLetters">N H V T O</div></div>
+      <div class="vaRow"><div class="vaLabel">N24</div><div class="vaLetters">D K N R H V</div></div>
+      <div class="vaRow"><div class="vaLabel">N18</div><div class="vaLetters">O N H V D K R</div></div>
+      <div class="vaRow"><div class="vaLabel">N12</div><div class="vaLetters">R H K N V O D</div></div>
+      <div class="vaRow"><div class="vaLabel">N10</div><div class="vaLetters">V D N H R K O</div></div>
+      <div class="vaRow"><div class="vaLabel">N8</div><div class="vaLetters">K O R V N D H</div></div>
+      <div class="vaRow"><div class="vaLabel">N6</div><div class="vaLetters">H N D O K R V</div></div>
+    </div>
+    <div class="section">
+      <label id="nearResultLabel">Best line read</label>
+      <select id="nearResult">
+        <option>N36</option><option>N24</option><option>N18</option>
+        <option>N12</option><option>N10</option><option>N8</option>
+        <option selected>N6</option>
+      </select>
+    </div>
+    <div class="small center" id="nearEyeStatus">Right eye selected</div>
+  </div>
+</section>
+
+<!-- PAGE 5 -->
+<section class="page" id="page5">
+  <div class="card">
+    <h2 id="colourTitle">Colour Vision Screening</h2>
+    <div class="instructions" id="colourInstruction">Identify the number shown in each plate. The number is displayed directly and is not formed by dots.</div>
+    <div class="colourGrid">
+      <div>
+        <div class="plate"><div class="plateNumber">12</div></div>
+        <select class="colourAnswer" data-correct="12">
+          <option value="">—</option><option>12</option><option>8</option><option>29</option><option>74</option><option>6</option><option>15</option>
+        </select>
+      </div>
+      <div>
+        <div class="plate"><div class="plateNumber">8</div></div>
+        <select class="colourAnswer" data-correct="8">
+          <option value="">—</option><option>12</option><option>8</option><option>29</option><option>74</option><option>6</option><option>15</option>
+        </select>
+      </div>
+      <div>
+        <div class="plate"><div class="plateNumber">29</div></div>
+        <select class="colourAnswer" data-correct="29">
+          <option value="">—</option><option>12</option><option>8</option><option>29</option><option>74</option><option>6</option><option>15</option>
+        </select>
+      </div>
+      <div>
+        <div class="plate"><div class="plateNumber">74</div></div>
+        <select class="colourAnswer" data-correct="74">
+          <option value="">—</option><option>12</option><option>8</option><option>29</option><option>74</option><option>6</option><option>15</option>
+        </select>
+      </div>
+      <div>
+        <div class="plate"><div class="plateNumber">6</div></div>
+        <select class="colourAnswer" data-correct="6">
+          <option value="">—</option><option>12</option><option>8</option><option>29</option><option>74</option><option>6</option><option>15</option>
+        </select>
+      </div>
+      <div>
+        <div class="plate"><div class="plateNumber">15</div></div>
+        <select class="colourAnswer" data-correct="15">
+          <option value="">—</option><option>12</option><option>8</option><option>29</option><option>74</option><option>6</option><option>15</option>
+        </select>
+      </div>
+    </div>
+    <div class="section" style="margin-top:7px">
+      <label id="colourSummaryLabel">Screening response</label>
+      <select id="colourSummary"></select>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE 6 -->
+<section class="page" id="page6">
+  <div class="card">
+    <h2 id="amslerTitle">Amsler Grid</h2>
+    <div class="instructions" id="amslerInstruction">Keep the screen at reading distance. Cover one eye without pressing it. Look directly at the centre dot. Repeat with the other eye.</div>
+    <div class="amsler"></div>
+    <div class="eyeTabs">
+      <button class="eyeTab active" id="amslerRightBtn" onclick="selectAmslerEye('right')">Right Eye</button>
+      <button class="eyeTab" id="amslerLeftBtn" onclick="selectAmslerEye('left')">Left Eye</button>
+    </div>
+    <select id="amslerResult"></select>
+  </div>
+</section>
+
+<!-- PAGE 7 -->
+<section class="page" id="page7">
+  <div class="card">
+    <h2 id="cameraTitle">Eye Photographs</h2>
+    <div class="instructions" id="cameraInstruction">Front camera only. Place the eye inside the guide. Take one photograph for each eye.</div>
+    <div class="section">
+      <button class="btn secondary smallbtn" onclick="startCamera()">🔐 <span id="allowCameraText">Allow Camera</span></button>
+      <span class="status" id="cameraStatus">Camera not started</span>
+    </div>
+    <div class="cameraGrid">
+      <div class="cameraBox">
+        <h3 id="rightEyeTitle">Right Eye</h3>
+        <div class="videoWrap">
+          <video id="video" autoplay playsinline muted></video>
+          <div class="guide"></div>
         </div>
-    </section>
-
-    <!-- PAGE 6 -->
-    <section class="page" id="page6">
-        <div class="card">
-            <h2 id="amslerTitle">Amsler Grid</h2>
-            <div class="instructions" id="amslerInstruction">
-                Keep the screen at reading distance. Cover one eye without pressing it. Look directly at the centre dot. Repeat with the other eye.
-            </div>
-            <div class="amsler"></div>
-            <div class="eyeTabs">
-                <button class="eyeTab active" id="amslerRightBtn" onclick="selectAmslerEye('right')">Right Eye</button>
-                <button class="eyeTab" id="amslerLeftBtn" onclick="selectAmslerEye('left')">Left Eye</button>
-            </div>
-            <select id="amslerResult"></select>
+        <div style="display:flex;gap:5px;margin-top:5px">
+          <button class="btn smallbtn" onclick="capturePhoto('right')" id="captureRightText">Capture</button>
+          <button class="btn secondary smallbtn" onclick="removePhoto('right')" id="removeRightText">Remove</button>
         </div>
-    </section>
+        <div id="rightPhotoArea" style="margin-top:5px"></div>
+      </div>
+      <div class="cameraBox">
+        <h3 id="leftEyeTitle">Left Eye</h3>
+        <div id="leftPhotoArea"></div>
+        <button class="btn smallbtn" onclick="capturePhoto('left')" id="captureLeftText" style="margin-top:5px">Capture</button>
+        <button class="btn secondary smallbtn" onclick="removePhoto('left')" id="removeLeftText" style="margin-top:5px">Remove</button>
+      </div>
+    </div>
+    <div class="small center" style="margin-top:6px" id="cameraTarget">Camera target: Right Eye</div>
+  </div>
+</section>
 
-    <!-- PAGE 7 -->
-    <section class="page" id="page7">
-        <div class="card">
-            <h2 id="cameraTitle">Eye Photographs</h2>
-            <div class="instructions" id="cameraInstruction">
-                Front camera only. Place the eye inside the guide. Take one photograph for each eye.
+<!-- PAGE 8 : redesigned summary + report -->
+<section class="page" id="page8">
+  <div class="card">
+    <div class="report">
+      <div class="summaryBanner">
+        <div class="eyeIcon">👁</div>
+        <h1>EyeSmart AI</h1>
+        <p id="bannerSubtitle">AI-Assisted Preliminary Eye Screening</p>
+      </div>
+
+      <div class="summaryHeading">🤖 <span id="summaryTitleText">AI-Assisted Screening Summary</span></div>
+      <div class="summaryDesc" id="summaryDescText">The system combines the screening inputs and generates a preliminary screening summary.</div>
+
+      <div class="examBox">
+        <b class="examBoxTitle" id="examDetailsTitleText">Examination Details</b>
+        <div class="examMetaRow" id="examMetaRow"></div>
+        <div class="examTestGrid" id="examTestGrid"></div>
+      </div>
+
+      <div class="flagsBox">
+        <b id="flagsTitleText">Screening flags identified:</b>
+        <div id="aiResults"></div>
+      </div>
+
+      <div class="recBox">
+        <b id="recTitleText">Recommendation:</b>
+        <div id="recommendation"></div>
+      </div>
+
+      <button class="viewReportBtn" onclick="toggleFullReport()" id="viewReportBtnText">View Screening Report</button>
+
+      <div class="footerTag" id="footerTagText">EyeSmart AI • Preliminary Eye Screening Prototype</div>
+
+      <div class="reportDetail" id="reportDetail">
+        <div class="instructions" id="reportIntro">This report summarizes the entered screening information. It is a preliminary screening aid and not a diagnosis.</div>
+        <div class="reportGrid">
+          <div class="reportBox">
+            <h3 id="reportPatientTitle">Patient Information</h3>
+            <div id="patientReport"></div>
+          </div>
+          <div class="reportBox">
+            <h3 id="reportVATitle">Visual Acuity</h3>
+            <div id="vaReport"></div>
+          </div>
+          <div class="reportBox">
+            <h3 id="reportColourTitle">Colour Vision</h3>
+            <div id="colourReport"></div>
+          </div>
+          <div class="reportBox">
+            <h3 id="reportAmslerTitle">Amsler Grid</h3>
+            <div id="amslerReport"></div>
+          </div>
+          <div class="reportBox full">
+            <h3 id="reportSymptomsTitle">Symptoms</h3>
+            <div id="symptomsReport"></div>
+          </div>
+          <div class="reportBox full">
+            <h3 id="photosTitle">Eye Photographs</h3>
+            <div class="grid2">
+              <div id="reportRightPhoto"></div>
+              <div id="reportLeftPhoto"></div>
             </div>
-            
-            <div class="section" style="display: flex; justify-content: space-between; align-items: center;">
-                <button class="btn secondary smallbtn" onclick="startCamera()"><span id="allowCameraText">Allow Camera</span></button>
-                <span class="status" id="cameraStatus">Camera not started</span>
-            </div>
-            
-            <div class="cameraGrid">
-                <div class="cameraBox">
-                    <h3 id="rightEyeTitle">Right Eye</h3>
-                    <div class="videoWrap">
-                        <video id="video" autoplay playsinline muted></video>
-                        <div class="guide"></div>
-                    </div>
-                    <div style="display: flex; gap: 8px; margin-top: 8px;">
-                        <button class="btn smallbtn" onclick="capturePhoto('right')" id="captureRightText">Capture</button>
-                        <button class="btn secondary smallbtn" onclick="removePhoto('right')" id="removeRightText">Remove</button>
-                    </div>
-                    <div id="rightPhotoArea" style="margin-top: 8px;"></div>
-                </div>
-                
-                <div class="cameraBox">
-                    <h3 id="leftEyeTitle">Left Eye</h3>
-                    <div id="leftPhotoArea"></div>
-                    <button class="btn smallbtn" onclick="capturePhoto('left')" id="captureLeftText" style="margin-top: 8px; width: 100%;">Capture</button>
-                    <button class="btn secondary smallbtn" onclick="removePhoto('left')" id="removeLeftText" style="margin-top: 8px; width: 100%;">Remove</button>
-                </div>
-            </div>
-            <div class="small center" style="margin-top: 12px;" id="cameraTarget">
-                Camera target: Right Eye
-            </div>
+          </div>
+          <div class="reportBox full">
+            <h3 id="importantTitle">Important</h3>
+            <p id="disclaimer"></p>
+          </div>
         </div>
-    </section>
+      </div>
 
-    <!-- PAGE 8 (Replaced Layout) -->
-    <section class="page" id="page8">
-        <div class="card" style="display: flex; flex-direction: column;">
-            <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 12px; gap: 10px;">
-                <span style="font-size: 26px;">👁️</span>
-                <div>
-                    <h2 style="margin: 0; color: #1769aa; font-size: 24px;">EyeSmart AI</h2>
-                    <p style="margin: 0; font-size: 13px; color: #65758b; text-align: center;">AI-Assisted Preliminary Eye Screening</p>
-                </div>
-            </div>
-
-            <div style="display: flex; align-items: center; margin: 15px 0 10px;">
-                <span style="font-size: 20px; margin-right: 8px;">🏥</span>
-                <h3 style="margin: 0; color: #1769aa; font-size: 18px;">AI-Assisted Screening Summary</h3>
-            </div>
-            
-            <p style="font-size: 14px; color: #65758b; margin-bottom: 20px; line-height: 1.5;">
-                The system combines the screening inputs and generates a preliminary screening summary.
-            </p>
-            
-            <div style="flex-grow: 1;">
-                <div style="background: #fff8f0; border-left: 4px solid #f59e0b; border-radius: 8px; padding: 18px; margin-bottom: 15px;">
-                    <h4 style="color: #31445c; font-size: 14px; font-weight: bold; margin: 0 0 12px 0;">Screening flags identified:</h4>
-                    <ul id="summaryFlags" style="margin: 0; padding-left: 20px; font-size: 14px; color: #374151; line-height: 1.8;">
-                    </ul>
-                </div>
-
-                <div style="background: #f0fdf4; border-left: 4px solid #22c55e; border-radius: 8px; padding: 18px; margin-bottom: 25px;">
-                    <h4 style="color: #31445c; font-size: 14px; font-weight: bold; margin: 0 0 12px 0;">Recommendation:</h4>
-                    <p id="summaryRecommendation" style="margin: 0; font-size: 14px; color: #374151; line-height: 1.5;">
-                    </p>
-                </div>
-
-                <button class="btn" style="width: 100%; padding: 16px; font-size: 16px; border-radius: 8px; margin-bottom: 25px;" onclick="window.print()">View Screening Report</button>
-                
-                <p class="small center" style="color: #9ca3af;">EyeSmart AI • Preliminary Eye Screening Prototype</p>
-            </div>
-        </div>
-    </section>
+      <div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:10px">
+        <button class="btn green smallbtn" onclick="analyseScreening()" id="analyseBtn">🧠 Analyse</button>
+        <button class="btn secondary smallbtn" onclick="window.print()" id="printBtn">🖨 Print</button>
+        <button class="btn purple smallbtn" onclick="newExamination()" id="newExamBtn">🆕 New Examination</button>
+      </div>
+    </div>
+  </div>
+</section>
 
 </main>
 
 <div class="bottomNav">
-    <div class="navGroup">
-        <button class="btn secondary smallbtn" onclick="previousPage()" id="backBtn">← Back</button>
-        <button class="audioBtn" onclick="speakCurrentPage()">
-            <span id="navAudioText">Audio</span>
-        </button>
-    </div>
-    <div class="pageNo" id="pageNo">1/8</div>
-    <div class="navGroup">
-        <button class="btn smallbtn" onclick="nextPage()" id="nextBtn">Next →</button>
-    </div>
+  <div class="navGroup">
+    <button class="btn secondary smallbtn" onclick="previousPage()" id="backBtn">← Back</button>
+    <button class="audioBtn" onclick="speakCurrentPage()">🔊 <span id="navAudioText">Audio</span></button>
+  </div>
+  <div class="pageNo" id="pageNo">1 / 8</div>
+  <div class="navGroup">
+    <button class="btn smallbtn" onclick="nextPage()" id="nextBtn">Next →</button>
+  </div>
 </div>
 
 <script>
+/* ========================================================= */
+/* LANGUAGE DATA */
+/* ========================================================= */
 const LANGS = [
-    {id: "en", name: "English", native: "English", voices: ["en-IN", "en-US", "en-GB"]},
-    {id: "ml", name: "Malayalam", native: "മലയാളം", voices: ["ml-IN", "ml"]},
-    {id: "hi", name: "Hindi", native: "हिन्दी", voices: ["hi-IN", "hi"]},
-    {id: "bn", name: "Bengali", native: "বাংলা", voices: ["bn-IN", "bn-BD", "bn"]},
-    {id: "te", name: "Telugu", native: "తెలుగు", voices: ["te-IN", "te"]},
-    {id: "mr", name: "Marathi", native: "मराठी", voices: ["mr-IN", "mr"]},
-    {id: "ta", name: "Tamil", native: "தமிழ்", voices: ["ta-IN", "ta"]},
-    {id: "gu", name: "Gujarati", native: "ગુજરાતી", voices: ["gu-IN", "gu"]},
-    {id: "kn", name: "Kannada", native: "ಕನ್ನಡ", voices: ["kn-IN", "kn"]},
-    {id: "or", name: "Odia", native: "ଓଡ଼ିଆ", voices: ["or-IN", "or"]},
-    {id: "pa", name: "Punjabi", native: "ਪੰਜਾਬੀ", voices: ["pa-IN", "pa"]},
-    {id: "as", name: "Assamese", native: "অসমীয়া", voices: ["as-IN", "as"]},
-    {id: "mai", name: "Maithili", native: "मैथिली", voices: ["mai-IN", "mai"]},
-    {id: "sa", name: "Sanskrit", native: "संस्कृतम्", voices: ["sa-IN", "sa"]},
-    {id: "ur", name: "Urdu", native: "اردو", voices: ["ur-IN", "ur-PK", "ur"]},
-    {id: "kok", name: "Konkani", native: "कोंकणी", voices: ["kok-IN", "kok"]},
-    {id: "ne", name: "Nepali", native: "नेपाली", voices: ["ne-IN", "ne-NP", "ne"]},
-    {id: "sd", name: "Sindhi", native: "सिन्धी", voices: ["sd-IN", "sd"]},
-    {id: "doi", name: "Dogri", native: "डोगरी", voices: ["doi-IN", "doi"]},
-    {id: "ks", name: "Kashmiri", native: "कॉशुर", voices: ["ks-IN", "ks"]},
-    {id: "mni", name: "Manipuri", native: "মৈতৈলোন্", voices: ["mni-IN", "mni"]},
-    {id: "brx", name: "Bodo", native: "बड़ो", voices: ["brx-IN", "brx"]},
-    {id: "sat", name: "Santali", native: "ᱥᱟᱱᱛᱟᱲᱤ", voices: ["sat-IN", "sat"]}
+  {id:"en", name:"English", native:"English", voices:["en-IN","en-US","en-GB"]},
+  {id:"ml", name:"Malayalam", native:"മലയാളം", voices:["ml-IN","ml"]},
+  {id:"hi", name:"Hindi", native:"हिन्दी", voices:["hi-IN","hi"]},
+  {id:"bn", name:"Bengali", native:"বাংলা", voices:["bn-IN","bn-BD","bn"]},
+  {id:"te", name:"Telugu", native:"తెలుగు", voices:["te-IN","te"]},
+  {id:"mr", name:"Marathi", native:"मराठी", voices:["mr-IN","mr"]},
+  {id:"ta", name:"Tamil", native:"தமிழ்", voices:["ta-IN","ta"]},
+  {id:"gu", name:"Gujarati", native:"ગુજરાતી", voices:["gu-IN","gu"]},
+  {id:"kn", name:"Kannada", native:"ಕನ್ನಡ", voices:["kn-IN","kn"]},
+  {id:"or", name:"Odia", native:"ଓଡ଼ିଆ", voices:["or-IN","or"]},
+  {id:"pa", name:"Punjabi", native:"ਪੰਜਾਬੀ", voices:["pa-IN","pa"]},
+  {id:"as", name:"Assamese", native:"অসমীয়া", voices:["as-IN","as"]},
+  {id:"ur", name:"Urdu", native:"اردو", voices:["ur-IN","ur-PK","ur"]},
+  {id:"mai", name:"Maithili", native:"मैथिली", voices:["mai-IN","hi-IN","mai"]},
+  {id:"sa", name:"Sanskrit", native:"संस्कृतम्", voices:["sa-IN","hi-IN","sa"]},
+  {id:"kok", name:"Konkani", native:"कोंकणी", voices:["kok-IN","mr-IN","kok"]},
+  {id:"ne", name:"Nepali", native:"नेपाली", voices:["ne-IN","ne-NP","ne"]},
+  {id:"sd", name:"Sindhi", native:"سنڌي", voices:["sd-IN","sd"]},
+  {id:"doi", name:"Dogri", native:"डोगरी", voices:["doi-IN","hi-IN","doi"]},
+  {id:"ks", name:"Kashmiri", native:"कॉशुर", voices:["ks-IN","ks"]},
+  {id:"mni", name:"Manipuri", native:"মৈতৈলোন্", voices:["mni-IN","mni"]},
+  {id:"brx", name:"Bodo", native:"बड़ो", voices:["brx-IN","hi-IN","brx"]},
+  {id:"sat", name:"Santali", native:"ᱥᱟᱱᱛᱟᱲᱤ", voices:["sat-IN","sat"]}
 ];
-
 let currentLang = "en";
 
 const BASE = {
-    en: {
-        welcome: "Select your language before starting the examination",
-        subtitle: "AI-Assisted Preliminary Eye Screening System",
-        selectLanguageTitle: "Select Language",
-        start: "Start Examination",
-        testAudio: "Test Audio",
-        audioHint: "Audio instructions are available in the selected language",
-        patient: "Patient Details", name: "Name", age: "Age", gender: "Gender", phone: "Phone",
-        male: "Male", female: "Female", other: "Other",
-        symptoms: "Patient-Reported Symptoms", since: "Since / Duration",
-        history: "Ocular History", specs: "Spectacles", contacts: "Contact Lenses",
-        surgery: "Previous Eye Surgery", otherHistory: "Other Ocular History",
-        yes: "Yes", no: "No", notKnown: "Not known",
-        distance: "Distance Visual Acuity",
-        distanceInst: "Sit exactly 1 metre from the screen. Keep the screen at eye level. Cover one eye without pressing it and read from top to bottom.",
-        near: "Near Visual Acuity",
-        nearInst: "Hold the screen at exactly 40 cm. Cover one eye without pressing it and read from top to bottom.",
-        bestLine: "Best line read", right: "Right Eye", left: "Left Eye",
-        rightSelected: "Right eye selected", leftSelected: "Left eye selected",
-        colour: "Colour Vision Screening",
-        colourInst: "Identify the number shown in each plate. The number is displayed directly and is not formed by dots.",
-        colourSummary: "Screening response", normal: "Normal response", difficulty: "Possible colour vision difficulty", unable: "Unable to complete",
-        amsler: "Amsler Grid",
-        amslerInst: "Keep the screen at reading distance. Cover one eye without pressing it. Look directly at the centre dot. Repeat with the other eye.",
-        normalGrid: "No distortion reported", wavy: "Wavy/distorted lines reported", missing: "Missing/blank areas reported", blur: "Blurred area reported",
-        camera: "Eye Photographs",
-        cameraInst: "Front camera only. Place the eye inside the guide. Take one photograph for each eye.",
-        allowCamera: "Allow Camera", cameraNotStarted: "Camera not started", cameraReady: "Front camera ready", cameraError: "Camera permission or access failed",
-        capture: "Capture", remove: "Remove", noPhoto: "No photograph captured",
-        cameraTarget: "Camera target", report: "AI-Assisted Screening Report",
-        reportIntro: "This report summarizes the entered screening information. It is a preliminary screening aid and not a diagnosis.",
-        patientInfo: "Patient Information", visualAcuity: "Visual Acuity", colourVision: "Colour Vision",
-        amslerReport: "Amsler Grid", symptomsReport: "Symptoms", analysis: "AI-Assisted Analysis",
-        recommend: "Recommendation", photos: "Eye Photographs",
-        important: "Important", disclaimer: "This digital prototype provides preliminary screening support only. It does not replace standardized, calibrated clinical examination or professional diagnosis.",
-        analyse: "Analyse", print: "Print", newExam: "New Examination",
-        back: "Back", next: "Next", audio: "Audio", voiceUnavailable: "No compatible voice is installed for this language on this device.",
-        speechUnsupported: "Speech synthesis is not supported by this browser.",
-        analysisNormal: "The entered screening results do not show an obvious abnormality in this preliminary assessment.",
-        analysisVA: "Visual acuity should be reviewed clinically if the patient cannot identify the expected lines.",
-        analysisColour: "The colour responses indicate that further colour vision assessment may be useful.",
-        analysisAmsler: "The Amsler response contains a reported visual distortion or missing/blurred area and should be reviewed clinically.",
-        recommendNormal: "Continue routine eye examinations. Seek professional assessment if symptoms are persistent or vision changes.",
-        recommendReview: "Consider comprehensive optometric/ophthalmic evaluation based on the screening findings or reported symptoms."
-    },
-    ml: {
-        welcome: "പരിശോധന ആരംഭിക്കുന്നതിന് മുമ്പ് നിങ്ങളുടെ ഭാഷ തിരഞ്ഞെടുക്കുക",
-        subtitle: "AI സഹായത്തോടെയുള്ള പ്രാഥമിക നേത്ര പരിശോധനാ സംവിധാനം",
-        selectLanguageTitle: "ഭാഷ തിരഞ്ഞെടുക്കുക", start: "പരിശോധന ആരംഭിക്കുക",
-        testAudio: "ഓഡിയോ പരിശോധിക്കുക", audioHint: "തിരഞ്ഞെടുത്ത ഭാഷയിൽ ഓഡിയോ നിർദ്ദേശങ്ങൾ ലഭ്യമാണ്.",
-        patient: "രോഗിയുടെ വിവരങ്ങൾ", name: "പേര്", age: "പ്രായം", gender: "ലിംഗം", phone: "ഫോൺ",
-        male: "പുരുഷൻ", female: "സ്ത്രീ", other: "മറ്റുള്ളത്",
-        symptoms: "രോഗി പറഞ്ഞ ലക്ഷണങ്ങൾ", since: "എപ്പോൾ മുതൽ / കാലയളവ്",
-        history: "നേത്ര ചരിത്രം", specs: "കണ്ണട", contacts: "കോൺടാക്ട് ലെൻസ്",
-        surgery: "മുമ്പത്തെ നേത്ര ശസ്ത്രക്രിയ", otherHistory: "മറ്റ് നേത്ര ചരിത്രം",
-        yes: "ഉണ്ട്", no: "ഇല്ല", notKnown: "അറിയില്ല",
-        distance: "ദൂര ദൃശ്യതീവ്രത",
-        distanceInst: "സ്ക്രീനിൽ നിന്ന് കൃത്യമായി 1 മീറ്റർ അകലത്തിൽ ഇരിക്കുക. സ്ക്രീൻ കണ്ണിന്റെ ഉയരത്തിൽ വയ്ക്കുക. ഒരു കണ്ണ് അമർത്താതെ മൂടി മുകളിൽ നിന്ന് താഴേക്ക് വായിക്കുക.",
-        near: "അടുത്ത ദൃശ്യതീവ്രത",
-        nearInst: "സ്ക്രീൻ കൃത്യമായി 40 സെ.മീ അകലത്തിൽ പിടിക്കുക. ഒരു കണ്ണ് അമർത്താതെ മൂടി മുകളിൽ നിന്ന് താഴേക്ക് വായിക്കുക.",
-        bestLine: "വായിക്കാൻ കഴിഞ്ഞ ഏറ്റവും ചെറിയ വരി", right: "വലത് കണ്ണ്", left: "ഇടത് കണ്ണ്",
-        rightSelected: "വലത് കണ്ണ് തിരഞ്ഞെടുത്തു", leftSelected: "ഇടത് കണ്ണ് തിരഞ്ഞെടുത്തു",
-        colour: "നിറ കാഴ്ച പരിശോധന",
-        colourInst: "ഓരോ പ്ലേറ്റിലും കാണുന്ന നമ്പർ തിരിച്ചറിയുക. നമ്പർ ഡോട്ടുകൾ ഉപയോഗിച്ച് നിർമ്മിച്ചതല്ല.",
-        colourSummary: "പരിശോധനാ ഫലം", normal: "സാധാരണ പ്രതികരണം", difficulty: "നിറ കാഴ്ചയിൽ ബുദ്ധിമുട്ട് ഉണ്ടാകാം", unable: "പരിശോധന പൂർത്തിയാക്കാനായില്ല",
-        amsler: "ആംസ്‌ലർ ഗ്രിഡ്",
-        amslerInst: "സ്ക്രീൻ വായനാ ദൂരത്തിൽ വയ്ക്കുക. ഒരു കണ്ണ് അമർത്താതെ മൂടുക. നടുവിലെ ഡോട്ടിലേക്ക് നേരിട്ട് നോക്കുക. മറ്റേ കണ്ണിലും ആവർത്തിക്കുക.",
-        normalGrid: "വരകളിൽ വളവ് റിപ്പോർട്ട് ചെയ്തിട്ടില്ല", wavy: "വളഞ്ഞ/വക്രമായ വരകൾ റിപ്പോർട്ട് ചെയ്തു", missing: "ശൂന്യമായ/കാണാത്ത ഭാഗങ്ങൾ റിപ്പോർട്ട് ചെയ്തു", blur: "മങ്ങിയ ഭാഗം റിപ്പോർട്ട് ചെയ്തു",
-        camera: "കണ്ണിന്റെ ഫോട്ടോകൾ",
-        cameraInst: "മുൻ ക്യാമറ മാത്രം. ഗൈഡിനുള്ളിൽ കണ്ണ് വയ്ക്കുക. ഓരോ കണ്ണിനും ഒരു ഫോട്ടോ എടുക്കുക.",
-        allowCamera: "ക്യാമറ അനുവദിക്കുക", cameraNotStarted: "ക്യാമറ ആരംഭിച്ചിട്ടില്ല", cameraReady: "മുൻ ക്യാമറ തയ്യാറാണ്", cameraError: "ക്യാമറ അനുമതി അല്ലെങ്കിൽ ആക്സസ് പരാജയപ്പെട്ടു",
-        capture: "ഫോട്ടോ എടുക്കുക", remove: "നീക്കം ചെയ്യുക", noPhoto: "ഫോട്ടോ എടുത്തിട്ടില്ല",
-        cameraTarget: "ക്യാമറ ലക്ഷ്യം", report: "AI സഹായത്തോടെയുള്ള പരിശോധനാ റിപ്പോർട്ട്",
-        reportIntro: "നൽകിയ പരിശോധനാ വിവരങ്ങളുടെ സംഗ്രഹമാണിത്. ഇത് പ്രാഥമിക സ്ക്രീനിംഗ് സഹായം മാത്രമാണ്; രോഗനിർണയം അല്ല.",
-        patientInfo: "രോഗിയുടെ വിവരങ്ങൾ", visualAcuity: "ദൃശ്യതീവ്രത", colourVision: "നിറ കാഴ്ച",
-        amslerReport: "ആംസ്‌ലർ ഗ്രിഡ്", symptomsReport: "ലക്ഷണങ്ങൾ", analysis: "AI സഹായത്തോടെയുള്ള വിശകലനം",
-        recommend: "ശുപാർശ", photos: "കണ്ണിന്റെ ഫോട്ടോകൾ",
-        important: "പ്രധാനപ്പെട്ടത്", disclaimer: "ഈ ഡിജിറ്റൽ പ്രോട്ടോടൈപ്പ് പ്രാഥമിക സ്ക്രീനിംഗ് സഹായം മാത്രമാണ്. സ്റ്റാൻഡേർഡ്, കാലിബ്രേറ്റ് ചെയ്ത ക്ലിനിക്കൽ പരിശോധനയ്ക്കും വിദഗ്ദ്ധ രോഗനിർണയത്തിനും ഇത് പകരമല്ല.",
-        analyse: "വിശകലനം", print: "പ്രിൻ്റ്", newExam: "പുതിയ പരിശോധന",
-        back: "പിന്നോട്ട്", next: "അടുത്തത്", audio: "ഓഡിയോ", voiceUnavailable: "ഈ ഭാഷയ്ക്കുള്ള അനുയോജ്യമായ ശബ്ദം ഈ ഉപകരണത്തിൽ ലഭ്യമല്ല.",
-        speechUnsupported: "ഈ ബ്രൗസറിൽ സ്പീച്ച് സിന്തസിസ് ലഭ്യമല്ല.",
-        analysisNormal: "ഈ പ്രാഥമിക വിലയിരുത്തലിൽ വ്യക്തമായ അസാധാരണത കണ്ടെത്തിയിട്ടില്ല.",
-        analysisVA: "പ്രതീക്ഷിച്ച വരികൾ വായിക്കാൻ കഴിയുന്നില്ലെങ്കിൽ ദൃശ്യതീവ്രത ക്ലിനിക്കലായി പരിശോധിക്കണം.",
-        analysisColour: "നിറ കാഴ്ചയുടെ കൂടുതൽ പരിശോധന പരിഗണിക്കാം.",
-        analysisAmsler: "ആംസർ പരിശോധനയിൽ വളവ്, കാണാത്ത ഭാഗം അല്ലെങ്കിൽ മങ്ങിയ ഭാഗം റിപ്പോർട്ട് ചെയ്തിട്ടുണ്ട്; ക്ലിനിക്കൽ പരിശോധന ആവശ്യമാണ്.",
-        recommendNormal: "പതിവായി നേത്ര പരിശോധന നടത്തുക. ലക്ഷണങ്ങൾ തുടരുകയോ കാഴ്ചയിൽ മാറ്റം വരുകയോ ചെയ്താൽ വിദഗ്ദ്ധ പരിശോധന തേടുക.",
-        recommendReview: "ലഭിച്ച സ്ക്രീനിംഗ് ഫലങ്ങളും രോഗി പറഞ്ഞ ലക്ഷണങ്ങളും പരിഗണിച്ച് സമഗ്രമായ ഒപ്റ്റോമെട്രിക്/ഓഫ്താൽമിക് പരിശോധന പരിഗണിക്കുക."
-    }
+  subtitle:"AI-Assisted Preliminary Eye Screening System",
+  selectLanguageTitle:"Select Language",
+  welcome:"Select your language before starting the examination",
+  start:"Start Examination",
+  testAudio:"Test Audio",
+  audioHint:"Audio instructions are available in the selected language.",
+  patient:"Patient Details", name:"Name", age:"Age", gender:"Gender", phone:"Phone",
+  male:"Male", female:"Female", other:"Other",
+  symptoms:"Patient-Reported Symptoms", since:"Since / Duration",
+  whichEye:"Which eye?", eyeRight:"Right Eye", eyeLeft:"Left Eye", eyeBoth:"Both Eyes",
+  history:"Ocular History", specs:"Spectacles", contacts:"Contact Lenses",
+  surgery:"Previous Eye Surgery", otherHistory:"Other Ocular History",
+  yes:"Yes", no:"No", notKnown:"Not known",
+  distance:"Distance Visual Acuity",
+  distanceInst:"Sit exactly 1 metre from the screen. Keep the screen at eye level. Cover one eye without pressing it and read from top to bottom.",
+  near:"Near Visual Acuity",
+  nearInst:"Hold the screen at exactly 40 cm. Cover one eye without pressing it and read from top to bottom.",
+  bestLine:"Best line read", right:"Right Eye", left:"Left Eye",
+  rightSelected:"Right eye selected", leftSelected:"Left eye selected",
+  colour:"Colour Vision Screening",
+  colourInst:"Identify the number shown in each plate. The number is displayed directly and is not formed by dots.",
+  colourSummary:"Screening response", normal:"Normal response", difficulty:"Possible colour vision difficulty", unable:"Unable to complete",
+  amsler:"Amsler Grid",
+  amslerInst:"Keep the screen at reading distance. Cover one eye without pressing it. Look directly at the centre dot. Repeat with the other eye.",
+  normalGrid:"No distortion reported", wavy:"Wavy/distorted lines reported", missing:"Missing/blank areas reported", blur:"Blurred area reported",
+  camera:"Eye Photographs",
+  cameraInst:"Front camera only. Place the eye inside the guide. Take one photograph for each eye.",
+  allowCamera:"Allow Camera", cameraNotStarted:"Camera not started", cameraReady:"Front camera ready", cameraError:"Camera permission or access failed",
+  capture:"Capture", remove:"Remove", noPhoto:"No photograph captured",
+  cameraTarget:"Camera target",
+  report:"AI-Assisted Screening Report",
+  reportIntro:"This report summarizes the entered screening information. It is a preliminary screening aid and not a diagnosis.",
+  patientInfo:"Patient Information", visualAcuity:"Visual Acuity", colourVision:"Colour Vision",
+  amslerReport:"Amsler Grid", symptomsReport:"Symptoms", analysis:"AI-Assisted Analysis",
+  recommend:"Recommendation", photos:"Eye Photographs",
+  important:"Important",
+  disclaimer:"This digital prototype provides preliminary screening support only. It does not replace standardized, calibrated clinical examination or professional diagnosis.",
+  analyse:"Analyse", print:"Print", newExam:"New Examination",
+  back:"Back", next:"Next", audio:"Audio",
+  voiceUnavailable:"No compatible voice is installed for this language on this device.",
+  speechUnsupported:"Speech synthesis is not supported by this browser.",
+  analysisNormal:"The entered screening results do not show an obvious abnormality in this preliminary assessment.",
+  analysisVA:"Visual acuity should be reviewed clinically if the patient cannot identify the expected lines.",
+  analysisColour:"The colour responses indicate that further colour vision assessment may be useful.",
+  analysisAmsler:"The Amsler response contains a reported visual distortion or missing/blurred area and should be reviewed clinically.",
+  recommendNormal:"Continue routine eye examinations. Seek professional assessment if symptoms are persistent or vision changes.",
+  recommendReview:"Consider comprehensive optometric/ophthalmic evaluation based on the screening findings or reported symptoms.",
+  summaryTitle:"AI-Assisted Screening Summary",
+  summaryDesc:"The system combines the screening inputs and generates a preliminary screening summary.",
+  flagsTitle:"Screening flags identified:",
+  recTitle:"Recommendation:",
+  viewReport:"View Screening Report",
+  bannerSubtitle:"AI-Assisted Preliminary Eye Screening",
+  footerTag:"EyeSmart AI • Preliminary Eye Screening Prototype",
+  examDetailsTitle:"Examination Details",
+  examDate:"Date & time", examPatient:"Patient", examTestsHeading:"Tests performed",
+  testDistanceVA:"Distance Visual Acuity", testNearVA:"Near Visual Acuity",
+  testColour:"Colour Vision", testAmsler:"Amsler Grid",
+  testSymptoms:"Reported Symptoms", testPhotos:"Eye Photographs",
+  notRecorded:"Not recorded", photosTaken:"Photo(s) captured", noPhotosTaken:"No photos captured",
+  noSymptomsReported:"None reported", yearsOld:"yrs",
+  vaFlag:"Reduced visual acuity noted in the {EYE}.",
+  colourFlag:"Colour vision response requires further assessment.",
+  amslerFlag:"Amsler grid response requires clinical correlation.",
+  symptomFlag:"Reported eye symptoms require clinical correlation.",
+  noFlags:"No significant screening flags were identified in this preliminary assessment.",
+  rightEyeWord:"right eye", leftEyeWord:"left eye"
 };
 
-function makeLang(arr) {
-    const e = BASE.en;
-    const keys = Object.keys(e);
-    const obj = {};
-    keys.forEach((k, i) => obj[k] = arr[i] !== undefined ? arr[i] : e[k]);
-    return obj;
-}
+function mergeLang(overrides){ return Object.assign({}, BASE, overrides); }
 
-const TDATA = {
-    en: BASE.en,
-    ml: BASE.ml,
-    /* Generating generic fallback translations for other languages mapped via JS logic */
-};
-LANGS.forEach(lang => {
-    if(!TDATA[lang.id]) TDATA[lang.id] = BASE.en; // Fallback for simplicity in this corrected block
+const ML = mergeLang({
+  subtitle:"AI സഹായത്തോടെയുള്ള പ്രാഥമിക നേത്ര പരിശോധനാ സംവിധാനം",
+  selectLanguageTitle:"ഭാഷ തിരഞ്ഞെടുക്കുക", welcome:"പരിശോധന ആരംഭിക്കുന്നതിന് മുമ്പ് നിങ്ങളുടെ ഭാഷ തിരഞ്ഞെടുക്കുക",
+  start:"പരിശോധന ആരംഭിക്കുക", testAudio:"ഓഡിയോ പരിശോധിക്കുക",
+  audioHint:"തിരഞ്ഞെടുത്ത ഭാഷയിൽ ഓഡിയോ നിർദ്ദേശങ്ങൾ ലഭ്യമാണ്.",
+  patient:"രോഗിയുടെ വിവരങ്ങൾ", name:"പേര്", age:"പ്രായം", gender:"ലിംഗം", phone:"ഫോൺ",
+  male:"പുരുഷൻ", female:"സ്ത്രീ", other:"മറ്റുള്ളത്",
+  symptoms:"രോഗി പറഞ്ഞ ലക്ഷണങ്ങൾ", since:"എപ്പോൾ മുതൽ / കാലയളവ്",
+  whichEye:"ഏത് കണ്ണ്?", eyeRight:"വലത് കണ്ണ്", eyeLeft:"ഇടത് കണ്ണ്", eyeBoth:"രണ്ട് കണ്ണും",
+  history:"നേത്ര ചരിത്രം", specs:"കണ്ണട", contacts:"കോൺടാക്ട് ലെൻസ്",
+  surgery:"മുമ്പത്തെ നേത്ര ശസ്ത്രക്രിയ", otherHistory:"മറ്റ് നേത്ര ചരിത്രം",
+  yes:"ഉണ്ട്", no:"ഇല്ല", notKnown:"അറിയില്ല",
+  distance:"ദൂര ദൃശ്യ തീവ്രത",
+  distanceInst:"സ്ക്രീനിൽ നിന്ന് കൃത്യമായി 1 മീറ്റർ അകലത്തിൽ ഇരിക്കുക. ഒരു കണ്ണ് അമർത്താതെ മൂടി മുകളിൽ നിന്ന് താഴേക്ക് വായിക്കുക.",
+  near:"അടുത്ത ദൃശ്യ തീവ്രത",
+  nearInst:"സ്ക്രീൻ കൃത്യമായി 40 സെ.മീ അകലത്തിൽ പിടിക്കുക. ഒരു കണ്ണ് അമർത്താതെ മൂടി മുകളിൽ നിന്ന് താഴേക്ക് വായിക്കുക.",
+  bestLine:"വായിക്കാൻ കഴിഞ്ഞ ഏറ്റവും ചെറിയ വരി", right:"വലത് കണ്ണ്", left:"ഇടത് കണ്ണ്",
+  rightSelected:"വലത് കണ്ണ് തിരഞ്ഞെടുത്തു", leftSelected:"ഇടത് കണ്ണ് തിരഞ്ഞെടുത്തു",
+  colour:"നിറ കാഴ്ച പരിശോധന",
+  colourInst:"ഓരോ പ്ലേറ്റിലും കാണുന്ന നമ്പർ തിരിച്ചറിയുക.",
+  colourSummary:"പരിശോധനാ ഫലം", normal:"സാധാരണ പ്രതികരണം", difficulty:"നിറ കാഴ്ചയിൽ ബുദ്ധിമുട്ട് ഉണ്ടാകാം", unable:"പരിശോധന പൂർത്തിയാക്കാനായില്ല",
+  amsler:"ആംസ്ലർ ഗ്രിഡ്",
+  amslerInst:"സ്ക്രീൻ വായനാ ദൂരത്തിൽ വയ്ക്കുക. ഒരു കണ്ണ് അമർത്താതെ മൂടുക. നടുവിലെ ഡോട്ടിലേക്ക് നോക്കുക.",
+  normalGrid:"വരകളിൽ വളവ് റിപ്പോർട്ട് ചെയ്തിട്ടില്ല", wavy:"വളഞ്ഞ/വക്രമായ വരകൾ റിപ്പോർട്ട് ചെയ്തു", missing:"ശൂന്യമായ/കാണാത്ത ഭാഗങ്ങൾ റിപ്പോർട്ട് ചെയ്തു", blur:"മങ്ങിയ ഭാഗം റിപ്പോർട്ട് ചെയ്തു",
+  camera:"കണ്ണിന്റെ ഫോട്ടോകൾ",
+  cameraInst:"മുൻ ക്യാമറ മാത്രം. ഗൈഡിനുള്ളിൽ കണ്ണ് വയ്ക്കുക.",
+  allowCamera:"ക്യാമറ അനുവദിക്കുക", cameraNotStarted:"ക്യാമറ ആരംഭിച്ചിട്ടില്ല", cameraReady:"മുൻ ക്യാമറ തയ്യാറാണ്", cameraError:"ക്യാമറ അനുമതി പരാജയപ്പെട്ടു",
+  capture:"ഫോട്ടോ എടുക്കുക", remove:"നീക്കം ചെയ്യുക", noPhoto:"ഫോട്ടോ എടുത്തിട്ടില്ല",
+  cameraTarget:"ക്യാമറ ലക്ഷ്യം",
+  report:"AI സഹായത്തോടെയുള്ള പരിശോധനാ റിപ്പോർട്ട്",
+  reportIntro:"നൽകിയ പരിശോധനാ വിവരങ്ങളുടെ സംഗ്രഹമാണിത്. ഇത് രോഗനിർണയം അല്ല.",
+  patientInfo:"രോഗിയുടെ വിവരങ്ങൾ", visualAcuity:"ദൃശ്യ തീവ്രത", colourVision:"നിറ കാഴ്ച",
+  amslerReport:"ആംസ്ലർ ഗ്രിഡ്", symptomsReport:"ലക്ഷണങ്ങൾ", analysis:"AI വിശകലനം",
+  recommend:"ശുപാർശ", photos:"കണ്ണിന്റെ ഫോട്ടോകൾ",
+  important:"പ്രധാനപ്പെട്ടത്",
+  disclaimer:"ഈ ഡിജിറ്റൽ പ്രോട്ടോടൈപ്പ് പ്രാഥമിക സ്ക്രീനിംഗ് സഹായം മാത്രമാണ്. ഇത് ക്ലിനിക്കൽ പരിശോധനയ്ക്കും വിദഗ്ധ രോഗനിർണയത്തിനും പകരമല്ല.",
+  analyse:"വിശകലനം", print:"പ്രിന്റ്", newExam:"പുതിയ പരിശോധന",
+  back:"പിന്നോട്ട്", next:"അടുത്തത്", audio:"ഓഡിയോ",
+  voiceUnavailable:"ഈ ഭാഷയ്ക്കുള്ള അനുയോജ്യമായ ശബ്ദം ഈ ഉപകരണത്തിൽ ലഭ്യമല്ല.",
+  speechUnsupported:"ഈ ബ്രൗസറിൽ സ്പീച്ച് സിന്തസിസ് ലഭ്യമല്ല.",
+  analysisNormal:"ഈ പ്രാഥമിക വിലയിരുത്തലിൽ വ്യക്തമായ അസാധാരണത കണ്ടെത്തിയിട്ടില്ല.",
+  analysisVA:"പ്രതീക്ഷിച്ച വരികൾ വായിക്കാൻ കഴിയുന്നില്ലെങ്കിൽ ദൃശ്യ തീവ്രത ക്ലിനിക്കലായി പരിശോധിക്കണം.",
+  analysisColour:"നിറ കാഴ്ചയുടെ കൂടുതൽ പരിശോധന പരിഗണിക്കാം.",
+  analysisAmsler:"ആംസ്ലർ പരിശോധനയിൽ വളവ്/മങ്ങിയ ഭാഗം റിപ്പോർട്ട് ചെയ്തിട്ടുണ്ട്; ക്ലിനിക്കൽ പരിശോധന ആവശ്യമാണ്.",
+  recommendNormal:"പതിവായി നേത്ര പരിശോധന നടത്തുക. ലക്ഷണങ്ങൾ തുടർന്നാൽ വിദഗ്ധ പരിശോധന തേടുക.",
+  recommendReview:"ലഭിച്ച സ്ക്രീനിംഗ് ഫലങ്ങൾ പരിഗണിച്ച് സമഗ്രമായ നേത്ര പരിശോധന പരിഗണിക്കുക.",
+  summaryTitle:"AI സഹായത്തോടെയുള്ള സ്ക്രീനിംഗ് സംഗ്രഹം",
+  summaryDesc:"സിസ്റ്റം സ്ക്രീനിംഗ് വിവരങ്ങൾ സംയോജിപ്പിച്ച് ഒരു പ്രാഥമിക സംഗ്രഹം തയ്യാറാക്കുന്നു.",
+  flagsTitle:"കണ്ടെത്തിയ സ്ക്രീനിംഗ് സൂചനകൾ:", recTitle:"ശുപാർശ:",
+  viewReport:"സ്ക്രീനിംഗ് റിപ്പോർട്ട് കാണുക",
+  bannerSubtitle:"AI സഹായത്തോടെയുള്ള പ്രാഥമിക നേത്ര പരിശോധന",
+  footerTag:"EyeSmart AI • പ്രാഥമിക നേത്ര പരിശോധന പ്രോട്ടോടൈപ്പ്",
+  examDetailsTitle:"പരിശോധനാ വിശദാംശങ്ങൾ",
+  examDate:"തീയതി & സമയം", examPatient:"രോഗി", examTestsHeading:"നടത്തിയ പരിശോധനകൾ",
+  testDistanceVA:"ദൂര ദൃശ്യ തീവ്രത", testNearVA:"അടുത്ത ദൃശ്യ തീവ്രത",
+  testColour:"നിറ കാഴ്ച", testAmsler:"ആംസ്ലർ ഗ്രിഡ്",
+  testSymptoms:"രോഗി പറഞ്ഞ ലക്ഷണങ്ങൾ", testPhotos:"കണ്ണിന്റെ ഫോട്ടോകൾ",
+  notRecorded:"രേഖപ്പെടുത്തിയിട്ടില്ല", photosTaken:"ഫോട്ടോ(കൾ) എടുത്തു", noPhotosTaken:"ഫോട്ടോ എടുത്തിട്ടില്ല",
+  noSymptomsReported:"ഒന്നും റിപ്പോർട്ട് ചെയ്തിട്ടില്ല", yearsOld:"വയസ്സ്",
+  vaFlag:"{EYE} കാഴ്ച തീവ്രത കുറവായി കാണുന്നു.",
+  colourFlag:"നിറ കാഴ്ച പ്രതികരണത്തിന് കൂടുതൽ വിലയിരുത്തൽ ആവശ്യമാണ്.",
+  amslerFlag:"ആംസ്ലർ ഗ്രിഡ് പ്രതികരണത്തിന് ക്ലിനിക്കൽ പരിശോധന ആവശ്യമാണ്.",
+  symptomFlag:"രോഗി പറഞ്ഞ ലക്ഷണങ്ങൾക്ക് ക്ലിനിക്കൽ പരിശോധന ആവശ്യമാണ്.",
+  noFlags:"ഈ പ്രാഥമിക വിലയിരുത്തലിൽ കാര്യമായ സൂചനകളൊന്നും കണ്ടെത്തിയിട്ടില്ല.",
+  rightEyeWord:"വലത് കണ്ണിൽ", leftEyeWord:"ഇടത് കണ്ണിൽ"
 });
 
+const HI = mergeLang({
+  subtitle:"AI-सहायित प्रारंभिक नेत्र जांच प्रणाली", selectLanguageTitle:"भाषा चुनें",
+  welcome:"परीक्षण शुरू करने से पहले अपनी भाषा चुनें।", start:"परीक्षण शुरू करें", testAudio:"ऑडियो जांचें",
+  audioHint:"चयनित भाषा में ऑडियो निर्देश उपलब्ध हैं.",
+  patient:"रोगी की जानकारी", name:"नाम", age:"आयु", gender:"लिंग", phone:"फोन",
+  male:"पुरुष", female:"महिला", other:"अन्य",
+  symptoms:"रोगी द्वारा बताए गए लक्षण", since:"कब से / अवधि",
+  whichEye:"कौन सी आंख?", eyeRight:"दायां नेत्र", eyeLeft:"बायां नेत्र", eyeBoth:"दोनों आंखें",
+  history:"नेत्र इतिहास", specs:"चश्मा", contacts:"कॉन्टैक्ट लेंस",
+  surgery:"पिछली आंख की सर्जरी", otherHistory:"अन्य नेत्र इतिहास",
+  yes:"हां", no:"नहीं", notKnown:"पता नहीं",
+  distance:"दूर दृष्टि तीक्ष्णता",
+  distanceInst:"स्क्रीन से ठीक 1 मीटर दूर बैठें। एक आंख को बिना दबाए ढकें और ऊपर से नीचे पढ़ें।",
+  near:"निकट दृष्टि तीक्ष्णता",
+  nearInst:"स्क्रीन को ठीक 40 सेमी दूर रखें। एक आंख को बिना दबाए ढकें और ऊपर से नीचे पढ़ें।",
+  bestLine:"सबसे छोटी पढ़ी गई पंक्ति", right:"दायां नेत्र", left:"बायां नेत्र",
+  rightSelected:"दायां नेत्र चुना गया", leftSelected:"बायां नेत्र चुना गया",
+  colour:"रंग दृष्टि जांच", colourInst:"हर प्लेट में दिख रही संख्या पहचानें।",
+  colourSummary:"जांच प्रतिक्रिया", normal:"सामान्य प्रतिक्रिया", difficulty:"रंग दृष्टि में संभावित कठिनाई", unable:"पूरा नहीं कर सके",
+  amsler:"एम्सलर ग्रिड", amslerInst:"एक आंख को ढककर बीच के बिंदु को सीधे देखें। दूसरी आंख से दोहराएं।",
+  normalGrid:"विकृति नहीं", wavy:"टेढ़ी/विकृत रेखाएं", missing:"खाली/न दिखने वाले क्षेत्र", blur:"धुंधला क्षेत्र",
+  camera:"आंखों की तस्वीरें", cameraInst:"केवल फ्रंट कैमरा। गाइड के अंदर आंख रखें और प्रत्येक आंख की एक तस्वीर लें।",
+  allowCamera:"कैमरा अनुमति दें", cameraNotStarted:"कैमरा शुरू नहीं हुआ", cameraReady:"फ्रंट कैमरा तैयार है", cameraError:"कैमरा अनुमति या एक्सेस विफल",
+  capture:"कैप्चर", remove:"हटाएं", noPhoto:"तस्वीर नहीं ली गई", cameraTarget:"कैमरा लक्ष्य",
+  report:"AI-सहायित स्क्रीनिंग रिपोर्ट",
+  reportIntro:"यह रिपोर्ट दर्ज की गई स्क्रीनिंग जानकारी का सारांश है। यह प्रारंभिक स्क्रीनिंग सहायता है, निदान नहीं।",
+  patientInfo:"रोगी की जानकारी", visualAcuity:"दृश्य तीक्ष्णता", colourVision:"रंग दृष्टि",
+  amslerReport:"एम्सलर ग्रिड", symptomsReport:"लक्षण", analysis:"AI-सहायित विश्लेषण",
+  recommend:"सिफारिश", photos:"आंखों की तस्वीरें", important:"महत्वपूर्ण",
+  disclaimer:"यह डिजिटल प्रोटोटाइप केवल प्रारंभिक स्क्रीनिंग सहायता देता है। यह मानकीकृत क्लिनिकल जांच या पेशेवर निदान का विकल्प नहीं है।",
+  analyse:"विश्लेषण", print:"प्रिंट", newExam:"नई जांच", back:"पीछे", next:"आगे", audio:"ऑडियो",
+  voiceUnavailable:"इस भाषा के लिए इस उपकरण पर उपयुक्त आवाज उपलब्ध नहीं है.",
+  speechUnsupported:"इस ब्राउज़र में स्पीच सिंथेसिस उपलब्ध नहीं है.",
+  analysisNormal:"इस प्रारंभिक मूल्यांकन में स्पष्ट असामान्यता नहीं मिली.",
+  analysisVA:"अपेक्षित पंक्तियां न पढ़ पाने पर क्लिनिकल दृष्टि जांच की सलाह दी जाती है.",
+  analysisColour:"आगे रंग दृष्टि जांच उपयोगी हो सकती है.",
+  analysisAmsler:"एम्सलर में विकृति/खाली/धुंधला क्षेत्र बताया गया है; क्लिनिकल जांच आवश्यक है.",
+  recommendNormal:"नियमित आंखों की जांच जारी रखें। लक्षण बने रहें तो विशेषज्ञ से जांच कराएं.",
+  recommendReview:"स्क्रीनिंग निष्कर्षों के आधार पर व्यापक नेत्र जांच पर विचार करें.",
+  summaryTitle:"AI-सहायित स्क्रीनिंग सारांश", summaryDesc:"यह प्रणाली जांच की जानकारी को जोड़कर एक प्रारंभिक सारांश तैयार करती है.",
+  flagsTitle:"पहचाने गए स्क्रीनिंग संकेत:", recTitle:"सिफारिश:", viewReport:"स्क्रीनिंग रिपोर्ट देखें",
+  bannerSubtitle:"AI-सहायित प्रारंभिक नेत्र जांच", footerTag:"EyeSmart AI • प्रारंभिक नेत्र जांच प्रोटोटाइप",
+  examDetailsTitle:"जांच का विवरण",
+  examDate:"तारीख व समय", examPatient:"रोगी", examTestsHeading:"की गई जांचें",
+  testDistanceVA:"दूर दृष्टि तीक्ष्णता", testNearVA:"निकट दृष्टि तीक्ष्णता",
+  testColour:"रंग दृष्टि", testAmsler:"एम्सलर ग्रिड",
+  testSymptoms:"बताए गए लक्षण", testPhotos:"आंखों की तस्वीरें",
+  notRecorded:"दर्ज नहीं किया गया", photosTaken:"तस्वीर(ें) ली गईं", noPhotosTaken:"कोई तस्वीर नहीं ली गई",
+  noSymptomsReported:"कोई लक्षण नहीं बताया गया", yearsOld:"वर्ष",
+  vaFlag:"{EYE} में दृष्टि तीक्ष्णता कम पाई गई.", colourFlag:"रंग दृष्टि प्रतिक्रिया हेतु और जांच आवश्यक है.",
+  amslerFlag:"एम्सलर ग्रिड प्रतिक्रिया हेतु क्लिनिकल जांच आवश्यक है.", symptomFlag:"बताए गए लक्षणों हेतु क्लिनिकल जांच आवश्यक है.",
+  noFlags:"इस प्रारंभिक मूल्यांकन में कोई उल्लेखनीय संकेत नहीं मिला.", rightEyeWord:"दाईं आंख", leftEyeWord:"बाईं आंख"
+});
+
+/* Generic-fallback languages (English text, native voice code attempted) */
+function genericLang(){ return mergeLang({}); }
+const TDATA = { en:BASE, ml:ML, hi:HI };
+["bn","te","mr","ta","gu","kn","or","pa","as","ur","mai","sa","kok","ne","sd","doi","ks","mni","brx","sat"]
+  .forEach(id=>{ TDATA[id]=genericLang(); });
+
+/* Light native-script coverage for a few more languages (core phrases only,
+   remaining keys fall back to English within the same object). */
+Object.assign(TDATA.ta, {
+  subtitle:"AI உதவியுடன் ஆரம்ப கண் பரிசோதனை அமைப்பு", selectLanguageTitle:"மொழியைத் தேர்ந்தெடுக்கவும்",
+  welcome:"பரிசோதனையைத் தொடங்கும் முன் உங்கள் மொழியைத் தேர்ந்தெடுக்கவும்.", start:"பரிசோதனையைத் தொடங்கவும்",
+  patient:"நோயாளி விவரங்கள்", name:"பெயர்", age:"வயது", gender:"பாலினம்", phone:"தொலைபேசி",
+  male:"ஆண்", female:"பெண்", other:"மற்றவை", symptoms:"நோயாளி கூறிய அறிகுறிகள்",
+  whichEye:"எந்த கண்?", eyeRight:"வலது கண்", eyeLeft:"இடது கண்", eyeBoth:"இரு கண்களும்",
+  right:"வலது கண்", left:"இடது கண்", back:"பின்", next:"அடுத்து", audio:"ஆடியோ"
+});
+Object.assign(TDATA.bn, {
+  subtitle:"AI সহায়তায় প্রাথমিক চোখ পরীক্ষা", selectLanguageTitle:"ভাষা নির্বাচন করুন",
+  welcome:"পরীক্ষা শুরু করার আগে ভাষা নির্বাচন করুন।", start:"পরীক্ষা শুরু করুন",
+  patient:"রোগীর তথ্য", name:"নাম", age:"বয়স", gender:"লিঙ্গ", phone:"ফোন",
+  male:"পুরুষ", female:"মহিলা", other:"অন্যান্য", whichEye:"কোন চোখ?", eyeRight:"ডান চোখ", eyeLeft:"বাম চোখ", eyeBoth:"উভয় চোখ",
+  right:"ডান চোখ", left:"বাম চোখ", back:"পিছনে", next:"পরবর্তী", audio:"অডিও"
+});
+Object.assign(TDATA.te, {
+  subtitle:"AI సహాయంతో ప్రాథమిక కంటి పరీక్ష", selectLanguageTitle:"భాష ఎంచుకోండి",
+  welcome:"పరీక్ష ప్రారంభించే ముందు భాషను ఎంచుకోండి.", start:"పరీక్ష ప్రారంభించండి",
+  patient:"రోగి వివరాలు", name:"పేరు", age:"వయస్సు", gender:"లింగం", phone:"ఫోన్",
+  male:"పురుషుడు", female:"స్త్రీ", other:"ఇతర", whichEye:"ఏ కన్ను?", eyeRight:"కుడి కన్ను", eyeLeft:"ఎడమ కన్ను", eyeBoth:"రెండు కళ్ళు",
+  right:"కుడి కన్ను", left:"ఎడమ కన్ను", back:"వెనుకకు", next:"తదుపరి", audio:"ఆడియో"
+});
+Object.assign(TDATA.mr, {
+  subtitle:"AI सहाय्यित प्राथमिक नेत्र तपासणी", selectLanguageTitle:"भाषा निवडा",
+  welcome:"तपासणी सुरू करण्यापूर्वी भाषा निवडा.", start:"तपासणी सुरू करा",
+  patient:"रुग्णाची माहिती", name:"नाव", age:"वय", gender:"लिंग", phone:"फोन",
+  male:"पुरुष", female:"स्त्री", other:"इतर", whichEye:"कोणता डोळा?", eyeRight:"उजवा डोळा", eyeLeft:"डावा डोळा", eyeBoth:"दोन्ही डोळे",
+  right:"उजवा डोळा", left:"डावा डोळा", back:"मागे", next:"पुढे", audio:"ऑडिओ"
+});
+Object.assign(TDATA.gu, {
+  subtitle:"AI સહાયિત પ્રાથમિક આંખ તપાસ", selectLanguageTitle:"ભાષા પસંદ કરો",
+  welcome:"પરીક્ષણ શરૂ કરતા પહેલા ભાષા પસંદ કરો.", start:"પરીક્ષણ શરૂ કરો",
+  patient:"દર્દીની માહિતી", name:"નામ", age:"ઉંમર", gender:"લિંગ", phone:"ફોન",
+  male:"પુરુષ", female:"સ્ત્રી", other:"અન્ય", whichEye:"કઈ આંખ?", eyeRight:"જમણી આંખ", eyeLeft:"ડાબી આંખ", eyeBoth:"બંને આંખો",
+  right:"જમણી આંખ", left:"ડાબી આંખ", back:"પાછળ", next:"આગળ", audio:"ઓડિયો"
+});
+Object.assign(TDATA.kn, {
+  subtitle:"AI ಸಹಾಯಿತ ಪ್ರಾಥಮಿಕ ಕಣ್ಣಿನ ತಪಾಸಣೆ", selectLanguageTitle:"ಭಾಷೆ ಆಯ್ಕೆಮಾಡಿ",
+  welcome:"ಪರೀಕ್ಷೆ ಆರಂಭಿಸುವ ಮೊದಲು ಭಾಷೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ.", start:"ಪರೀಕ್ಷೆ ಆರಂಭಿಸಿ",
+  patient:"ರೋಗಿಯ ವಿವರಗಳು", name:"ಹೆಸರು", age:"ವಯಸ್ಸು", gender:"ಲಿಂಗ", phone:"ಫೋನ್",
+  male:"ಪುರುಷ", female:"ಮಹಿಳೆ", other:"ಇತರೆ", whichEye:"ಯಾವ ಕಣ್ಣು?", eyeRight:"ಬಲ ಕಣ್ಣು", eyeLeft:"ಎಡ ಕಣ್ಣು", eyeBoth:"ಎರಡೂ ಕಣ್ಣುಗಳು",
+  right:"ಬಲ ಕಣ್ಣು", left:"ಎಡ ಕಣ್ಣು", back:"ಹಿಂದೆ", next:"ಮುಂದೆ", audio:"ಆಡಿಯೋ"
+});
+Object.assign(TDATA.pa, {
+  subtitle:"AI ਸਹਾਇਤਾ ਨਾਲ ਮੁੱਢਲੀ ਅੱਖ ਜਾਂਚ", selectLanguageTitle:"ਭਾਸ਼ਾ ਚੁਣੋ",
+  welcome:"ਜਾਂਚ ਸ਼ੁਰੂ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਭਾਸ਼ਾ ਚੁਣੋ.", start:"ਜਾਂਚ ਸ਼ੁਰੂ ਕਰੋ",
+  patient:"ਮਰੀਜ਼ ਦੀ ਜਾਣਕਾਰੀ", name:"ਨਾਮ", age:"ਉਮਰ", gender:"ਲਿੰਗ", phone:"ਫੋਨ",
+  male:"ਮਰਦ", female:"ਔਰਤ", other:"ਹੋਰ", whichEye:"ਕਿਹੜੀ ਅੱਖ?", eyeRight:"ਸੱਜੀ ਅੱਖ", eyeLeft:"ਖੱਬੀ ਅੱਖ", eyeBoth:"ਦੋਵੇਂ ਅੱਖਾਂ",
+  right:"ਸੱਜੀ ਅੱਖ", left:"ਖੱਬੀ ਅੱਖ", back:"ਪਿੱਛੇ", next:"ਅੱਗੇ", audio:"ਆਡੀਓ"
+});
+Object.assign(TDATA.or, {
+  subtitle:"AI ସହାୟତାପ୍ରାପ୍ତ ପ୍ରାଥମିକ ଚକ୍ଷୁ ପରୀକ୍ଷା", selectLanguageTitle:"ଭାଷା ବାଛନ୍ତୁ",
+  welcome:"ପରୀକ୍ଷା ପୂର୍ବରୁ ଭାଷା ବାଛନ୍ତୁ.", start:"ପରୀକ୍ଷା ଆରମ୍ଭ କରନ୍ତୁ",
+  patient:"ରୋଗୀ ବିବରଣୀ", name:"ନାମ", age:"ବୟସ", gender:"ଲିଙ୍ଗ", phone:"ଫୋନ",
+  male:"ପୁରୁଷ", female:"ମହିଳା", other:"ଅନ୍ୟ", whichEye:"କେଉଁ ଆଖି?", eyeRight:"ଡାହାଣ ଆଖି", eyeLeft:"ବାମ ଆଖି", eyeBoth:"ଉଭୟ ଆଖି",
+  right:"ଡାହାଣ ଆଖି", left:"ବାମ ଆଖି", back:"ପଛକୁ", next:"ପରବର୍ତ୍ତୀ", audio:"ଅଡିଓ"
+});
+Object.assign(TDATA.as, {
+  subtitle:"AI সহায়ত প্ৰাথমিক চকু পৰীক্ষা", selectLanguageTitle:"ভাষা বাছনি কৰক",
+  welcome:"পৰীক্ষা আৰম্ভ কৰাৰ আগতে ভাষা বাছনি কৰক.", start:"পৰীক্ষা আৰম্ভ কৰক",
+  patient:"ৰোগীৰ তথ্য", name:"নাম", age:"বয়স", gender:"লিংগ", phone:"ফোন",
+  male:"পুৰুষ", female:"মহিলা", other:"অন্যান্য", whichEye:"কোনটো চকু?", eyeRight:"সোঁ চকু", eyeLeft:"বাওঁ চকু", eyeBoth:"দুয়োটা চকু",
+  right:"সোঁ চকু", left:"বাওঁ চকু", back:"পিছলৈ", next:"আগলৈ", audio:"অডিঅ'"
+});
+Object.assign(TDATA.ur, {
+  subtitle:"AI کی مدد سے ابتدائی آنکھ کا معائنہ", selectLanguageTitle:"زبان منتخب کریں",
+  welcome:"معائنہ شروع کرنے سے پہلے اپنی زبان منتخب کریں۔", start:"معائنہ شروع کریں",
+  patient:"مریض کی تفصیلات", name:"نام", age:"عمر", gender:"جنس", phone:"فون",
+  male:"مرد", female:"عورت", other:"دیگر", whichEye:"کونسی آنکھ؟", eyeRight:"دائیں آنکھ", eyeLeft:"بائیں آنکھ", eyeBoth:"دونوں آنکھیں",
+  right:"دائیں آنکھ", left:"بائیں آنکھ", back:"پیچھے", next:"اگلا", audio:"آڈیو"
+});
+Object.assign(TDATA.ne, {
+  subtitle:"AI सहयोगमा प्रारम्भिक आँखा जाँच", selectLanguageTitle:"भाषा छान्नुहोस्",
+  welcome:"जाँच सुरु गर्नु अघि आफ्नो भाषा छान्नुहोस्.", start:"जाँच सुरु गर्नुहोस्",
+  patient:"बिरामीको विवरण", name:"नाम", age:"उमेर", gender:"लिङ्ग", phone:"फोन",
+  male:"पुरुष", female:"महिला", other:"अन्य", whichEye:"कुन आँखा?", eyeRight:"दायाँ आँखा", eyeLeft:"बायाँ आँखा", eyeBoth:"दुबै आँखा",
+  right:"दायाँ आँखा", left:"बायाँ आँखा", back:"पछाडि", next:"अर्को", audio:"अडियो"
+});
+Object.assign(TDATA.sa, {
+  subtitle:"AI सहायितं प्रारम्भिकं नेत्रपरीक्षणम्", selectLanguageTitle:"भाषां चिनुत",
+  welcome:"परीक्षणारम्भात् पूर्वं भाषां चिनुत.", start:"परीक्षणम् आरभताम्",
+  patient:"रोगिणः विवरणम्", name:"नाम", age:"वयः", gender:"लिङ्गम्", phone:"दूरभाषः",
+  male:"पुरुषः", female:"स्त्री", other:"अन्यत्", right:"दक्षिणनेत्रम्", left:"वामनेत्रम्", back:"पृष्ठतः", next:"अग्रे", audio:"श्रव्यम्"
+});
+
+/* ========================================================= */
+/* SYMPTOMS */
+/* ========================================================= */
 const SYMPTOMS = [
-    ["redness", "Redness"], ["watering", "Watering"], ["itching", "Itching"],
-    ["photophobia", "Photophobia"], ["pain", "Pain"], ["discharge", "Discharge"],
-    ["foreignBody", "Foreign body sensation"], ["headache", "Headache"], ["blurred", "Blurred vision"],
-    ["flashes", "Flashes"], ["floaters", "Floaters"], ["strain", "Eye strain"],
-    ["colourDifficulty", "Colour vision"], ["night", "Night-vision difficulty"], ["double", "Double vision"]
+  ["redness","Redness"], ["watering","Watering"], ["itching","Itching"],
+  ["photophobia","Photophobia"], ["pain","Pain"], ["discharge","Discharge"],
+  ["foreignBody","Foreign body sensation"], ["headache","Headache"], ["blurred","Blurred vision"],
+  ["flashes","Flashes"], ["floaters","Floaters"], ["strain","Eye strain"],
+  ["colourDifficulty","Colour vision difficulty"], ["night","Night-vision difficulty"], ["double","Double vision"]
 ];
 
 let currentPage = 1;
 let distanceEye = "right";
 let nearEye = "right";
 let amslerEye = "right";
-let symptomEye = "right";
-let distanceResults = {right: "6/6", left: "6/6"};
-let nearResults = {right: "N6", left: "N6"};
-let amslerResults = {right: "normalGrid", left: "normalGrid"};
-let photos = {right: null, left: null};
+let symptomEye = "both";
+let distanceResults = {right:"6/6", left:"6/6"};
+let nearResults = {right:"N6", left:"N6"};
+let amslerResults = {right:"normalGrid", left:"normalGrid"};
+let photos = {right:null, left:null};
 let stream = null;
-let currentCameraEye = "right";
 let voices = [];
 
-function t(key) {
-    return (TDATA[currentLang] && TDATA[currentLang][key]) || TDATA.en[key] || key;
+/* ========================================================= */
+/* TRANSLATION */
+/* ========================================================= */
+function t(key){ return (TDATA[currentLang] && TDATA[currentLang][key]) || TDATA.en[key] || key; }
+
+function applyLanguage(){
+  document.documentElement.lang = currentLang;
+  document.getElementById("subtitle").textContent = t("subtitle");
+  document.getElementById("selectLanguageTitle").textContent = t("selectLanguageTitle");
+  document.getElementById("welcomeText").textContent = t("welcome");
+  document.getElementById("testAudioText").textContent = t("testAudio");
+  document.getElementById("audioHint").textContent = t("audioHint");
+  document.getElementById("startBtn").textContent = "▶ " + t("start");
+  document.getElementById("patientTitle").textContent = t("patient");
+  document.getElementById("nameLabel").textContent = t("name");
+  document.getElementById("ageLabel").textContent = t("age");
+  document.getElementById("genderLabel").textContent = t("gender");
+  document.getElementById("phoneLabel").textContent = t("phone");
+  document.getElementById("maleOpt").textContent = t("male");
+  document.getElementById("femaleOpt").textContent = t("female");
+  document.getElementById("otherGenderOpt").textContent = t("other");
+  document.getElementById("symptomTitle").textContent = t("symptoms");
+  document.getElementById("whichEyeLabel").textContent = t("whichEye");
+  document.getElementById("symptomRightBtn").textContent = t("eyeRight");
+  document.getElementById("symptomLeftBtn").textContent = t("eyeLeft");
+  document.getElementById("symptomBothBtn").textContent = t("eyeBoth");
+  document.getElementById("sinceLabel").textContent = t("since");
+  document.getElementById("historyTitle").textContent = t("history");
+  document.getElementById("specsLabel").textContent = t("specs");
+  document.getElementById("contactsLabel").textContent = t("contacts");
+  document.getElementById("surgeryLabel").textContent = t("surgery");
+  document.getElementById("otherHistoryLabel").textContent = t("otherHistory");
+  document.getElementById("patientInstruction").textContent = t("welcome");
+  document.getElementById("distanceTitle").textContent = t("distance");
+  document.getElementById("distanceInstruction").textContent = t("distanceInst");
+  document.getElementById("distanceResultLabel").textContent = t("bestLine");
+  document.getElementById("nearTitle").textContent = t("near");
+  document.getElementById("nearInstruction").textContent = t("nearInst");
+  document.getElementById("nearResultLabel").textContent = t("bestLine");
+  document.getElementById("colourTitle").textContent = t("colour");
+  document.getElementById("colourInstruction").textContent = t("colourInst");
+  document.getElementById("colourSummaryLabel").textContent = t("colourSummary");
+  document.getElementById("amslerTitle").textContent = t("amsler");
+  document.getElementById("amslerInstruction").textContent = t("amslerInst");
+  document.getElementById("cameraTitle").textContent = t("camera");
+  document.getElementById("cameraInstruction").textContent = t("cameraInst");
+  document.getElementById("allowCameraText").textContent = t("allowCamera");
+  document.getElementById("rightEyeTitle").textContent = t("right");
+  document.getElementById("leftEyeTitle").textContent = t("left");
+  document.getElementById("captureRightText").textContent = t("capture");
+  document.getElementById("captureLeftText").textContent = t("capture");
+  document.getElementById("removeRightText").textContent = t("remove");
+  document.getElementById("removeLeftText").textContent = t("remove");
+  document.getElementById("bannerSubtitle").textContent = t("bannerSubtitle");
+  document.getElementById("summaryTitleText").textContent = t("summaryTitle");
+  document.getElementById("summaryDescText").textContent = t("summaryDesc");
+  document.getElementById("examDetailsTitleText").textContent = t("examDetailsTitle");
+  document.getElementById("flagsTitleText").textContent = t("flagsTitle");
+  document.getElementById("recTitleText").textContent = t("recTitle");
+  document.getElementById("viewReportBtnText").textContent = t("viewReport");
+  document.getElementById("footerTagText").textContent = t("footerTag");
+  document.getElementById("reportIntro").textContent = t("reportIntro");
+  document.getElementById("reportPatientTitle").textContent = t("patientInfo");
+  document.getElementById("reportVATitle").textContent = t("visualAcuity");
+  document.getElementById("reportColourTitle").textContent = t("colourVision");
+  document.getElementById("reportAmslerTitle").textContent = t("amslerReport");
+  document.getElementById("reportSymptomsTitle").textContent = t("symptomsReport");
+  document.getElementById("photosTitle").textContent = t("photos");
+  document.getElementById("importantTitle").textContent = t("important");
+  document.getElementById("disclaimer").textContent = t("disclaimer");
+  document.getElementById("analyseBtn").textContent = "🧠 " + t("analyse");
+  document.getElementById("printBtn").textContent = "🖨 " + t("print");
+  document.getElementById("newExamBtn").textContent = "🆕 " + t("newExam");
+  document.getElementById("backBtn").textContent = "← " + t("back");
+  document.getElementById("nextBtn").textContent = t("next") + " →";
+  document.getElementById("navAudioText").textContent = t("audio");
+
+  createSelectOptions();
+  createSymptoms();
+  createAmslerOptions();
+  updateEyeButtons();
+  updateCameraUI();
+  updatePageNumber();
+  updateVoiceStatus();
+  updateReport();
 }
 
-function applyLanguage() {
-    document.documentElement.lang = currentLang;
-    document.getElementById("subtitle").textContent = t("subtitle");
-    document.getElementById("selectLanguageTitle").textContent = t("selectLanguageTitle");
-    document.getElementById("welcomeText").textContent = t("welcome");
-    document.getElementById("testAudioText").textContent = t("testAudio");
-    document.getElementById("audioHint").textContent = t("audioHint");
-    document.getElementById("startBtn").textContent = "► " + t("start");
-    
-    document.getElementById("patientTitle").textContent = t("patient");
-    document.getElementById("nameLabel").textContent = t("name");
-    document.getElementById("ageLabel").textContent = t("age");
-    document.getElementById("genderLabel").textContent = t("gender");
-    document.getElementById("phoneLabel").textContent = t("phone");
-    document.getElementById("maleOpt").textContent = t("male");
-    document.getElementById("femaleOpt").textContent = t("female");
-    document.getElementById("otherGenderOpt").textContent = t("other");
-    
-    document.getElementById("symptomTitle").textContent = t("symptoms");
-    document.getElementById("sinceLabel").textContent = t("since");
-    document.getElementById("historyTitle").textContent = t("history");
-    document.getElementById("specsLabel").textContent = t("specs");
-    document.getElementById("contactsLabel").textContent = t("contacts");
-    document.getElementById("surgeryLabel").textContent = t("surgery");
-    document.getElementById("otherHistoryLabel").textContent = t("otherHistory");
-    document.getElementById("patientInstruction").textContent = t("welcome");
-    
-    document.getElementById("distanceTitle").textContent = t("distance");
-    document.getElementById("distanceInstruction").textContent = t("distanceInst");
-    document.getElementById("distanceResultLabel").textContent = t("bestLine");
-    
-    document.getElementById("nearTitle").textContent = t("near");
-    document.getElementById("nearInstruction").textContent = t("nearInst");
-    document.getElementById("nearResultLabel").textContent = t("bestLine");
-    
-    document.getElementById("colourTitle").textContent = t("colour");
-    document.getElementById("colourInstruction").textContent = t("colourInst");
-    document.getElementById("colourSummaryLabel").textContent = t("colourSummary");
-    
-    document.getElementById("amslerTitle").textContent = t("amsler");
-    document.getElementById("amslerInstruction").textContent = t("amslerInst");
-    
-    document.getElementById("cameraTitle").textContent = t("camera");
-    document.getElementById("cameraInstruction").textContent = t("cameraInst");
-    document.getElementById("allowCameraText").textContent = t("allowCamera");
-    document.getElementById("rightEyeTitle").textContent = t("right");
-    document.getElementById("leftEyeTitle").textContent = t("left");
-    document.getElementById("captureRightText").textContent = t("capture");
-    document.getElementById("captureLeftText").textContent = t("capture");
-    document.getElementById("removeRightText").textContent = t("remove");
-    document.getElementById("removeLeftText").textContent = t("remove");
-    
-    document.getElementById("backBtn").textContent = "← " + t("back");
-    document.getElementById("nextBtn").textContent = t("next") + " →";
-    document.getElementById("navAudioText").textContent = t("audio");
-
-    createSelectOptions();
-    createSymptoms();
-    createAmslerOptions();
-    updateEyeButtons();
-    updateCameraUI();
-    updatePageNumber();
-    updateVoiceStatus();
-}
-
-function createLanguageButtons() {
-    const grid = document.getElementById("languageGrid");
-    grid.innerHTML = "";
-    LANGS.forEach((lang, index) => {
-        const b = document.createElement("button");
-        b.className = "langBtn" + (lang.id === currentLang ? " active" : "");
-        b.innerHTML = "<b>" + (index + 1) + ".</b> " + lang.native + "<br><span style='opacity:.7'>" + lang.name + "</span>";
-        b.onclick = () => {
-            currentLang = lang.id;
-            createLanguageButtons();
-            applyLanguage();
-            testAudio(); // Added audio trigger on selection
-        };
-        grid.appendChild(b);
-    });
-}
-
-function createSelectOptions() {
-    const yesNo = [["unknown", t("notKnown")], ["no", t("no")], ["yes", t("yes")], ["", ""]];
-    ["specs", "contacts", "surgery"].forEach(id => {
-        const el = document.getElementById(id);
-        const old = el.value;
-        el.innerHTML = "";
-        yesNo.forEach(x => {
-            const o = document.createElement("option");
-            o.value = x[0]; o.textContent = x[1];
-            el.appendChild(o);
-        });
-        if (old) el.value = old;
-    });
-
-    const cs = document.getElementById("colourSummary");
-    const oldc = cs.value;
-    cs.innerHTML = "";
-    [["normal", t("normal")], ["", ""], ["unable", t("unable")], ["difficulty", t("difficulty")]].forEach(x => {
-        const o = document.createElement("option");
-        o.value = x[0]; o.textContent = x[1];
-        cs.appendChild(o);
-    });
-    cs.value = oldc;
-}
-
-function createSymptoms() {
-    const box = document.getElementById("symptomGrid");
-    const selected = [...box.querySelectorAll("input:checked")].map(x => x.value);
-    box.innerHTML = "";
-    SYMPTOMS.forEach(([id, en]) => {
-        const label = document.createElement("label");
-        label.className = "check";
-        const input = document.createElement("input");
-        input.type = "checkbox";
-        input.value = id;
-        input.checked = selected.includes(id);
-        const span = document.createElement("span");
-        span.textContent = en; // Use EN as default mapping, could map to TDATA
-        label.appendChild(input);
-        label.appendChild(span);
-        box.appendChild(label);
-    });
-}
-
-function createAmslerOptions() {
-    const ar = document.getElementById("amslerResult");
-    if(!ar) return;
-    const old = ar.value || "normalGrid";
-    ar.innerHTML = "";
-    [["normalGrid", t("normalGrid")], ["wavy", t("wavy")], ["missing", t("missing")], ["blur", t("blur")]].forEach(x => {
-        const o = document.createElement("option");
-        o.value = x[0]; o.textContent = x[1];
-        ar.appendChild(o);
-    });
-    ar.value = old;
-}
-
-function showPage(n) {
-    if (n < 1) n = 1;
-    if (n > 8) n = 8;
-    currentPage = n;
-    document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-    document.getElementById("page" + n).classList.add("active");
-    if (n === 8) analyseScreening();
-    updatePageNumber();
-}
-
-function nextPage() { if (currentPage < 8) showPage(currentPage + 1); }
-function previousPage() { if (currentPage > 1) showPage(currentPage - 1); }
-
-function updatePageNumber() {
-    document.getElementById("pageNo").textContent = currentPage + "/8";
-    document.getElementById("backBtn").style.visibility = currentPage === 1 ? "hidden" : "visible";
-    document.getElementById("nextBtn").style.visibility = currentPage === 8 ? "hidden" : "visible";
-}
-
-function selectDistanceEye(eye) {
-    distanceResults[distanceEye] = document.getElementById("distanceResult").value;
-    distanceEye = eye;
-    document.getElementById("distanceResult").value = distanceResults[eye];
-    updateEyeButtons();
-}
-document.getElementById("distanceResult").addEventListener("change", () => {
-    distanceResults[distanceEye] = document.getElementById("distanceResult").value;
-});
-
-function selectNearEye(eye) {
-    nearResults[nearEye] = document.getElementById("nearResult").value;
-    nearEye = eye;
-    document.getElementById("nearResult").value = nearResults[eye];
-    updateEyeButtons();
-}
-document.getElementById("nearResult").addEventListener("change", () => {
-    nearResults[nearEye] = document.getElementById("nearResult").value;
-});
-
-function selectAmslerEye(eye) {
-    amslerResults[amslerEye] = document.getElementById("amslerResult").value;
-    amslerEye = eye;
-    document.getElementById("amslerResult").value = amslerResults[eye];
-    updateEyeButtons();
-}
-document.getElementById("amslerResult").addEventListener("change", () => {
-    amslerResults[amslerEye] = document.getElementById("amslerResult").value;
-});
-
-function selectSymptomEye(eye) {
-    symptomEye = eye;
-    updateEyeButtons();
-}
-
-function updateEyeButtons() {
-    document.getElementById("distanceRightBtn").classList.toggle("active", distanceEye === "right");
-    document.getElementById("distanceLeftBtn").classList.toggle("active", distanceEye === "left");
-    document.getElementById("nearRightBtn").classList.toggle("active", nearEye === "right");
-    document.getElementById("nearLeftBtn").classList.toggle("active", nearEye === "left");
-    document.getElementById("amslerRightBtn").classList.toggle("active", amslerEye === "right");
-    document.getElementById("amslerLeftBtn").classList.toggle("active", amslerEye === "left");
-    
-    document.getElementById("symptomRightBtn").classList.toggle("active", symptomEye === "right");
-    document.getElementById("symptomLeftBtn").classList.toggle("active", symptomEye === "left");
-
-    document.getElementById("distanceEyeStatus").textContent = distanceEye === "right" ? t("rightSelected") : t("leftSelected");
-    document.getElementById("nearEyeStatus").textContent = nearEye === "right" ? t("rightSelected") : t("leftSelected");
-}
-
-async function startCamera() {
-    if (stream) { updateCameraUI(); return; }
-    try {
-        stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: "user" } }, audio: false });
-        const video = document.getElementById("video");
-        video.srcObject = stream;
-        document.getElementById("cameraStatus").textContent = t("cameraReady");
-    } catch(err) {
-        stream = null;
-        document.getElementById("cameraStatus").textContent = t("cameraError");
-        alert(t("cameraError"));
-    }
-}
-
-function capturePhoto(eye) {
-    if (!stream) { alert(t("cameraError")); return; }
-    const video = document.getElementById("video");
-    const canvas = document.createElement("canvas");
-    canvas.width = video.videoWidth || 640;
-    canvas.height = video.videoHeight || 480;
-    const ctx = canvas.getContext("2d");
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-    photos[eye] = canvas.toDataURL("image/jpeg", .88);
-    updateCameraUI();
-}
-
-function removePhoto(eye) { photos[eye] = null; updateCameraUI(); }
-
-function updateCameraUI() {
-    const right = document.getElementById("rightPhotoArea");
-    const left = document.getElementById("leftPhotoArea");
-    right.innerHTML = photos.right ? `<img class="photoPreview" src="${photos.right}" alt="Right eye">` : `<div class="photoEmpty">${t("noPhoto")}</div>`;
-    left.innerHTML = photos.left ? `<img class="photoPreview" src="${photos.left}" alt="Left eye">` : `<div class="photoEmpty">${t("noPhoto")}</div>`;
-    document.getElementById("cameraTarget").textContent = t("cameraTarget") + ": " + (currentCameraEye === "right" ? t("right") : t("left"));
-}
-
-function loadVoices() {
-    if ("speechSynthesis" in window) {
-        voices = window.speechSynthesis.getVoices() || [];
-        updateVoiceStatus();
-    }
-}
-
-if ("speechSynthesis" in window) {
-    speechSynthesis.onvoiceschanged = loadVoices;
-    setTimeout(loadVoices, 500);
-}
-
-function findVoice() {
-    const lang = LANGS.find(x => x.id === currentLang);
-    if (!lang) return null;
-    for (const wanted of lang.voices) {
-        let v = voices.find(x => x.lang.toLowerCase() === wanted.toLowerCase());
-        if (v) return v;
-    }
-    const base = lang.voices[0].split("-")[0];
-    return voices.find(x => x.lang.toLowerCase().startsWith(base)) || null;
-}
-
-function updateVoiceStatus() {
-    const status = document.getElementById("voiceStatus");
-    if (!("speechSynthesis" in window)) { status.textContent = "Voice: unavailable"; return; }
-    const voice = findVoice();
-    if (voice) { status.textContent = "Voice: " + voice.lang; } 
-    else { status.textContent = t("voiceUnavailable"); }
-}
-
-function speak(text) {
-    if (!("speechSynthesis" in window)) { alert(t("speechUnsupported")); return; }
-    const voice = findVoice();
-    if (!voice) { alert(t("voiceUnavailable")); updateVoiceStatus(); return; }
-    speechSynthesis.cancel();
-    const utter = new SpeechSynthesisUtterance(text);
-    utter.voice = voice;
-    utter.lang = voice.lang;
-    utter.rate = 0.88;
-    utter.pitch = 1;
-    speechSynthesis.speak(utter);
-}
-
-function testAudio() { speak(t("welcome")); }
-
-function speakCurrentPage() {
-    const texts = {
-        1: t("welcome"),
-        2: t("patient") + " " + t("symptoms") + " " + t("history"),
-        3: t("distanceInst"),
-        4: t("nearInst"),
-        5: t("colourInst"),
-        6: t("amslerInst"),
-        7: t("cameraInst"),
-        8: t("reportIntro")
+/* ========================================================= */
+/* LANGUAGE BUTTONS */
+/* ========================================================= */
+function createLanguageButtons(){
+  const grid = document.getElementById("languageGrid");
+  grid.innerHTML = "";
+  LANGS.forEach((lang, index) => {
+    const b = document.createElement("button");
+    b.className = "langBtn" + (lang.id === currentLang ? " active" : "");
+    b.innerHTML = "<b>" + (index+1) + ".</b> " + lang.native + "<br><span style='opacity:.7'>" + lang.name + "</span>";
+    b.onclick = () => {
+      currentLang = lang.id;
+      createLanguageButtons();
+      applyLanguage();
+      autoPlayLanguageAudio();
     };
-    speak(texts[currentPage] || t("welcome"));
+    grid.appendChild(b);
+  });
 }
 
-function selectedSymptoms() {
-    return [...document.querySelectorAll("#symptomGrid input:checked")].map(x => x.value);
+function autoPlayLanguageAudio(){
+  const text = t("welcome");
+  speak(text);
 }
 
-function escapeHTML(str) {
-    return String(str)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
+/* ========================================================= */
+/* SELECT OPTIONS */
+/* ========================================================= */
+function createSelectOptions(){
+  const yesNo = [["","—"],["yes",t("yes")],["no",t("no")],["unknown",t("notKnown")]];
+  ["specs","contacts","surgery"].forEach(id=>{
+    const el = document.getElementById(id);
+    const old = el.value;
+    el.innerHTML = "";
+    yesNo.forEach(x=>{
+      const o = document.createElement("option");
+      o.value = x[0]; o.textContent = x[1];
+      el.appendChild(o);
+    });
+    if(old) el.value = old;
+  });
+
+  const cs = document.getElementById("colourSummary");
+  const oldc = cs.value;
+  cs.innerHTML = "";
+  [["","—"],["normal",t("normal")],["difficulty",t("difficulty")],["unable",t("unable")]].forEach(x=>{
+    const o = document.createElement("option");
+    o.value = x[0]; o.textContent = x[1];
+    cs.appendChild(o);
+  });
+  cs.value = oldc;
+
+  createAmslerOptions();
 }
 
-function analyseScreening() {
-    const distanceBadRight = distanceResults.right !== "6/6";
-    const distanceBadLeft = distanceResults.left !== "6/6";
-    const nearBadRight = nearResults.right !== "N6";
-    const nearBadLeft = nearResults.left !== "N6";
-    
-    const colourAnswers = [...document.querySelectorAll(".colourAnswer")];
-    const colourIncomplete = colourAnswers.some(x => x.value === "");
-    const colourWrong = colourAnswers.some(x => x.value !== "" && x.value !== x.dataset.correct);
-    
-    const amslerBadRight = amslerResults.right !== "normalGrid";
-    const amslerBadLeft = amslerResults.left !== "normalGrid";
-    
-    const symptoms = selectedSymptoms();
-
-    const flags = [];
-    if (distanceBadRight || nearBadRight) flags.push("Reduced visual acuity noted in the right eye.");
-    if (distanceBadLeft || nearBadLeft) flags.push("Reduced visual acuity noted in the left eye.");
-    if (colourWrong || colourIncomplete) flags.push("Colour vision response requires further assessment.");
-    if (symptoms.length) flags.push("Reported eye symptoms require clinical correlation.");
-    if (amslerBadRight || amslerBadLeft) flags.push("Amsler grid response requires further clinical correlation.");
-
-    const flagsEl = document.getElementById("summaryFlags");
-    if (flags.length === 0) {
-        flagsEl.innerHTML = `<li>No significant screening flags identified.</li>`;
-        document.getElementById("summaryRecommendation").textContent = t("recommendNormal") || "Continue routine eye examinations. Seek professional assessment if symptoms are persistent or vision changes.";
-    } else {
-        flagsEl.innerHTML = flags.map(f => `<li>${escapeHTML(f)}</li>`).join("");
-        document.getElementById("summaryRecommendation").textContent = t("recommendReview") || "Further comprehensive eye examination by an Optometrist/Ophthalmologist is recommended.";
-    }
+function createSymptoms(){
+  const box = document.getElementById("symptomGrid");
+  const selected = [...box.querySelectorAll("input:checked")].map(x=>x.value);
+  box.innerHTML = "";
+  SYMPTOMS.forEach(([id,en])=>{
+    const label = document.createElement("label");
+    label.className = "check";
+    const input = document.createElement("input");
+    input.type = "checkbox";
+    input.value = id;
+    input.checked = selected.includes(id);
+    input.addEventListener("change", updateReport);
+    const span = document.createElement("span");
+    span.textContent = SYMPTOM_LABELS(id);
+    label.appendChild(input);
+    label.appendChild(span);
+    box.appendChild(label);
+  });
 }
 
-// Initializer
+function SYMPTOM_LABELS(id){
+  const labels = {
+    itching:{en:"Itching",ml:"ചൊറിച്ചിൽ",hi:"खुजली",ta:"அரிப்பு"},
+    watering:{en:"Watering",ml:"കണ്ണിൽ വെള്ളം വരുക",hi:"पानी आना",ta:"நீர் வடிதல்"},
+    redness:{en:"Redness",ml:"ചുവപ്പ്",hi:"लालिमा",ta:"சிவப்பு"},
+    discharge:{en:"Discharge",ml:"സ്രവം",hi:"स्राव",ta:"சுரப்பு"},
+    pain:{en:"Pain",ml:"വേദന",hi:"दर्द",ta:"வலி"},
+    photophobia:{en:"Photophobia",ml:"വെളിച്ചം അസഹിഷ്ണുത",hi:"प्रकाश से परेशानी",ta:"ஒளி கூச்சம்"},
+    blurred:{en:"Blurred vision",ml:"കാഴ്ച മങ്ങൽ",hi:"धुंधली दृष्टि",ta:"மங்கலான பார்வை"},
+    headache:{en:"Headache",ml:"തലവേദന",hi:"सिरदर्द",ta:"தலை வலி"},
+    foreignBody:{en:"Foreign body sensation",ml:"കണ്ണിൽ എന്തോ ഉള്ളതുപോലെ",hi:"आंख में कुछ होने का एहसास",ta:"கண்ணில் ஏதோ இருப்பது போன்ற உணர்வு"},
+    strain:{en:"Eye strain",ml:"കണ്ണിന് ക്ഷീണം",hi:"आंखों में थकान",ta:"கண் சோர்வு"},
+    floaters:{en:"Floaters",ml:"ഫ്ലോട്ടേഴ്സ്",hi:"फ्लोटर्स",ta:"மிதக்கும் புள்ளிகள்"},
+    flashes:{en:"Flashes",ml:"വെളിച്ച മിന്നൽ",hi:"चमक दिखाई देना",ta:"ஒளி மின்னல்"},
+    double:{en:"Double vision",ml:"ഇരട്ട കാഴ്ച",hi:"दोहरी दृष्टि",ta:"இரட்டை பார்வை"},
+    night:{en:"Night-vision difficulty",ml:"രാത്രി കാഴ്ച ബുദ്ധിമുട്ട്",hi:"रात में देखने में कठिनाई",ta:"இரவு பார்வை சிரமம்"},
+    colourDifficulty:{en:"Colour vision difficulty",ml:"നിറം തിരിച്ചറിയാൻ ബുദ്ധിമുട്ട്",hi:"रंग पहचानने में कठिनाई",ta:"நிறங்களை அறிதல் சிரமம்"}
+  };
+  return (labels[id] && labels[id][currentLang]) || (labels[id] && labels[id].en) || id;
+}
+
+function createAmslerOptions(){
+  const ar = document.getElementById("amslerResult");
+  if(!ar) return;
+  const old = ar.value || "normalGrid";
+  ar.innerHTML = "";
+  [["normalGrid",t("normalGrid")],["wavy",t("wavy")],["missing",t("missing")],["blur",t("blur")]].forEach(x=>{
+    const o = document.createElement("option");
+    o.value = x[0]; o.textContent = x[1];
+    ar.appendChild(o);
+  });
+  ar.value = old;
+}
+
+/* ========================================================= */
+/* PAGE NAVIGATION */
+/* ========================================================= */
+function showPage(n){
+  if(n<1) n=1;
+  if(n>8) n=8;
+  currentPage = n;
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  document.getElementById("page"+n).classList.add("active");
+  if(n===8) updateReport();
+  updatePageNumber();
+  if(n!==1) speakCurrentPage();
+}
+function nextPage(){ if(currentPage<8) showPage(currentPage+1); }
+function previousPage(){ if(currentPage>1) showPage(currentPage-1); }
+function updatePageNumber(){
+  document.getElementById("pageNo").textContent = currentPage + " / 8";
+  document.getElementById("backBtn").style.visibility = currentPage===1 ? "hidden" : "visible";
+  document.getElementById("nextBtn").style.visibility = currentPage===8 ? "hidden" : "visible";
+}
+
+/* ========================================================= */
+/* EYE SELECTORS */
+/* ========================================================= */
+function selectDistanceEye(eye){
+  distanceResults[distanceEye] = document.getElementById("distanceResult").value;
+  distanceEye = eye;
+  document.getElementById("distanceResult").value = distanceResults[eye];
+  updateEyeButtons();
+}
+document.addEventListener("DOMContentLoaded", ()=>{
+  document.getElementById("distanceResult").addEventListener("change", ()=>{ distanceResults[distanceEye]=document.getElementById("distanceResult").value; });
+  document.getElementById("nearResult").addEventListener("change", ()=>{ nearResults[nearEye]=document.getElementById("nearResult").value; });
+  document.getElementById("amslerResult").addEventListener("change", ()=>{ amslerResults[amslerEye]=document.getElementById("amslerResult").value; updateReport(); });
+});
+
+function selectNearEye(eye){
+  nearResults[nearEye] = document.getElementById("nearResult").value;
+  nearEye = eye;
+  document.getElementById("nearResult").value = nearResults[eye];
+  updateEyeButtons();
+}
+function selectAmslerEye(eye){
+  amslerResults[amslerEye] = document.getElementById("amslerResult").value;
+  amslerEye = eye;
+  document.getElementById("amslerResult").value = amslerResults[eye];
+  updateEyeButtons();
+}
+function selectSymptomEye(eye){
+  symptomEye = eye;
+  updateEyeButtons();
+  updateReport();
+}
+function updateEyeButtons(){
+  document.getElementById("distanceRightBtn").classList.toggle("active", distanceEye==="right");
+  document.getElementById("distanceLeftBtn").classList.toggle("active", distanceEye==="left");
+  document.getElementById("nearRightBtn").classList.toggle("active", nearEye==="right");
+  document.getElementById("nearLeftBtn").classList.toggle("active", nearEye==="left");
+  document.getElementById("amslerRightBtn").classList.toggle("active", amslerEye==="right");
+  document.getElementById("amslerLeftBtn").classList.toggle("active", amslerEye==="left");
+  document.getElementById("symptomRightBtn").classList.toggle("active", symptomEye==="right");
+  document.getElementById("symptomLeftBtn").classList.toggle("active", symptomEye==="left");
+  document.getElementById("symptomBothBtn").classList.toggle("active", symptomEye==="both");
+  document.getElementById("distanceEyeStatus").textContent = distanceEye==="right" ? t("rightSelected") : t("leftSelected");
+  document.getElementById("nearEyeStatus").textContent = nearEye==="right" ? t("rightSelected") : t("leftSelected");
+}
+
+/* ========================================================= */
+/* CAMERA */
+/* ========================================================= */
+async function startCamera(){
+  if(stream){ updateCameraUI(); return; }
+  try{
+    stream = await navigator.mediaDevices.getUserMedia({ video:{ facingMode:{exact:"user"} }, audio:false });
+    const video = document.getElementById("video");
+    video.srcObject = stream;
+    document.getElementById("cameraStatus").textContent = t("cameraReady");
+  }catch(err){
+    stream = null;
+    document.getElementById("cameraStatus").textContent = t("cameraError");
+    alert(t("cameraError"));
+  }
+}
+function capturePhoto(eye){
+  if(!stream){ alert(t("cameraError")); return; }
+  const video = document.getElementById("video");
+  const canvas = document.createElement("canvas");
+  canvas.width = video.videoWidth || 640;
+  canvas.height = video.videoHeight || 480;
+  const ctx = canvas.getContext("2d");
+  ctx.drawImage(video,0,0,canvas.width,canvas.height);
+  photos[eye] = canvas.toDataURL("image/jpeg",.88);
+  updateCameraUI();
+  updateReport();
+}
+function removePhoto(eye){
+  photos[eye] = null;
+  updateCameraUI();
+  updateReport();
+}
+function updateCameraUI(){
+  const right = document.getElementById("rightPhotoArea");
+  const left = document.getElementById("leftPhotoArea");
+  right.innerHTML = photos.right ? `<img class="photoPreview" src="${photos.right}" alt="Right eye">` : `<div class="photoEmpty">${t("noPhoto")}</div>`;
+  left.innerHTML = photos.left ? `<img class="photoPreview" src="${photos.left}" alt="Left eye">` : `<div class="photoEmpty">${t("noPhoto")}</div>`;
+  document.getElementById("cameraTarget").textContent = t("cameraTarget") + ": " + t("right");
+}
+
+/* ========================================================= */
+/* AUDIO */
+/* ========================================================= */
+function loadVoices(){
+  if("speechSynthesis" in window){
+    voices = window.speechSynthesis.getVoices() || [];
+    updateVoiceStatus();
+  }
+}
+if("speechSynthesis" in window){
+  speechSynthesis.onvoiceschanged = loadVoices;
+  setTimeout(loadVoices,500);
+}
+function findVoice(){
+  const lang = LANGS.find(x=>x.id===currentLang);
+  if(!lang) return null;
+  for(const wanted of lang.voices){
+    let v = voices.find(x=>x.lang.toLowerCase()===wanted.toLowerCase());
+    if(v) return v;
+  }
+  const base = lang.voices[0].split("-")[0];
+  return voices.find(x=>x.lang.toLowerCase().startsWith(base)) || null;
+}
+function updateVoiceStatus(){
+  const status = document.getElementById("voiceStatus");
+  if(!("speechSynthesis" in window)){ status.textContent = "Voice: unavailable"; return; }
+  const voice = findVoice();
+  if(voice){ status.textContent = "🔊 " + voice.lang; }
+  else{ status.textContent = "🔇 " + t("voiceUnavailable"); }
+}
+function speak(text){
+  if(!("speechSynthesis" in window)){ alert(t("speechUnsupported")); return; }
+  const voice = findVoice();
+  speechSynthesis.cancel();
+  const utter = new SpeechSynthesisUtterance(text);
+  if(voice){ utter.voice = voice; utter.lang = voice.lang; }
+  utter.rate = .9;
+  utter.pitch = 1;
+  speechSynthesis.speak(utter);
+  updateVoiceStatus();
+}
+function testAudio(){ speak(t("welcome")); }
+function speakCurrentPage(){
+  const texts = {
+    1: t("welcome"),
+    2: t("patient")+". "+t("symptoms")+". "+t("history"),
+    3: t("distanceInst"),
+    4: t("nearInst"),
+    5: t("colourInst"),
+    6: t("amslerInst"),
+    7: t("cameraInst"),
+    8: t("summaryDesc")+" "+t("disclaimer")
+  };
+  speak(texts[currentPage] || t("welcome"));
+}
+
+/* ========================================================= */
+/* REPORT */
+/* ========================================================= */
+function selectedSymptoms(){
+  return [...document.querySelectorAll("#symptomGrid input:checked")].map(x=>SYMPTOM_LABELS(x.value));
+}
+function toggleFullReport(){
+  const el = document.getElementById("reportDetail");
+  el.classList.toggle("open");
+}
+function updateReport(){
+  const name = document.getElementById("patientName").value || "—";
+  const age = document.getElementById("patientAge").value || "—";
+  const gender = document.getElementById("gender").value;
+  const phone = document.getElementById("phone").value || "—";
+  let genderText = "—";
+  if(gender==="male") genderText = t("male");
+  if(gender==="female") genderText = t("female");
+  if(gender==="other") genderText = t("other");
+
+  document.getElementById("patientReport").innerHTML =
+    `<p><b>${t("name")}:</b> ${escapeHTML(name)}</p>
+     <p><b>${t("age")}:</b> ${escapeHTML(age)}</p>
+     <p><b>${t("gender")}:</b> ${escapeHTML(genderText)}</p>
+     <p><b>${t("phone")}:</b> ${escapeHTML(phone)}</p>`;
+
+  document.getElementById("vaReport").innerHTML =
+    `<p><b>${t("right")}:</b> ${distanceResults.right} / ${nearResults.right}</p>
+     <p><b>${t("left")}:</b> ${distanceResults.left} / ${nearResults.left}</p>`;
+
+  const answers = [...document.querySelectorAll(".colourAnswer")];
+  const answered = answers.filter(x=>x.value!=="");
+  const correct = answered.filter(x=>x.value===x.dataset.correct).length;
+  let colourStatus = "—";
+  if(document.getElementById("colourSummary").value){
+    colourStatus = document.getElementById("colourSummary").selectedOptions[0].textContent;
+  } else if(answered.length===answers.length){
+    colourStatus = correct===answers.length ? t("normal") : t("difficulty");
+  }
+  document.getElementById("colourReport").innerHTML =
+    `<p>${escapeHTML(colourStatus)}</p><p>${correct}/${answers.length} ${t("normal")}</p>`;
+
+  document.getElementById("amslerReport").innerHTML =
+    `<p><b>${t("right")}:</b> ${escapeHTML(t(amslerResults.right))}</p>
+     <p><b>${t("left")}:</b> ${escapeHTML(t(amslerResults.left))}</p>`;
+
+  const symptoms = selectedSymptoms();
+  const eyeLabel = symptomEye==="right" ? t("eyeRight") : symptomEye==="left" ? t("eyeLeft") : t("eyeBoth");
+  document.getElementById("symptomsReport").innerHTML = symptoms.length
+    ? `<p>${symptoms.map(escapeHTML).join(", ")}</p>
+       <p><b>${t("whichEye")}:</b> ${escapeHTML(eyeLabel)}</p>
+       <p><b>${t("since")}:</b> ${escapeHTML(document.getElementById("symptomSince").value || "—")}</p>`
+    : `<p>—</p>`;
+
+  updatePhotosReport();
+  updateExamDetails();
+}
+function updateExamDetails(){
+  const metaEl = document.getElementById("examMetaRow");
+  const gridEl = document.getElementById("examTestGrid");
+  if(!metaEl || !gridEl) return;
+
+  const name = document.getElementById("patientName").value;
+  const age = document.getElementById("patientAge").value;
+  const now = new Date();
+  const dateStr = now.toLocaleDateString() + " " + now.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});
+
+  let patientLine = name ? escapeHTML(name) : t("notRecorded");
+  if(age) patientLine += " (" + escapeHTML(age) + " " + t("yearsOld") + ")";
+
+  metaEl.innerHTML =
+    `<span><b>${t("examDate")}:</b> ${dateStr}</span>
+     <span><b>${t("examPatient")}:</b> ${patientLine}</span>`;
+
+  const distanceDone = distanceResults.right!=="6/6" || distanceResults.left!=="6/6";
+  const nearDone = nearResults.right!=="N6" || nearResults.left!=="N6";
+  const colourAnswers = [...document.querySelectorAll(".colourAnswer")];
+  const colourAnswered = colourAnswers.some(x=>x.value!=="") || document.getElementById("colourSummary").value;
+  const colourWrong = colourAnswers.some(x=>x.value!=="" && x.value!==x.dataset.correct);
+  const amslerFlag = amslerResults.right!=="normalGrid" || amslerResults.left!=="normalGrid";
+  const symptoms = selectedSymptoms();
+  const hasPhotos = photos.right || photos.left;
+
+  function item(nameKey, resultText, dotClass){
+    return `<div class="examTestItem">
+      <div class="tName"><span class="examStatusDot ${dotClass}"></span>${t(nameKey)}</div>
+      <div class="tResult">${resultText}</div>
+    </div>`;
+  }
+
+  gridEl.innerHTML =
+    item("testDistanceVA", `${t("right")}: ${distanceResults.right} · ${t("left")}: ${distanceResults.left}`, distanceDone ? "dotWarn" : "dotOk") +
+    item("testNearVA", `${t("right")}: ${nearResults.right} · ${t("left")}: ${nearResults.left}`, nearDone ? "dotWarn" : "dotOk") +
+    item("testColour", colourAnswered ? (colourWrong ? t("difficulty") : t("normal")) : t("notRecorded"), colourWrong ? "dotWarn" : (colourAnswered ? "dotOk" : "dotNeutral")) +
+    item("testAmsler", `${t("right")}: ${t(amslerResults.right)} · ${t("left")}: ${t(amslerResults.left)}`, amslerFlag ? "dotWarn" : "dotOk") +
+    item("testSymptoms", symptoms.length ? symptoms.map(escapeHTML).join(", ") : t("noSymptomsReported"), symptoms.length ? "dotWarn" : "dotOk") +
+    item("testPhotos", hasPhotos ? t("photosTaken") : t("noPhotosTaken"), hasPhotos ? "dotOk" : "dotNeutral");
+}
+function updatePhotosReport(){
+  document.getElementById("reportRightPhoto").innerHTML = photos.right
+    ? `<img class="photoPreview" src="${photos.right}" alt="Right eye">`
+    : `<div class="photoEmpty">${t("noPhoto")}</div>`;
+  document.getElementById("reportLeftPhoto").innerHTML = photos.left
+    ? `<img class="photoPreview" src="${photos.left}" alt="Left eye">`
+    : `<div class="photoEmpty">${t("noPhoto")}</div>`;
+}
+function escapeHTML(str){
+  return String(str)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+/* ========================================================= */
+/* AI ASSISTED ANALYSIS */
+/* ========================================================= */
+function analyseScreening(){
+  updateReport();
+  const results = [];
+  const distanceBad = distanceResults.right!=="6/6" || distanceResults.left!=="6/6";
+  const nearBad = nearResults.right!=="N6" || nearResults.left!=="N6";
+  const colourAnswers = [...document.querySelectorAll(".colourAnswer")];
+  const colourIncomplete = colourAnswers.some(x=>x.value==="");
+  const colourWrong = colourAnswers.some(x=>x.value!=="" && x.value!==x.dataset.correct);
+  const amslerBad = amslerResults.right!=="normalGrid" || amslerResults.left!=="normalGrid";
+  const symptoms = selectedSymptoms();
+
+  if(distanceBad || nearBad){
+    let eyeWord = t("eyeBoth");
+    if(distanceBad && !nearBad){ eyeWord = distanceResults.right!=="6/6" ? t("rightEyeWord") : t("leftEyeWord"); }
+    results.push(t("vaFlag").replace("{EYE}", eyeWord==="—"?t("eyeBoth"):eyeWord));
+    results.push(t("analysisVA"));
+  }
+  if(colourWrong || colourIncomplete){
+    results.push(t("colourFlag"));
+  }
+  if(amslerBad){
+    results.push(t("amslerFlag"));
+    results.push(t("analysisAmsler"));
+  }
+  if(symptoms.length){
+    results.push(t("symptomFlag"));
+  }
+  if(!results.length){
+    results.push(t("noFlags"));
+  }
+
+  document.getElementById("aiResults").innerHTML =
+    "<ul>" + results.map(x=>"<li>"+escapeHTML(x)+"</li>").join("") + "</ul>";
+
+  const anyFlag = distanceBad || nearBad || colourWrong || amslerBad || symptoms.length;
+  const recommendation = anyFlag ? t("recommendReview") : t("recommendNormal");
+  document.getElementById("recommendation").innerHTML = "<p>" + escapeHTML(recommendation) + "</p>";
+}
+
+/* ========================================================= */
+/* NEW EXAMINATION */
+/* ========================================================= */
+function newExamination(){
+  const message = t("welcome") + " — " + t("newExam") + "?";
+  if(!confirm(message)) return;
+
+  document.querySelectorAll('input[type="text"],input[type="number"],textarea').forEach(el=>el.value="");
+  document.querySelectorAll('input[type="checkbox"]').forEach(el=>el.checked=false);
+  document.querySelectorAll("select").forEach(el=>el.selectedIndex=0);
+
+  distanceResults = {right:"6/6", left:"6/6"};
+  nearResults = {right:"N6", left:"N6"};
+  amslerResults = {right:"normalGrid", left:"normalGrid"};
+  distanceEye = "right"; nearEye = "right"; amslerEye = "right"; symptomEye = "both";
+  photos = {right:null, left:null};
+
+  if(stream){ stream.getTracks().forEach(tr=>tr.stop()); stream = null; }
+  const video = document.getElementById("video");
+  if(video) video.srcObject = null;
+
+  document.getElementById("aiResults").innerHTML = "";
+  document.getElementById("recommendation").innerHTML = "";
+  document.getElementById("reportDetail").classList.remove("open");
+
+  updateCameraUI();
+  updateEyeButtons();
+  applyLanguage();
+  showPage(1);
+}
+
+/* ========================================================= */
+/* INPUT LISTENERS */
+/* ========================================================= */
+document.getElementById("colourSummary").addEventListener("change", updateReport);
+document.querySelectorAll(".colourAnswer").forEach(el=>el.addEventListener("change", updateReport));
+["patientName","patientAge","gender","phone","symptomSince"].forEach(id=>{
+  document.getElementById(id).addEventListener("input", updateReport);
+  document.getElementById(id).addEventListener("change", updateReport);
+});
+
+/* ========================================================= */
+/* INITIALIZE */
+/* ========================================================= */
 createLanguageButtons();
 applyLanguage();
 loadVoices();
-
+updateReport();
 </script>
 </body>
 </html>
