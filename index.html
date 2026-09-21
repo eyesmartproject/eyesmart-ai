@@ -17,10 +17,11 @@ body{
   background:#f4f8fb;
   color:#17324d;
   min-height:100vh;
+  font-size:17px;
 }
 
 .app{
-  max-width:760px;
+  max-width:900px;
   margin:auto;
   min-height:100vh;
   background:white;
@@ -30,26 +31,26 @@ body{
 header{
   background:#0b6075;
   color:white;
-  padding:25px;
+  padding:28px;
   text-align:center;
 }
 
 .logo{
-  font-size:42px;
+  font-size:44px;
 }
 
 header h1{
-  font-size:30px;
-  margin-top:6px;
+  font-size:32px;
+  margin-top:7px;
 }
 
 header p{
-  font-size:15px;
-  margin-top:6px;
+  font-size:17px;
+  margin-top:7px;
 }
 
 .screen{
-  padding:30px 24px;
+  padding:30px 28px;
 }
 
 .hidden{
@@ -58,15 +59,15 @@ header p{
 
 h2{
   color:#0b6075;
-  margin-bottom:12px;
-  font-size:24px;
+  margin-bottom:14px;
+  font-size:27px;
 }
 
 .subtitle{
   color:#667781;
   margin-bottom:22px;
   line-height:1.6;
-  font-size:16px;
+  font-size:18px;
 }
 
 button{
@@ -74,10 +75,10 @@ button{
   border:none;
   padding:17px;
   margin-top:14px;
-  border-radius:12px;
+  border-radius:13px;
   background:#0b6075;
   color:white;
-  font-size:17px;
+  font-size:18px;
   font-weight:bold;
   cursor:pointer;
 }
@@ -100,22 +101,23 @@ input, select, textarea{
   padding:15px;
   margin:9px 0 17px;
   border:1px solid #ccd8dd;
-  border-radius:10px;
+  border-radius:11px;
   font-size:17px;
+  background:white;
 }
 
 label{
   font-weight:bold;
   display:block;
-  margin-top:10px;
-  font-size:16px;
+  margin-top:9px;
+  font-size:17px;
 }
 
 .option{
   border:1px solid #ccd8dd;
-  border-radius:12px;
+  border-radius:13px;
   padding:16px;
-  margin:10px 0;
+  margin:11px 0;
   cursor:pointer;
   background:#fafcfd;
 }
@@ -130,18 +132,22 @@ label{
   margin-bottom:0;
 }
 
-.symptom-eye{
-  margin-top:10px;
-  padding-left:25px;
+.symptom-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  flex-wrap:wrap;
 }
 
-.symptom-eye label{
-  font-size:14px;
-  margin-top:5px;
+.symptom-label{
+  flex:1;
+  min-width:180px;
 }
 
-.symptom-eye select{
-  margin:6px 0 2px;
+.eye-select{
+  width:190px;
+  margin:0;
   padding:11px;
   font-size:15px;
 }
@@ -163,8 +169,8 @@ label{
 .chart-box{
   background:#111;
   color:white;
-  border-radius:16px;
-  padding:28px 10px;
+  border-radius:15px;
+  padding:28px 12px;
   text-align:center;
   margin:22px 0;
 }
@@ -173,23 +179,24 @@ label{
   font-family:Arial, sans-serif;
   font-weight:bold;
   line-height:1;
-  margin:19px 0;
+  margin:20px 0;
 }
 
 .distance-info{
   background:#edf7fa;
-  border-radius:12px;
+  border-radius:11px;
   padding:15px;
   margin:17px 0;
-  font-size:15px;
+  font-size:16px;
   line-height:1.5;
 }
 
+/* COLOUR VISION PLATE */
 .plate{
-  width:190px;
-  height:190px;
+  width:195px;
+  height:195px;
   border-radius:42%;
-  margin:22px auto;
+  margin:24px auto;
   background:
     radial-gradient(circle at 25% 30%, #e8a33b 0 4px, transparent 5px),
     radial-gradient(circle at 65% 25%, #4f8f8f 0 5px, transparent 6px),
@@ -201,7 +208,7 @@ label{
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:50px;
+  font-size:52px;
   font-weight:bold;
   color:#55766f;
 }
@@ -212,7 +219,7 @@ label{
   padding:18px;
   margin:14px 0;
   border-radius:9px;
-  line-height:1.5;
+  line-height:1.6;
 }
 
 .result{
@@ -221,7 +228,7 @@ label{
   padding:18px;
   border-radius:9px;
   margin:17px 0;
-  line-height:1.5;
+  line-height:1.6;
 }
 
 .warning{
@@ -230,18 +237,18 @@ label{
   padding:18px;
   border-radius:9px;
   margin:17px 0;
-  line-height:1.5;
+  line-height:1.6;
 }
 
 .footer{
   text-align:center;
   color:#777;
-  font-size:13px;
-  padding:22px;
+  font-size:14px;
+  padding:25px;
 }
 
 .small{
-  font-size:14px;
+  font-size:15px;
   color:#667781;
 }
 
@@ -255,7 +262,123 @@ label{
   margin-bottom:22px;
 }
 
+/* FINAL AI SUMMARY PAGE */
+.ai-final{
+  padding-top:32px;
+}
+
+.ai-final h2{
+  font-size:29px;
+  margin-bottom:16px;
+}
+
+.ai-final .subtitle{
+  font-size:18px;
+}
+
+.ai-flags{
+  background:#fff6e8;
+  border-left:5px solid #e39a24;
+  padding:22px;
+  border-radius:10px;
+  margin:20px 0;
+}
+
+.ai-flags b{
+  font-size:19px;
+}
+
+.ai-flags ul{
+  margin-top:12px;
+  padding-left:25px;
+}
+
+.ai-flags li{
+  margin:11px 0;
+  line-height:1.5;
+}
+
+.ai-recommendation{
+  background:#eef8f0;
+  border-left:5px solid #32864b;
+  padding:22px;
+  border-radius:10px;
+  margin:20px 0;
+}
+
+.ai-recommendation b{
+  font-size:19px;
+}
+
+.ai-recommendation p{
+  margin-top:18px;
+  line-height:1.6;
+}
+
+.ai-final button{
+  margin-top:20px;
+}
+
+/* LANGUAGE AUDIO STATUS */
+.audio-status{
+  text-align:center;
+  font-size:14px;
+  color:#667781;
+  margin-top:12px;
+  min-height:20px;
+}
+
+@media(max-width:600px){
+
+  body{
+    font-size:16px;
+  }
+
+  header{
+    padding:24px 18px;
+  }
+
+  .logo{
+    font-size:40px;
+  }
+
+  header h1{
+    font-size:29px;
+  }
+
+  header p{
+    font-size:15px;
+  }
+
+  .screen{
+    padding:26px 20px;
+  }
+
+  h2{
+    font-size:24px;
+  }
+
+  .subtitle{
+    font-size:17px;
+  }
+
+  .symptom-row{
+    display:block;
+  }
+
+  .eye-select{
+    width:100%;
+    margin-top:10px;
+  }
+
+  .plate{
+    width:180px;
+    height:180px;
+  }
+}
+
 @media print{
+
   body{
     background:white;
   }
@@ -265,7 +388,9 @@ label{
     max-width:none;
   }
 
-  button, header, .progress{
+  button,
+  header,
+  .progress{
     display:none !important;
   }
 }
@@ -288,6 +413,7 @@ label{
 
 <!-- HOME -->
 <section id="home" class="screen">
+
   <div class="center">
 
     <h2>Welcome to EyeSmart AI</h2>
@@ -298,25 +424,30 @@ label{
     </p>
 
     <div class="summary">
+
       <b>What this system includes</b><br><br>
+
       ✓ Digital distance vision screening<br>
       ✓ Digital near vision screening<br>
       ✓ Colour vision screening<br>
       ✓ Basic eye observation<br>
       ✓ AI-assisted screening summary<br>
       ✓ Preliminary referral recommendation
+
     </div>
 
     <button onclick="showScreen('language')">
       START SCREENING
     </button>
 
-    <p class="small" style="margin-top:18px;">
+    <p class="small" style="margin-top:20px;">
       This prototype is for preliminary screening and educational demonstration.
     </p>
 
   </div>
+
 </section>
+
 
 <!-- LANGUAGE -->
 <section id="language" class="screen hidden">
@@ -335,7 +466,10 @@ label{
     🇮🇳 മലയാളം
   </button>
 
+  <div id="audioStatus" class="audio-status"></div>
+
 </section>
+
 
 <!-- PATIENT DETAILS -->
 <section id="details" class="screen hidden">
@@ -343,6 +477,7 @@ label{
   <h2 id="detailsTitle">Patient Details</h2>
 
   <label id="nameLabel">Name</label>
+
   <input
     id="patientName"
     type="text"
@@ -350,6 +485,7 @@ label{
   >
 
   <label id="ageLabel">Age</label>
+
   <input
     id="patientAge"
     type="number"
@@ -361,10 +497,12 @@ label{
   <label id="genderLabel">Gender</label>
 
   <select id="patientGender">
+
     <option value="">Select</option>
     <option>Male</option>
     <option>Female</option>
     <option>Other</option>
+
   </select>
 
   <button onclick="goSymptoms()" id="detailsNext">
@@ -372,6 +510,7 @@ label{
   </button>
 
 </section>
+
 
 <!-- SYMPTOMS -->
 <section id="symptoms" class="screen hidden">
@@ -382,189 +521,175 @@ label{
     Select the symptoms currently experienced by the patient.
   </p>
 
-  <!-- BLURRED VISION -->
+
   <div class="option">
+    <div class="symptom-row">
 
-    <label>
-      <input
-        type="checkbox"
-        value="Blurred vision"
-        class="symptom"
-        onchange="toggleSymptomEye(this)"
-      >
-      <span class="enText">Blurred vision</span>
-    </label>
+      <label class="symptom-label">
+        <input
+          type="checkbox"
+          value="Blurred vision"
+          class="symptom"
+          onchange="toggleEyeSelect(this)"
+        >
+        <span>Blurred vision</span>
+      </label>
 
-    <div class="symptom-eye hidden">
-      <label>Which Eye?</label>
-
-      <select class="symptom-eye-select">
-        <option value="">Select Eye</option>
+      <select class="eye-select" disabled>
+        <option value="">Which eye?</option>
         <option value="Right Eye">Right Eye</option>
         <option value="Left Eye">Left Eye</option>
         <option value="Both Eyes">Both Eyes</option>
       </select>
-    </div>
 
+    </div>
   </div>
 
-  <!-- EYE PAIN -->
+
   <div class="option">
+    <div class="symptom-row">
 
-    <label>
-      <input
-        type="checkbox"
-        value="Eye pain"
-        class="symptom"
-        onchange="toggleSymptomEye(this)"
-      >
-      <span class="enText">Eye pain</span>
-    </label>
+      <label class="symptom-label">
+        <input
+          type="checkbox"
+          value="Eye pain"
+          class="symptom"
+          onchange="toggleEyeSelect(this)"
+        >
+        <span>Eye pain</span>
+      </label>
 
-    <div class="symptom-eye hidden">
-      <label>Which Eye?</label>
-
-      <select class="symptom-eye-select">
-        <option value="">Select Eye</option>
+      <select class="eye-select" disabled>
+        <option value="">Which eye?</option>
         <option value="Right Eye">Right Eye</option>
         <option value="Left Eye">Left Eye</option>
         <option value="Both Eyes">Both Eyes</option>
       </select>
-    </div>
 
+    </div>
   </div>
 
-  <!-- REDNESS -->
+
   <div class="option">
+    <div class="symptom-row">
 
-    <label>
-      <input
-        type="checkbox"
-        value="Redness"
-        class="symptom"
-        onchange="toggleSymptomEye(this)"
-      >
-      <span class="enText">Redness</span>
-    </label>
+      <label class="symptom-label">
+        <input
+          type="checkbox"
+          value="Redness"
+          class="symptom"
+          onchange="toggleEyeSelect(this)"
+        >
+        <span>Redness</span>
+      </label>
 
-    <div class="symptom-eye hidden">
-      <label>Which Eye?</label>
-
-      <select class="symptom-eye-select">
-        <option value="">Select Eye</option>
+      <select class="eye-select" disabled>
+        <option value="">Which eye?</option>
         <option value="Right Eye">Right Eye</option>
         <option value="Left Eye">Left Eye</option>
         <option value="Both Eyes">Both Eyes</option>
       </select>
-    </div>
 
+    </div>
   </div>
 
-  <!-- ITCHING -->
+
   <div class="option">
+    <div class="symptom-row">
 
-    <label>
-      <input
-        type="checkbox"
-        value="Itching"
-        class="symptom"
-        onchange="toggleSymptomEye(this)"
-      >
-      <span class="enText">Itching</span>
-    </label>
+      <label class="symptom-label">
+        <input
+          type="checkbox"
+          value="Itching"
+          class="symptom"
+          onchange="toggleEyeSelect(this)"
+        >
+        <span>Itching</span>
+      </label>
 
-    <div class="symptom-eye hidden">
-      <label>Which Eye?</label>
-
-      <select class="symptom-eye-select">
-        <option value="">Select Eye</option>
+      <select class="eye-select" disabled>
+        <option value="">Which eye?</option>
         <option value="Right Eye">Right Eye</option>
         <option value="Left Eye">Left Eye</option>
         <option value="Both Eyes">Both Eyes</option>
       </select>
-    </div>
 
+    </div>
   </div>
 
-  <!-- WATERING -->
+
   <div class="option">
+    <div class="symptom-row">
 
-    <label>
-      <input
-        type="checkbox"
-        value="Watering"
-        class="symptom"
-        onchange="toggleSymptomEye(this)"
-      >
-      <span class="enText">Watering</span>
-    </label>
+      <label class="symptom-label">
+        <input
+          type="checkbox"
+          value="Watering"
+          class="symptom"
+          onchange="toggleEyeSelect(this)"
+        >
+        <span>Watering</span>
+      </label>
 
-    <div class="symptom-eye hidden">
-      <label>Which Eye?</label>
-
-      <select class="symptom-eye-select">
-        <option value="">Select Eye</option>
+      <select class="eye-select" disabled>
+        <option value="">Which eye?</option>
         <option value="Right Eye">Right Eye</option>
         <option value="Left Eye">Left Eye</option>
         <option value="Both Eyes">Both Eyes</option>
       </select>
-    </div>
 
+    </div>
   </div>
 
-  <!-- HEADACHE / EYE STRAIN -->
+
   <div class="option">
+    <div class="symptom-row">
 
-    <label>
-      <input
-        type="checkbox"
-        value="Headache / Eye strain"
-        class="symptom"
-        onchange="toggleSymptomEye(this)"
-      >
-      <span class="enText">Headache / Eye strain</span>
-    </label>
+      <label class="symptom-label">
+        <input
+          type="checkbox"
+          value="Headache / Eye strain"
+          class="symptom"
+          onchange="toggleEyeSelect(this)"
+        >
+        <span>Headache / Eye strain</span>
+      </label>
 
-    <div class="symptom-eye hidden">
-      <label>Which Eye?</label>
-
-      <select class="symptom-eye-select">
-        <option value="">Select Eye</option>
+      <select class="eye-select" disabled>
+        <option value="">Which eye?</option>
         <option value="Right Eye">Right Eye</option>
         <option value="Left Eye">Left Eye</option>
         <option value="Both Eyes">Both Eyes</option>
       </select>
-    </div>
 
+    </div>
   </div>
 
-  <!-- NIGHT VISION -->
+
   <div class="option">
+    <div class="symptom-row">
 
-    <label>
-      <input
-        type="checkbox"
-        value="Difficulty seeing at night"
-        class="symptom"
-        onchange="toggleSymptomEye(this)"
-      >
-      <span class="enText">Difficulty seeing at night</span>
-    </label>
+      <label class="symptom-label">
+        <input
+          type="checkbox"
+          value="Difficulty seeing at night"
+          class="symptom"
+          onchange="toggleEyeSelect(this)"
+        >
+        <span>Difficulty seeing at night</span>
+      </label>
 
-    <div class="symptom-eye hidden">
-      <label>Which Eye?</label>
-
-      <select class="symptom-eye-select">
-        <option value="">Select Eye</option>
+      <select class="eye-select" disabled>
+        <option value="">Which eye?</option>
         <option value="Right Eye">Right Eye</option>
         <option value="Left Eye">Left Eye</option>
         <option value="Both Eyes">Both Eyes</option>
       </select>
-    </div>
 
+    </div>
   </div>
 
-  <!-- NO COMPLAINTS -->
+
   <div class="option">
 
     <label>
@@ -572,12 +697,14 @@ label{
         type="checkbox"
         value="No complaints"
         class="symptom"
+        id="noComplaints"
         onchange="handleNoComplaints(this)"
       >
-      <span class="enText">No complaints</span>
+      <span>No complaints</span>
     </label>
 
   </div>
+
 
   <button onclick="goDistance()" id="symptomNext">
     Next
@@ -585,15 +712,20 @@ label{
 
 </section>
 
+
 <!-- DISTANCE VISION -->
 <section id="distance" class="screen hidden">
 
   <h2>Distance Vision</h2>
 
   <div class="distance-info">
+
     📏 <b>Testing distance: 1 metre</b><br>
+
     Keep the patient at the fixed testing position.
+
   </div>
+
 
   <div class="chart-box">
 
@@ -627,13 +759,16 @@ label{
 
   </div>
 
+
   <p class="subtitle">
     Examiner records the visual acuity result for each eye.
   </p>
 
+
   <label>Right Eye (RE)</label>
 
   <select id="rightVA">
+
     <option value="">Select VA</option>
     <option>6/6</option>
     <option>6/9</option>
@@ -643,11 +778,14 @@ label{
     <option>6/36</option>
     <option>6/60</option>
     <option>Unable to read</option>
+
   </select>
+
 
   <label>Left Eye (LE)</label>
 
   <select id="leftVA">
+
     <option value="">Select VA</option>
     <option>6/6</option>
     <option>6/9</option>
@@ -657,7 +795,9 @@ label{
     <option>6/36</option>
     <option>6/60</option>
     <option>Unable to read</option>
+
   </select>
+
 
   <button onclick="goNear()">
     Next
@@ -665,14 +805,18 @@ label{
 
 </section>
 
+
 <!-- NEAR VISION -->
 <section id="near" class="screen hidden">
 
   <h2>Near Vision</h2>
 
   <div class="distance-info">
+
     📖 Hold the tablet at the instructed near-testing distance.
+
   </div>
+
 
   <div class="chart-box">
 
@@ -680,31 +824,33 @@ label{
       DIGITAL NEAR VISION CHART
     </div>
 
-    <div style="font-size:28px;margin:20px;">
+    <div style="font-size:30px;margin:22px;">
       N5
     </div>
 
-    <div style="font-size:25px;margin:20px;">
+    <div style="font-size:27px;margin:22px;">
       N6
     </div>
 
-    <div style="font-size:22px;margin:20px;">
+    <div style="font-size:24px;margin:22px;">
       N8
     </div>
 
-    <div style="font-size:19px;margin:20px;">
+    <div style="font-size:21px;margin:22px;">
       N10
     </div>
 
-    <div style="font-size:16px;margin:20px;">
+    <div style="font-size:18px;margin:22px;">
       N12
     </div>
 
   </div>
 
+
   <label>Right Eye Near Vision</label>
 
   <select id="rightNear">
+
     <option value="">Select</option>
     <option>N5</option>
     <option>N6</option>
@@ -712,11 +858,14 @@ label{
     <option>N10</option>
     <option>N12</option>
     <option>Unable to read</option>
+
   </select>
+
 
   <label>Left Eye Near Vision</label>
 
   <select id="leftNear">
+
     <option value="">Select</option>
     <option>N5</option>
     <option>N6</option>
@@ -724,13 +873,16 @@ label{
     <option>N10</option>
     <option>N12</option>
     <option>Unable to read</option>
+
   </select>
+
 
   <button onclick="goColour()">
     Next
   </button>
 
 </section>
+
 
 <!-- COLOUR VISION -->
 <section id="colour" class="screen hidden">
@@ -741,13 +893,16 @@ label{
     Digital colour vision screening using a pseudo-plate demonstration.
   </p>
 
+
   <div class="plate">
     12
   </div>
 
+
   <p class="center">
     <b>What number do you see?</b>
   </p>
+
 
   <input
     id="colourAnswer"
@@ -755,11 +910,13 @@ label{
     placeholder="Enter the number"
   >
 
+
   <button onclick="goObservation()">
     Next
   </button>
 
 </section>
+
 
 <!-- OBSERVATION -->
 <section id="observation" class="screen hidden">
@@ -769,6 +926,7 @@ label{
   <p class="subtitle">
     Examiner records visible findings during preliminary observation.
   </p>
+
 
   <div class="option">
 
@@ -783,6 +941,7 @@ label{
 
   </div>
 
+
   <div class="option">
 
     <label>
@@ -795,6 +954,7 @@ label{
     </label>
 
   </div>
+
 
   <div class="option">
 
@@ -809,6 +969,7 @@ label{
 
   </div>
 
+
   <div class="option">
 
     <label>
@@ -821,6 +982,7 @@ label{
     </label>
 
   </div>
+
 
   <div class="option">
 
@@ -835,6 +997,7 @@ label{
 
   </div>
 
+
   <label>
     Additional observation
   </label>
@@ -844,31 +1007,37 @@ label{
     placeholder="Enter any additional observation"
   ></textarea>
 
+
   <button onclick="generateAI()">
     Generate Screening Summary
   </button>
 
 </section>
 
+
 <!-- AI SUMMARY -->
-<section id="ai" class="screen hidden">
+<section id="ai" class="screen hidden ai-final">
 
   <h2>
     🤖 AI-Assisted Screening Summary
   </h2>
+
 
   <p class="subtitle">
     The system combines the screening inputs and generates a preliminary
     screening summary.
   </p>
 
+
   <div id="aiResult"></div>
+
 
   <button onclick="showReport()">
     View Screening Report
   </button>
 
 </section>
+
 
 <!-- REPORT -->
 <section id="report" class="screen hidden">
@@ -877,11 +1046,18 @@ label{
     👁️ EyeSmart AI
   </h2>
 
+
   <div class="summary">
-    <b>AI-Assisted Preliminary Eye Screening Report</b>
+
+    <b>
+      AI-Assisted Preliminary Eye Screening Report
+    </b>
+
   </div>
 
+
   <div id="reportContent"></div>
+
 
   <div class="warning">
 
@@ -893,9 +1069,11 @@ label{
 
   </div>
 
+
   <button onclick="window.print()">
     🖨️ Print / Save Report
   </button>
+
 
   <button
     class="secondary"
@@ -906,15 +1084,18 @@ label{
 
 </section>
 
+
 <div class="footer">
   EyeSmart AI • Preliminary Eye Screening Prototype
 </div>
 
 </div>
 
+
 <script>
 
 let language = "en";
+
 
 let patient = {
 
@@ -932,6 +1113,7 @@ let patient = {
 
 };
 
+
 const screens = [
 
   "home",
@@ -947,7 +1129,6 @@ const screens = [
 
 ];
 
-/* SCREEN NAVIGATION */
 
 function showScreen(id){
 
@@ -955,26 +1136,65 @@ function showScreen(id){
 
     document
       .getElementById(s)
-      .classList.add("hidden");
+      .classList
+      .add("hidden");
 
   });
 
+
   document
     .getElementById(id)
-    .classList.remove("hidden");
+    .classList
+    .remove("hidden");
+
 
   let index = screens.indexOf(id);
+
 
   if(index < 0){
     index = 0;
   }
 
+
   document
     .getElementById("progressBar")
-    .style.width =
-    ((index)/(screens.length-1))*100 + "%";
+    .style
+    .width =
+      ((index)/(screens.length-1))*100 + "%";
+
 
   window.scrollTo(0,0);
+
+}
+
+
+/* AUDIO */
+
+function speak(text, lang){
+
+  if(!("speechSynthesis" in window)){
+    return;
+  }
+
+
+  window.speechSynthesis.cancel();
+
+
+  const utterance =
+    new SpeechSynthesisUtterance(text);
+
+
+  utterance.lang =
+    lang === "ml"
+    ? "ml-IN"
+    : "en-US";
+
+
+  utterance.rate = 0.9;
+  utterance.pitch = 1;
+
+
+  window.speechSynthesis.speak(utterance);
 
 }
 
@@ -984,6 +1204,7 @@ function showScreen(id){
 function setLanguage(lang){
 
   language = lang;
+
 
   if(lang === "ml"){
 
@@ -1011,9 +1232,23 @@ function setLanguage(lang){
     document.getElementById("symptomNext").innerText =
       "തുടരുക";
 
-    speakText(
-      "നിങ്ങളുടെ ഭാഷ മലയാളമായി തിരഞ്ഞെടുത്തു. രോഗിയുടെ വിവരങ്ങൾ നൽകുക."
-    );
+
+    document.getElementById("audioStatus").innerText =
+      "🔊 ശബ്ദ നിർദ്ദേശം ആരംഭിക്കുന്നു...";
+
+
+    showScreen("details");
+
+
+    setTimeout(function(){
+
+      speak(
+        "നമസ്കാരം. EyeSmart AI-ലേക്ക് സ്വാഗതം. രോഗിയുടെ വിവരങ്ങൾ നൽകുക.",
+        "ml"
+      );
+
+    },150);
+
 
   }else{
 
@@ -1041,73 +1276,48 @@ function setLanguage(lang){
     document.getElementById("symptomNext").innerText =
       "Next";
 
-    speakText(
-      "English language selected. Please enter the patient details."
-    );
+
+    document.getElementById("audioStatus").innerText =
+      "🔊 Audio instruction starting...";
+
+
+    showScreen("details");
+
+
+    setTimeout(function(){
+
+      speak(
+        "Welcome to EyeSmart AI. Please enter the patient details.",
+        "en"
+      );
+
+    },150);
 
   }
-
-  showScreen("details");
 
 }
 
 
-/* AUTOMATIC AUDIO */
+/* SYMPTOM EYE SELECTION */
 
-function speakText(text){
-
-  if(!("speechSynthesis" in window)){
-    return;
-  }
-
-  window.speechSynthesis.cancel();
-
-  const utterance =
-    new SpeechSynthesisUtterance(text);
-
-  if(language === "ml"){
-
-    utterance.lang = "ml-IN";
-
-  }else{
-
-    utterance.lang = "en-IN";
-
-  }
-
-  utterance.rate = 0.9;
-  utterance.pitch = 1;
-
-  window.speechSynthesis.speak(utterance);
-
-}
-
-
-/* SYMPTOM EYE OPTION */
-
-function toggleSymptomEye(checkbox){
+function toggleEyeSelect(checkbox){
 
   const option =
-    checkbox
-      .closest(".option")
-      .querySelector(".symptom-eye");
+    checkbox.closest(".option");
 
-  if(option){
+  const select =
+    option.querySelector(".eye-select");
 
-    if(checkbox.checked){
 
-      option.classList.remove("hidden");
+  if(select){
 
-    }else{
+    select.disabled =
+      !checkbox.checked;
 
-      option.classList.add("hidden");
 
-      const select =
-        option.querySelector(".symptom-eye-select");
+    if(!checkbox.checked){
 
-      if(select){
-        select.value = "";
-      }
+      select.value = "";
 
     }
 
@@ -1116,43 +1326,35 @@ function toggleSymptomEye(checkbox){
 }
 
 
-/* NO COMPLAINTS */
-
 function handleNoComplaints(checkbox){
 
-  if(!checkbox.checked){
-    return;
-  }
+  const symptomBoxes =
+    document.querySelectorAll(".symptom");
 
-  document
-    .querySelectorAll(".symptom")
-    .forEach(item=>{
 
-      if(item.value !== "No complaints"){
+  symptomBoxes.forEach(function(box){
 
-        item.checked = false;
+    if(box !== checkbox){
 
-        const eyeBox =
-          item
-            .closest(".option")
-            .querySelector(".symptom-eye");
+      box.checked = false;
 
-        if(eyeBox){
+      const option =
+        box.closest(".option");
 
-          eyeBox.classList.add("hidden");
+      const select =
+        option.querySelector(".eye-select");
 
-          const select =
-            eyeBox.querySelector(".symptom-eye-select");
 
-          if(select){
-            select.value = "";
-          }
+      if(select){
 
-        }
+        select.disabled = true;
+        select.value = "";
 
       }
 
-    });
+    }
+
+  });
 
 }
 
@@ -1167,15 +1369,18 @@ function goSymptoms(){
       .value
       .trim();
 
+
   patient.age =
     document
       .getElementById("patientAge")
       .value;
 
+
   patient.gender =
     document
       .getElementById("patientGender")
       .value;
+
 
   if(
     !patient.name ||
@@ -1184,16 +1389,34 @@ function goSymptoms(){
   ){
 
     alert(
+
       language === "ml"
+
       ? "ദയവായി എല്ലാ വിവരങ്ങളും നൽകുക."
+
       : "Please enter all patient details."
+
     );
 
     return;
 
   }
 
+
   showScreen("symptoms");
+
+
+  speak(
+
+    language === "ml"
+
+    ? "രോഗിക്ക് നിലവിൽ അനുഭവപ്പെടുന്ന കണ്ണിന്റെ ലക്ഷണങ്ങൾ തിരഞ്ഞെടുക്കുക."
+
+    : "Please select the eye symptoms currently experienced by the patient.",
+
+    language
+
+  );
 
 }
 
@@ -1204,77 +1427,62 @@ function goDistance(){
 
   patient.symptoms = [];
 
-  const symptomItems =
-    document.querySelectorAll(".symptom");
 
-  symptomItems.forEach(item=>{
+  const checked =
+    document.querySelectorAll(".symptom:checked");
 
-    if(item.checked){
 
-      if(item.value === "No complaints"){
+  checked.forEach(function(box){
 
-        patient.symptoms.push(
-          "No complaints"
-        );
+    if(box.value === "No complaints"){
 
-      }else{
+      patient.symptoms.push({
+        symptom:"No complaints",
+        eye:""
+      });
 
-        const eyeBox =
-          item
-            .closest(".option")
-            .querySelector(".symptom-eye");
+    }else{
 
-        let eye = "";
+      const option =
+        box.closest(".option");
 
-        if(eyeBox){
+      const select =
+        option.querySelector(".eye-select");
 
-          const select =
-            eyeBox.querySelector(".symptom-eye-select");
 
-          if(select){
-            eye = select.value;
-          }
+      const eye =
+        select ? select.value : "";
 
-        }
 
-        if(eye){
+      patient.symptoms.push({
 
-          patient.symptoms.push(
-            item.value + " (" + eye + ")"
-          );
+        symptom:box.value,
 
-        }else{
+        eye:eye || "Not specified"
 
-          patient.symptoms.push(
-            item.value
-          );
-
-        }
-
-      }
+      });
 
     }
 
   });
+
 
   showScreen("distance");
 
 }
 
 
-/* DISTANCE VISION */
+/* DISTANCE */
 
 function goNear(){
 
   patient.rightVA =
-    document
-      .getElementById("rightVA")
-      .value;
+    document.getElementById("rightVA").value;
+
 
   patient.leftVA =
-    document
-      .getElementById("leftVA")
-      .value;
+    document.getElementById("leftVA").value;
+
 
   if(
     !patient.rightVA ||
@@ -1282,40 +1490,37 @@ function goNear(){
   ){
 
     alert(
-      language === "ml"
-      ? "ദയവായി രണ്ട് കണ്ണുകളുടെയും visual acuity രേഖപ്പെടുത്തുക."
-      : "Please record visual acuity for both eyes."
+      "Please record visual acuity for both eyes."
     );
 
     return;
 
   }
 
+
   showScreen("near");
 
 }
 
 
-/* NEAR VISION */
+/* NEAR */
 
 function goColour(){
 
   patient.rightNear =
-    document
-      .getElementById("rightNear")
-      .value;
+    document.getElementById("rightNear").value;
+
 
   patient.leftNear =
-    document
-      .getElementById("leftNear")
-      .value;
+    document.getElementById("leftNear").value;
+
 
   showScreen("colour");
 
 }
 
 
-/* COLOUR VISION */
+/* COLOUR */
 
 function goObservation(){
 
@@ -1325,6 +1530,16 @@ function goObservation(){
       .value
       .trim();
 
+
+  showScreen("observation");
+
+}
+
+
+/* OBSERVATION */
+
+function generateAI(){
+
   patient.observations =
     [
       ...document.querySelectorAll(
@@ -1333,22 +1548,16 @@ function goObservation(){
     ]
     .map(x=>x.value);
 
+
   patient.additional =
     document
       .getElementById("additionalObservation")
       .value
       .trim();
 
-  showScreen("observation");
-
-}
-
-
-/* AI SUMMARY */
-
-function generateAI(){
 
   let flags = [];
+
 
   if(patient.rightVA !== "6/6"){
 
@@ -1358,6 +1567,7 @@ function generateAI(){
 
   }
 
+
   if(patient.leftVA !== "6/6"){
 
     flags.push(
@@ -1365,6 +1575,7 @@ function generateAI(){
     );
 
   }
+
 
   if(
     patient.rightNear &&
@@ -1377,6 +1588,7 @@ function generateAI(){
 
   }
 
+
   if(
     patient.leftNear &&
     patient.leftNear !== "N5"
@@ -1388,6 +1600,7 @@ function generateAI(){
 
   }
 
+
   if(patient.colour !== "12"){
 
     flags.push(
@@ -1396,16 +1609,22 @@ function generateAI(){
 
   }
 
-  if(
+
+  const hasRealSymptoms =
     patient.symptoms.length > 0 &&
-    !patient.symptoms.includes("No complaints")
-  ){
+    !patient.symptoms.some(
+      s => s.symptom === "No complaints"
+    );
+
+
+  if(hasRealSymptoms){
 
     flags.push(
       "Reported eye symptoms require clinical correlation."
     );
 
   }
+
 
   if(
     patient.observations.length > 0 &&
@@ -1420,21 +1639,23 @@ function generateAI(){
 
   }
 
+
   let resultHTML = "";
+
 
   if(flags.length === 0){
 
     resultHTML = `
 
-      <div class="result">
+      <div class="ai-recommendation">
 
         <b>Preliminary screening:</b>
-        <br><br>
 
-        No major abnormality was flagged by the entered
-        screening data.
-
-        Routine comprehensive eye examination is still recommended.
+        <p>
+          No major abnormality was flagged by the
+          entered screening data. Routine comprehensive
+          eye examination is still recommended.
+        </p>
 
       </div>
 
@@ -1444,36 +1665,36 @@ function generateAI(){
 
     resultHTML = `
 
-      <div class="warning">
+      <div class="ai-flags">
 
         <b>Screening flags identified:</b>
 
-        <ul
-          style="
-            margin-top:10px;
-            padding-left:20px;
-          "
-        >
+        <ul>
 
-          ${flags.map(
-            f=>`
-              <li style="margin:7px 0;">
-                ${f}
-              </li>
-            `
-          ).join("")}
+          ${
+
+            flags
+              .map(
+                f =>
+                `<li>${escapeHTML(f)}</li>`
+              )
+              .join("")
+
+          }
 
         </ul>
 
       </div>
 
-      <div class="result">
+
+      <div class="ai-recommendation">
 
         <b>Recommendation:</b>
-        <br><br>
 
-        Further comprehensive eye examination by an
-        Optometrist/Ophthalmologist is recommended.
+        <p>
+          Further comprehensive eye examination by an
+          Optometrist/Ophthalmologist is recommended.
+        </p>
 
       </div>
 
@@ -1481,11 +1702,26 @@ function generateAI(){
 
   }
 
+
   document
     .getElementById("aiResult")
     .innerHTML = resultHTML;
 
+
   showScreen("ai");
+
+
+  speak(
+
+    language === "ml"
+
+    ? "സ്ക്രീനിംഗ് സംഗ്രഹം തയ്യാറായി."
+
+    : "The preliminary screening summary is ready.",
+
+    language
+
+  );
 
 }
 
@@ -1494,15 +1730,36 @@ function generateAI(){
 
 function showReport(){
 
-  let symptoms =
-    patient.symptoms.length
-    ? patient.symptoms.join(", ")
-    : "None recorded";
+  let symptoms = "None recorded";
+
+
+  if(patient.symptoms.length){
+
+    symptoms =
+      patient.symptoms
+        .map(function(item){
+
+          if(item.symptom === "No complaints"){
+
+            return "No complaints";
+
+          }
+
+          return item.symptom +
+            " - " +
+            item.eye;
+
+        })
+        .join(", ");
+
+  }
+
 
   let observations =
     patient.observations.length
     ? patient.observations.join(", ")
     : "None recorded";
+
 
   document
     .getElementById("reportContent")
@@ -1510,8 +1767,7 @@ function showReport(){
 
       <div class="summary">
 
-        <b>Patient Details</b>
-        <br><br>
+        <b>Patient Details</b><br><br>
 
         Name:
         ${escapeHTML(patient.name)}
@@ -1529,8 +1785,7 @@ function showReport(){
 
       <div class="summary">
 
-        <b>Symptoms</b>
-        <br><br>
+        <b>Symptoms</b><br><br>
 
         ${escapeHTML(symptoms)}
 
@@ -1539,8 +1794,7 @@ function showReport(){
 
       <div class="summary">
 
-        <b>Distance Visual Acuity</b>
-        <br><br>
+        <b>Distance Visual Acuity</b><br><br>
 
         Right Eye:
         ${escapeHTML(patient.rightVA)}
@@ -1554,8 +1808,7 @@ function showReport(){
 
       <div class="summary">
 
-        <b>Near Visual Acuity</b>
-        <br><br>
+        <b>Near Visual Acuity</b><br><br>
 
         Right Eye:
         ${escapeHTML(patient.rightNear)}
@@ -1569,85 +1822,73 @@ function showReport(){
 
       <div class="summary">
 
-        <b>Colour Vision Response</b>
-        <br><br>
+        <b>Colour Vision Response</b><br><br>
 
-        ${escapeHTML(
-          patient.colour || "Not recorded"
-        )}
+        ${
+          escapeHTML(
+            patient.colour || "Not recorded"
+          )
+        }
 
       </div>
 
 
       <div class="summary">
 
-        <b>Basic Eye Observation</b>
-        <br><br>
+        <b>Basic Eye Observation</b><br><br>
 
         ${escapeHTML(observations)}
 
         <br><br>
 
         Additional:
-        ${escapeHTML(
-          patient.additional || "None"
-        )}
+        ${
+          escapeHTML(
+            patient.additional || "None"
+          )
+        }
 
       </div>
 
 
       <div class="result">
 
-        <b>AI-Assisted Recommendation</b>
-        <br><br>
+        <b>AI-Assisted Recommendation</b><br><br>
 
-        The entered screening findings should be interpreted as
-        preliminary screening information. Further comprehensive
-        eye examination is recommended when indicated.
+        The entered screening findings should be
+        interpreted as preliminary screening information.
+        Further comprehensive eye examination is
+        recommended when indicated.
 
       </div>
 
     `;
+
 
   showScreen("report");
 
 }
 
 
-/* HTML ESCAPE */
+/* SECURITY */
 
 function escapeHTML(value){
 
   return String(value)
 
-    .replace(
-      /&/g,
-      "&amp;"
-    )
+    .replace(/&/g,"&amp;")
 
-    .replace(
-      /</g,
-      "&lt;"
-    )
+    .replace(/</g,"&lt;")
 
-    .replace(
-      />/g,
-      "&gt;"
-    )
+    .replace(/>/g,"&gt;")
 
-    .replace(
-      /"/g,
-      "&quot;"
-    )
+    .replace(/"/g,"&quot;")
 
-    .replace(
-      /'/g,
-      "&#039;"
-    );
+    .replace(/'/g,"&#039;");
 
 }
 
 </script>
 
 </body>
-  </html>
+</html>
