@@ -323,6 +323,30 @@ video{width:100%;height:100%;object-fit:cover}
 }
 .navGroup{display:flex;gap:7px}
 .pageNo{font-size:12.5px;color:#718096;align-self:center}
+.dryEyeQ{
+  border:1px solid #dfe9f3;
+  border-radius:11px;
+  padding:10px 12px;
+  margin-bottom:8px;
+  background:#fff;
+}
+.dryEyeQ:last-child{margin-bottom:0}
+.dryEyeQ.unanswered{border-color:#c54d57;background:#fff7f6}
+.dryEyeQText{font-size:15.5px;font-weight:700;color:#31445c;margin-bottom:8px;line-height:1.4}
+.dryEyeOptions{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.dryEyeOpt{
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  border:1px solid #ccd9e6;border-radius:9px;
+  padding:9px 6px;font-size:13.5px;font-weight:700;color:#53667b;
+  background:#fbfdff;text-align:center;
+}
+.dryEyeOpt input{width:auto;margin:0}
+.dryEyeOpt.selected{background:#1769aa;border-color:#1769aa;color:#fff}
+.dryEyeWarn{display:none;color:#c54d57;font-size:12.5px;font-weight:700;margin-top:6px}
+.dryEyeQ.unanswered .dryEyeWarn{display:block}
+#dryEyeDurationBlock{transition:border-color .15s}
+#dryEyeDurationBlock.unanswered{border:1px solid #c54d57;border-radius:11px;background:#fff7f6}
+#dryEyeDurationBlock.unanswered .dryEyeWarn{display:block}
 @media(max-width:700px){
   .langGrid{grid-template-columns:repeat(3,1fr)}
   .symptomGrid{grid-template-columns:repeat(2,1fr)}
@@ -331,6 +355,7 @@ video{width:100%;height:100%;object-fit:cover}
   .cameraGrid{grid-template-columns:1fr 1fr}
   .reportGrid{grid-template-columns:1fr 1fr}
   .vaLetters{gap:8px}
+  .dryEyeOptions{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:450px){
   html,body{font-size:16px}
@@ -643,8 +668,31 @@ video{width:100%;height:100%;object-fit:cover}
   </div>
 </section>
 
-<!-- PAGE 9 : redesigned summary + report -->
+<!-- PAGE 9 : Dry Eye Symptom Screening -->
 <section class="page" id="page9">
+  <div class="card">
+    <h2 id="dryEyeSectionTitleText">👁️ Dry Eye Symptom Screening</h2>
+    <div class="instructions" id="dryEyeIntroText">Answer each question based on how often you experience the following. This is a screening questionnaire only — it is not a diagnostic test.</div>
+
+    <div class="section" id="dryEyeQuestions"></div>
+
+    <div class="section" id="dryEyeDurationBlock">
+      <label id="dryEyeDurationLabelText">How long have you been experiencing these symptoms?</label>
+      <div class="dryEyeOptions" id="dryEyeDurationOptions"></div>
+      <div class="dryEyeWarn" id="dryEyeDurationWarn">Please select an option</div>
+    </div>
+
+    <div class="instructions" id="dryEyeValidationMsg" style="display:none;background:#fdeceb;border-left-color:#c54d57;color:#7a1f1f">Please answer all questions before continuing.</div>
+
+    <div class="section" id="dryEyeResultBox" style="display:none">
+      <h3 id="dryEyeResultHeading">Screening Result</h3>
+      <p id="dryEyeResultText"></p>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE 10 : redesigned summary + report -->
+<section class="page" id="page10">
   <div class="card">
     <div class="report">
       <div class="summaryBanner">
@@ -700,6 +748,10 @@ video{width:100%;height:100%;object-fit:cover}
             <div id="symptomsReport"></div>
           </div>
           <div class="reportBox full">
+            <h3 id="reportDryEyeTitle">👁️ Dry Eye Symptom Screening</h3>
+            <div id="dryEyeReport"></div>
+          </div>
+          <div class="reportBox full">
             <h3 id="photosTitle">Eye Photographs</h3>
             <div class="grid2">
               <div id="reportRightPhoto"></div>
@@ -739,7 +791,7 @@ video{width:100%;height:100%;object-fit:cover}
     <button class="btn secondary smallbtn" onclick="previousPage()" id="backBtn">← Back</button>
     <button class="audioBtn" onclick="speakCurrentPage()">🔊 <span id="navAudioText">Audio</span></button>
   </div>
-  <div class="pageNo" id="pageNo">1 / 9</div>
+  <div class="pageNo" id="pageNo">1 / 10</div>
   <div class="navGroup">
     <button class="btn smallbtn" onclick="nextPage()" id="nextBtn">Next →</button>
   </div>
@@ -857,7 +909,40 @@ const BASE = {
   amslerFlag:"Amsler grid response requires clinical correlation.",
   symptomFlag:"Reported eye symptoms require clinical correlation.",
   noFlags:"No significant screening flags were identified in this preliminary assessment.",
-  rightEyeWord:"right eye", leftEyeWord:"left eye"
+  rightEyeWord:"right eye", leftEyeWord:"left eye",
+
+  /* Dry Eye Symptom Screening */
+  dryEyeSectionTitle:"👁️ Dry Eye Symptom Screening",
+  dryEyeIntro:"Answer each question based on how often you experience the following. This is a screening questionnaire only — it is not a diagnostic test.",
+  dryEye_q1:"Do your eyes feel dry, gritty, or sandy?",
+  dryEye_q2:"Do you experience burning or stinging in your eyes?",
+  dryEye_q3:"Do your eyes feel tired or strained?",
+  dryEye_q4:"Do your eyes become red or irritated?",
+  dryEye_q5:"Do your eyes water excessively?",
+  dryEye_q6:"Do you experience intermittent or fluctuating blurred vision?",
+  dryEye_q7:"Do your eyes become uncomfortable during prolonged screen use?",
+  dryEye_q8:"Do wind, dust, air-conditioning, or fans make your eyes uncomfortable?",
+  dryEye_q9:"Do you experience discomfort while wearing contact lenses?",
+  dryEye_q10:"Do you regularly need lubricating/artificial tear drops because of eye discomfort?",
+  dryEyeNever:"Never", dryEyeSometimes:"Sometimes", dryEyeOften:"Often", dryEyeAlways:"Always",
+  dryEyeDurationLabel:"How long have you been experiencing these symptoms?",
+  dryEyeDurLess1Week:"Less than 1 week",
+  dryEyeDur1WeekMonth:"1 week – 1 month",
+  dryEyeDur1to6Months:"1 – 6 months",
+  dryEyeDurMore6Months:"More than 6 months",
+  dryEyeWarnAnswer:"Please answer this question",
+  dryEyeWarnDuration:"Please select an option",
+  dryEyeValidationBanner:"Please answer all questions before continuing.",
+  dryEyeResultHeading:"Screening Result",
+  dryEyeResultPositive:"Your responses indicate dry-eye-related symptoms. A professional eye examination is recommended for further evaluation.",
+  dryEyeResultNegative:"No significant dry-eye-related symptoms were reported in this screening. If you continue to experience eye discomfort, professional evaluation is recommended.",
+  dryEyeStatusFlag:"Dry-eye-related symptoms reported",
+  dryEyeStatusNormal:"No significant dry-eye-related symptoms",
+  dryEyeReportTitle:"👁️ Dry Eye Symptom Screening",
+  testDryEye:"Dry Eye Symptom Screening",
+  dryEyeSymptomsLabel:"Symptoms",
+  dryEyeDurationReportLabel:"Duration",
+  dryEyeFlag:"Dry-eye-related symptoms were reported and should be considered in the overall assessment."
 };
 
 function mergeLang(overrides){ return Object.assign({}, BASE, overrides); }
@@ -933,7 +1018,39 @@ const ML = mergeLang({
   amslerFlag:"ആംസ്ലർ ഗ്രിഡ് പ്രതികരണത്തിന് ക്ലിനിക്കൽ പരിശോധന ആവശ്യമാണ്.",
   symptomFlag:"രോഗി പറഞ്ഞ ലക്ഷണങ്ങൾക്ക് ക്ലിനിക്കൽ പരിശോധന ആവശ്യമാണ്.",
   noFlags:"ഈ പ്രാഥമിക വിലയിരുത്തലിൽ കാര്യമായ സൂചനകളൊന്നും കണ്ടെത്തിയിട്ടില്ല.",
-  rightEyeWord:"വലത് കണ്ണിൽ", leftEyeWord:"ഇടത് കണ്ണിൽ"
+  rightEyeWord:"വലത് കണ്ണിൽ", leftEyeWord:"ഇടത് കണ്ണിൽ",
+
+  dryEyeSectionTitle:"👁️ വരണ്ട കണ്ണ് ലക്ഷണ പരിശോധന",
+  dryEyeIntro:"താഴെയുള്ള ഓരോ ചോദ്യത്തിനും നിങ്ങൾക്ക് ഈ അനുഭവം എത്ര തവണ ഉണ്ടാകുന്നു എന്നതിന് അനുസരിച്ച് ഉത്തരം നൽകുക. ഇത് ഒരു സ്ക്രീനിംഗ് ചോദ്യാവലി മാത്രമാണ് — ഇത് ഒരു രോഗനിർണയ പരിശോധനയല്ല.",
+  dryEye_q1:"നിങ്ങളുടെ കണ്ണുകൾ ഉണങ്ങിയതോ, മണൽ പോലെയോ ആയി തോന്നുന്നുണ്ടോ?",
+  dryEye_q2:"കണ്ണുകളിൽ എരിച്ചിലോ കുത്തുന്ന വേദനയോ അനുഭവപ്പെടുന്നുണ്ടോ?",
+  dryEye_q3:"കണ്ണുകൾക്ക് ക്ഷീണമോ ബുദ്ധിമുട്ടോ തോന്നുന്നുണ്ടോ?",
+  dryEye_q4:"കണ്ണുകൾ ചുവക്കുകയോ പ്രകോപിതമാവുകയോ ചെയ്യുന്നുണ്ടോ?",
+  dryEye_q5:"കണ്ണുകളിൽ നിന്ന് അമിതമായി വെള്ളം വരുന്നുണ്ടോ?",
+  dryEye_q6:"ഇടയ്ക്കിടെ വ്യതിചലിക്കുന്ന/മാറിക്കൊണ്ടിരിക്കുന്ന മങ്ങിയ കാഴ്ച അനുഭവപ്പെടുന്നുണ്ടോ?",
+  dryEye_q7:"ദീർഘനേരം സ്ക്രീൻ ഉപയോഗിക്കുമ്പോൾ കണ്ണുകൾക്ക് അസ്വസ്ഥത തോന്നുന്നുണ്ടോ?",
+  dryEye_q8:"കാറ്റ്, പൊടി, എയർ കണ്ടീഷനിംഗ് അല്ലെങ്കിൽ ഫാൻ എന്നിവ കണ്ണുകൾക്ക് അസ്വസ്ഥത ഉണ്ടാക്കുന്നുണ്ടോ?",
+  dryEye_q9:"കോൺടാക്ട് ലെൻസ് ധരിക്കുമ്പോൾ അസ്വസ്ഥത അനുഭവപ്പെടുന്നുണ്ടോ?",
+  dryEye_q10:"കണ്ണിന്റെ അസ്വസ്ഥത കാരണം പതിവായി ലൂബ്രിക്കേറ്റിംഗ്/കൃത്രിമ കണ്ണീർ തുള്ളികൾ ആവശ്യമുണ്ടോ?",
+  dryEyeNever:"ഒരിക്കലുമില്ല", dryEyeSometimes:"ചിലപ്പോൾ", dryEyeOften:"പലപ്പോഴും", dryEyeAlways:"എപ്പോഴും",
+  dryEyeDurationLabel:"എത്ര കാലമായി ഈ ലക്ഷണങ്ങൾ അനുഭവപ്പെടുന്നു?",
+  dryEyeDurLess1Week:"1 ആഴ്ചയിൽ താഴെ",
+  dryEyeDur1WeekMonth:"1 ആഴ്ച – 1 മാസം",
+  dryEyeDur1to6Months:"1 – 6 മാസം",
+  dryEyeDurMore6Months:"6 മാസത്തിൽ കൂടുതൽ",
+  dryEyeWarnAnswer:"ദയവായി ഈ ചോദ്യത്തിന് ഉത്തരം നൽകുക",
+  dryEyeWarnDuration:"ദയവായി ഒരു ഓപ്ഷൻ തിരഞ്ഞെടുക്കുക",
+  dryEyeValidationBanner:"തുടരുന്നതിന് മുമ്പ് എല്ലാ ചോദ്യങ്ങൾക്കും ഉത്തരം നൽകുക.",
+  dryEyeResultHeading:"സ്ക്രീനിംഗ് ഫലം",
+  dryEyeResultPositive:"നിങ്ങളുടെ ഉത്തരങ്ങൾ വരണ്ട കണ്ണുമായി ബന്ധപ്പെട്ട ലക്ഷണങ്ങൾ സൂചിപ്പിക്കുന്നു. കൂടുതൽ വിലയിരുത്തലിനായി ഒരു പ്രൊഫഷണൽ നേത്ര പരിശോധന ശുപാർശ ചെയ്യുന്നു.",
+  dryEyeResultNegative:"ഈ സ്ക്രീനിംഗിൽ വരണ്ട കണ്ണുമായി ബന്ധപ്പെട്ട കാര്യമായ ലക്ഷണങ്ങളൊന്നും റിപ്പോർട്ട് ചെയ്തിട്ടില്ല. കണ്ണിന് അസ്വസ്ഥത തുടരുകയാണെങ്കിൽ, പ്രൊഫഷണൽ പരിശോധന ശുപാർശ ചെയ്യുന്നു.",
+  dryEyeStatusFlag:"വരണ്ട കണ്ണുമായി ബന്ധപ്പെട്ട ലക്ഷണങ്ങൾ റിപ്പോർട്ട് ചെയ്തു",
+  dryEyeStatusNormal:"കാര്യമായ വരണ്ട കണ്ണ് ലക്ഷണങ്ങളില്ല",
+  dryEyeReportTitle:"👁️ വരണ്ട കണ്ണ് ലക്ഷണ പരിശോധന",
+  testDryEye:"വരണ്ട കണ്ണ് ലക്ഷണ പരിശോധന",
+  dryEyeSymptomsLabel:"ലക്ഷണങ്ങൾ",
+  dryEyeDurationReportLabel:"കാലയളവ്",
+  dryEyeFlag:"വരണ്ട കണ്ണുമായി ബന്ധപ്പെട്ട ലക്ഷണങ്ങൾ റിപ്പോർട്ട് ചെയ്തു; സമഗ്ര വിലയിരുത്തലിൽ ഇത് പരിഗണിക്കേണ്ടതാണ്."
 });
 
 const HI = mergeLang({
@@ -994,7 +1111,39 @@ const HI = mergeLang({
   noSymptomsReported:"कोई लक्षण नहीं बताया गया", yearsOld:"वर्ष",
   vaFlag:"{EYE} में दृष्टि तीक्ष्णता कम पाई गई.", colourFlag:"रंग दृष्टि प्रतिक्रिया हेतु और जांच आवश्यक है.",
   amslerFlag:"एम्सलर ग्रिड प्रतिक्रिया हेतु क्लिनिकल जांच आवश्यक है.", symptomFlag:"बताए गए लक्षणों हेतु क्लिनिकल जांच आवश्यक है.",
-  noFlags:"इस प्रारंभिक मूल्यांकन में कोई उल्लेखनीय संकेत नहीं मिला.", rightEyeWord:"दाईं आंख", leftEyeWord:"बाईं आंख"
+  noFlags:"इस प्रारंभिक मूल्यांकन में कोई उल्लेखनीय संकेत नहीं मिला.", rightEyeWord:"दाईं आंख", leftEyeWord:"बाईं आंख",
+
+  dryEyeSectionTitle:"👁️ ड्राई आई (सूखी आंख) लक्षण जांच",
+  dryEyeIntro:"नीचे दिए गए प्रत्येक प्रश्न का उत्तर इस आधार पर दें कि आपको यह अनुभव कितनी बार होता है। यह केवल एक स्क्रीनिंग प्रश्नावली है — यह कोई निदान जांच नहीं है।",
+  dryEye_q1:"क्या आपकी आंखें सूखी, किरकिरी या रेतीली महसूस होती हैं?",
+  dryEye_q2:"क्या आपको आंखों में जलन या चुभन महसूस होती है?",
+  dryEye_q3:"क्या आपकी आंखें थकी या तनावग्रस्त महसूस होती हैं?",
+  dryEye_q4:"क्या आपकी आंखें लाल या जलन-युक्त हो जाती हैं?",
+  dryEye_q5:"क्या आपकी आंखों से अत्यधिक पानी आता है?",
+  dryEye_q6:"क्या आपको बीच-बीच में या बदलती हुई धुंधली दृष्टि का अनुभव होता है?",
+  dryEye_q7:"क्या लंबे समय तक स्क्रीन देखने पर आपकी आंखों में असुविधा होती है?",
+  dryEye_q8:"क्या हवा, धूल, एयर-कंडीशनिंग या पंखे से आपकी आंखों में असुविधा होती है?",
+  dryEye_q9:"क्या कॉन्टैक्ट लेंस पहनते समय आपको असुविधा महसूस होती है?",
+  dryEye_q10:"क्या आंखों की असुविधा के कारण आपको नियमित रूप से लुब्रिकेटिंग/कृत्रिम आंसू की बूंदों की आवश्यकता होती है?",
+  dryEyeNever:"कभी नहीं", dryEyeSometimes:"कभी-कभी", dryEyeOften:"अक्सर", dryEyeAlways:"हमेशा",
+  dryEyeDurationLabel:"आपको ये लक्षण कब से महसूस हो रहे हैं?",
+  dryEyeDurLess1Week:"1 सप्ताह से कम",
+  dryEyeDur1WeekMonth:"1 सप्ताह – 1 महीना",
+  dryEyeDur1to6Months:"1 – 6 महीने",
+  dryEyeDurMore6Months:"6 महीने से अधिक",
+  dryEyeWarnAnswer:"कृपया इस प्रश्न का उत्तर दें",
+  dryEyeWarnDuration:"कृपया एक विकल्प चुनें",
+  dryEyeValidationBanner:"आगे बढ़ने से पहले कृपया सभी प्रश्नों के उत्तर दें.",
+  dryEyeResultHeading:"स्क्रीनिंग परिणाम",
+  dryEyeResultPositive:"आपके उत्तर ड्राई आई (सूखी आंख) से संबंधित लक्षण दर्शाते हैं। आगे के मूल्यांकन हेतु पेशेवर नेत्र जांच की सलाह दी जाती है.",
+  dryEyeResultNegative:"इस स्क्रीनिंग में ड्राई आई से संबंधित कोई उल्लेखनीय लक्षण नहीं पाए गए। यदि आंखों में असुविधा बनी रहती है, तो पेशेवर जांच की सलाह दी जाती है.",
+  dryEyeStatusFlag:"ड्राई आई से संबंधित लक्षण पाए गए",
+  dryEyeStatusNormal:"ड्राई आई के कोई उल्लेखनीय लक्षण नहीं",
+  dryEyeReportTitle:"👁️ ड्राई आई (सूखी आंख) लक्षण जांच",
+  testDryEye:"ड्राई आई (सूखी आंख) लक्षण जांच",
+  dryEyeSymptomsLabel:"लक्षण",
+  dryEyeDurationReportLabel:"अवधि",
+  dryEyeFlag:"ड्राई आई से संबंधित लक्षण पाए गए; समग्र मूल्यांकन में इस पर विचार किया जाना चाहिए."
 });
 
 /* Generic-fallback languages (English text, native voice code attempted) */
@@ -1114,6 +1263,149 @@ let amslerResults = {right:"normalGrid", left:"normalGrid"};
 let photos = {right:null, left:null};
 let stream = null;
 let voices = [];
+
+/* ========================================================= */
+/* DRY EYE SYMPTOM SCREENING                                   */
+/* ========================================================= */
+const DRY_EYE_QIDS = ["q1","q2","q3","q4","q5","q6","q7","q8","q9","q10"];
+const DRY_EYE_DURATIONS = [
+  ["lt1w","dryEyeDurLess1Week"],
+  ["1w1m","dryEyeDur1WeekMonth"],
+  ["1to6m","dryEyeDur1to6Months"],
+  ["gt6m","dryEyeDurMore6Months"]
+];
+let dryEyeAnswers = { q1:null,q2:null,q3:null,q4:null,q5:null,q6:null,q7:null,q8:null,q9:null,q10:null, duration:null };
+
+function dryEyeAllAnswered(){
+  return DRY_EYE_QIDS.every(q=>dryEyeAnswers[q]!==null) && dryEyeAnswers.duration!==null;
+}
+function computeDryEyeResult(){
+  if(!dryEyeAllAnswered()) return null;
+  const score = DRY_EYE_QIDS.reduce((sum,q)=>sum+parseInt(dryEyeAnswers[q],10), 0);
+  const max = DRY_EYE_QIDS.length*3;
+  return { score, max, significant: score >= 10 };
+}
+function createDryEyeQuestionnaire(){
+  const box = document.getElementById("dryEyeQuestions");
+  if(!box) return;
+  box.innerHTML = "";
+  const optionDefs = [["0","dryEyeNever"],["1","dryEyeSometimes"],["2","dryEyeOften"],["3","dryEyeAlways"]];
+  DRY_EYE_QIDS.forEach((qid, idx)=>{
+    const wrap = document.createElement("div");
+    wrap.className = "dryEyeQ";
+    wrap.id = "dryEyeQ_" + qid;
+
+    const qText = document.createElement("div");
+    qText.className = "dryEyeQText";
+    qText.textContent = (idx+1) + ". " + t("dryEye_"+qid);
+    wrap.appendChild(qText);
+
+    const opts = document.createElement("div");
+    opts.className = "dryEyeOptions";
+    optionDefs.forEach(([val,key])=>{
+      const lbl = document.createElement("label");
+      lbl.className = "dryEyeOpt" + (dryEyeAnswers[qid]===val ? " selected" : "");
+      const input = document.createElement("input");
+      input.type = "radio";
+      input.name = "dryEyeRadio_" + qid;
+      input.value = val;
+      input.checked = dryEyeAnswers[qid]===val;
+      input.addEventListener("change", ()=>{
+        dryEyeAnswers[qid] = val;
+        wrap.classList.remove("unanswered");
+        [...opts.querySelectorAll(".dryEyeOpt")].forEach(o=>o.classList.remove("selected"));
+        lbl.classList.add("selected");
+        updateDryEyeResult();
+        updateReport();
+      });
+      const span = document.createElement("span");
+      span.textContent = t(key);
+      lbl.appendChild(input);
+      lbl.appendChild(span);
+      opts.appendChild(lbl);
+    });
+    wrap.appendChild(opts);
+
+    const warn = document.createElement("div");
+    warn.className = "dryEyeWarn";
+    warn.textContent = t("dryEyeWarnAnswer");
+    wrap.appendChild(warn);
+
+    box.appendChild(wrap);
+  });
+
+  const durBox = document.getElementById("dryEyeDurationOptions");
+  if(durBox){
+    durBox.innerHTML = "";
+    DRY_EYE_DURATIONS.forEach(([val,key])=>{
+      const lbl = document.createElement("label");
+      lbl.className = "dryEyeOpt" + (dryEyeAnswers.duration===val ? " selected" : "");
+      const input = document.createElement("input");
+      input.type = "radio";
+      input.name = "dryEyeRadio_duration";
+      input.value = val;
+      input.checked = dryEyeAnswers.duration===val;
+      input.addEventListener("change", ()=>{
+        dryEyeAnswers.duration = val;
+        document.getElementById("dryEyeDurationBlock").classList.remove("unanswered");
+        [...durBox.querySelectorAll(".dryEyeOpt")].forEach(o=>o.classList.remove("selected"));
+        lbl.classList.add("selected");
+        updateDryEyeResult();
+        updateReport();
+      });
+      const span = document.createElement("span");
+      span.textContent = t(key);
+      lbl.appendChild(input);
+      lbl.appendChild(span);
+      durBox.appendChild(lbl);
+    });
+  }
+  const durWarn = document.getElementById("dryEyeDurationWarn");
+  if(durWarn) durWarn.textContent = t("dryEyeWarnDuration");
+}
+function updateDryEyeResult(){
+  const box = document.getElementById("dryEyeResultBox");
+  if(!box) return;
+  const result = computeDryEyeResult();
+  if(!result){ box.style.display = "none"; return; }
+  box.style.display = "block";
+  document.getElementById("dryEyeResultText").textContent =
+    result.significant ? t("dryEyeResultPositive") : t("dryEyeResultNegative");
+}
+function validateDryEye(){
+  let ok = true;
+  DRY_EYE_QIDS.forEach(qid=>{
+    const wrap = document.getElementById("dryEyeQ_"+qid);
+    if(!wrap) return;
+    if(dryEyeAnswers[qid]===null){ wrap.classList.add("unanswered"); ok = false; }
+    else wrap.classList.remove("unanswered");
+  });
+  const durWrap = document.getElementById("dryEyeDurationBlock");
+  if(durWrap){
+    if(dryEyeAnswers.duration===null){ durWrap.classList.add("unanswered"); ok = false; }
+    else durWrap.classList.remove("unanswered");
+  }
+  const msgEl = document.getElementById("dryEyeValidationMsg");
+  if(msgEl){
+    msgEl.textContent = t("dryEyeValidationBanner");
+    msgEl.style.display = ok ? "none" : "block";
+  }
+  if(!ok){
+    const firstBad = document.querySelector("#page9 .unanswered");
+    if(firstBad) firstBad.scrollIntoView({behavior:"smooth", block:"center"});
+  }
+  return ok;
+}
+function dryEyeReportStatusText(){
+  const result = computeDryEyeResult();
+  if(!result) return t("notRecorded");
+  return result.significant ? t("dryEyeStatusFlag") : t("dryEyeStatusNormal");
+}
+function dryEyeDurationText(){
+  if(!dryEyeAnswers.duration) return "—";
+  const entry = DRY_EYE_DURATIONS.find(x=>x[0]===dryEyeAnswers.duration);
+  return entry ? t(entry[1]) : "—";
+}
 
 /* ========================================================= */
 /* PHYSICAL CALIBRATION (tablet size + hand-distance testing) */
@@ -1313,6 +1605,11 @@ function applyLanguage(){
   document.getElementById("captureLeftText").textContent = t("capture");
   document.getElementById("removeRightText").textContent = t("remove");
   document.getElementById("removeLeftText").textContent = t("remove");
+  document.getElementById("dryEyeSectionTitleText").textContent = t("dryEyeSectionTitle");
+  document.getElementById("dryEyeIntroText").textContent = t("dryEyeIntro");
+  document.getElementById("dryEyeDurationLabelText").textContent = t("dryEyeDurationLabel");
+  document.getElementById("dryEyeResultHeading").textContent = t("dryEyeResultHeading");
+  document.getElementById("reportDryEyeTitle").textContent = t("dryEyeReportTitle");
   document.getElementById("bannerSubtitle").textContent = t("bannerSubtitle");
   document.getElementById("summaryTitleText").textContent = t("summaryTitle");
   document.getElementById("summaryDescText").textContent = t("summaryDesc");
@@ -1344,6 +1641,8 @@ function applyLanguage(){
   createSelectOptions();
   createSymptoms();
   createAmslerOptions();
+  createDryEyeQuestionnaire();
+  updateDryEyeResult();
   updateEyeButtons();
   updateCameraUI();
   updatePageNumber();
@@ -1465,11 +1764,11 @@ function createAmslerOptions(){
 /* ========================================================= */
 function showPage(n){
   if(n<1) n=1;
-  if(n>9) n=9;
+  if(n>10) n=10;
   currentPage = n;
   document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
   document.getElementById("page"+n).classList.add("active");
-  if(n===9){
+  if(n===10){
     updateReport();
     const wp = document.getElementById("whatsappPhone");
     if(wp && !wp.value){
@@ -1480,12 +1779,15 @@ function showPage(n){
   updatePageNumber();
   if(n!==1) speakCurrentPage();
 }
-function nextPage(){ if(currentPage<9) showPage(currentPage+1); }
+function nextPage(){
+  if(currentPage===9 && !validateDryEye()) return;
+  if(currentPage<10) showPage(currentPage+1);
+}
 function previousPage(){ if(currentPage>1) showPage(currentPage-1); }
 function updatePageNumber(){
-  document.getElementById("pageNo").textContent = currentPage + " / 9";
+  document.getElementById("pageNo").textContent = currentPage + " / 10";
   document.getElementById("backBtn").style.visibility = currentPage===1 ? "hidden" : "visible";
-  document.getElementById("nextBtn").style.visibility = currentPage===9 ? "hidden" : "visible";
+  document.getElementById("nextBtn").style.visibility = currentPage===10 ? "hidden" : "visible";
 }
 
 /* ========================================================= */
@@ -1637,7 +1939,8 @@ function speakCurrentPage(){
     6: t("specsKeepOn")+" "+t("colourInst")+" "+t("colourBothEyesOpen"),
     7: t("specsKeepOn")+" "+t("amslerInst")+" "+t("amslerOneEyeAtTime")+" "+t("amslerCoverOtherEye")+" "+t("amslerLookCentralDot")+" "+t("amslerKeepGazeFixed"),
     8: t("cameraInst"),
-    9: t("summaryDesc")+" "+t("disclaimer")
+    9: t("dryEyeIntro"),
+    10: t("summaryDesc")+" "+t("disclaimer")
   };
   speak(texts[currentPage] || t("welcome"));
 }
@@ -1697,6 +2000,10 @@ function updateReport(){
        <p><b>${t("since")}:</b> ${escapeHTML(document.getElementById("symptomSince").value || "—")}</p>`
     : `<p>—</p>`;
 
+  document.getElementById("dryEyeReport").innerHTML =
+    `<p><b>${t("dryEyeSymptomsLabel")}:</b> ${escapeHTML(dryEyeReportStatusText())}</p>
+     <p><b>${t("dryEyeDurationReportLabel")}:</b> ${escapeHTML(dryEyeDurationText())}</p>`;
+
   updatePhotosReport();
   updateExamDetails();
 }
@@ -1726,6 +2033,9 @@ function updateExamDetails(){
   const amslerFlag = amslerResults.right!=="normalGrid" || amslerResults.left!=="normalGrid";
   const symptoms = selectedSymptoms();
   const hasPhotos = photos.right || photos.left;
+  const dryEyeResult = computeDryEyeResult();
+  const dryEyeDone = dryEyeAllAnswered();
+  const dryEyeFlagged = dryEyeResult ? dryEyeResult.significant : false;
 
   function item(nameKey, resultText, dotClass){
     return `<div class="examTestItem">
@@ -1741,6 +2051,7 @@ function updateExamDetails(){
     item("testColour", colourAnswered ? (colourWrong ? t("difficulty") : t("normal")) : t("notRecorded"), colourWrong ? "dotWarn" : (colourAnswered ? "dotOk" : "dotNeutral")) +
     item("testAmsler", `${t("right")}: ${t(amslerResults.right)} · ${t("left")}: ${t(amslerResults.left)}`, amslerFlag ? "dotWarn" : "dotOk") +
     item("testSymptoms", symptoms.length ? symptoms.map(escapeHTML).join(", ") : t("noSymptomsReported"), symptoms.length ? "dotWarn" : "dotOk") +
+    item("testDryEye", dryEyeDone ? dryEyeReportStatusText() : t("notRecorded"), dryEyeFlagged ? "dotWarn" : (dryEyeDone ? "dotOk" : "dotNeutral")) +
     item("testPhotos", hasPhotos ? t("photosTaken") : t("noPhotosTaken"), hasPhotos ? "dotOk" : "dotNeutral");
 }
 function updatePhotosReport(){
@@ -1779,6 +2090,9 @@ function shareOnWhatsApp(){
   lines.push(t("testDistanceVA") + " — " + t("right") + ": " + distanceResults.right + ", " + t("left") + ": " + distanceResults.left);
   lines.push(t("testDistanceGlassesVA") + " — " + t("right") + ": " + distanceGlassesResults.right + ", " + t("left") + ": " + distanceGlassesResults.left);
   lines.push(t("testNearVA") + " — " + t("right") + ": " + nearResults.right + ", " + t("left") + ": " + nearResults.left);
+  if(dryEyeAllAnswered()){
+    lines.push(t("testDryEye") + " — " + t("dryEyeSymptomsLabel") + ": " + dryEyeReportStatusText() + ", " + t("dryEyeDurationReportLabel") + ": " + dryEyeDurationText());
+  }
   const recEl = document.getElementById("recommendation");
   if(recEl && recEl.textContent.trim()) lines.push(t("recTitle") + " " + recEl.textContent.trim());
   lines.push(t("disclaimer"));
@@ -1799,6 +2113,8 @@ function analyseScreening(){
   const colourWrong = colourAnswers.some(x=>x.value!=="" && x.value!==x.dataset.correct);
   const amslerBad = amslerResults.right!=="normalGrid" || amslerResults.left!=="normalGrid";
   const symptoms = selectedSymptoms();
+  const dryEyeResult = computeDryEyeResult();
+  const dryEyeFlagged = dryEyeResult ? dryEyeResult.significant : false;
 
   if(distanceBad || nearBad){
     let eyeWord = t("eyeBoth");
@@ -1816,6 +2132,9 @@ function analyseScreening(){
   if(symptoms.length){
     results.push(t("symptomFlag"));
   }
+  if(dryEyeFlagged){
+    results.push(t("dryEyeFlag"));
+  }
   if(!results.length){
     results.push(t("noFlags"));
   }
@@ -1823,7 +2142,7 @@ function analyseScreening(){
   document.getElementById("aiResults").innerHTML =
     "<ul>" + results.map(x=>"<li>"+escapeHTML(x)+"</li>").join("") + "</ul>";
 
-  const anyFlag = distanceBad || nearBad || colourWrong || amslerBad || symptoms.length;
+  const anyFlag = distanceBad || nearBad || colourWrong || amslerBad || symptoms.length || dryEyeFlagged;
   const recommendation = anyFlag ? t("recommendReview") : t("recommendNormal");
   document.getElementById("recommendation").innerHTML = "<p>" + escapeHTML(recommendation) + "</p>";
 }
@@ -1845,6 +2164,7 @@ function newExamination(){
   amslerResults = {right:"normalGrid", left:"normalGrid"};
   distanceEye = "right"; distanceGlassesEye = "right"; nearEye = "right"; amslerEye = "right"; symptomEye = "both";
   photos = {right:null, left:null};
+  dryEyeAnswers = { q1:null,q2:null,q3:null,q4:null,q5:null,q6:null,q7:null,q8:null,q9:null,q10:null, duration:null };
 
   if(stream){ stream.getTracks().forEach(tr=>tr.stop()); stream = null; }
   const video = document.getElementById("video");
@@ -1853,6 +2173,10 @@ function newExamination(){
   document.getElementById("aiResults").innerHTML = "";
   document.getElementById("recommendation").innerHTML = "";
   document.getElementById("reportDetail").classList.remove("open");
+  const dryEyeMsg = document.getElementById("dryEyeValidationMsg");
+  if(dryEyeMsg) dryEyeMsg.style.display = "none";
+  const dryEyeDurBlock = document.getElementById("dryEyeDurationBlock");
+  if(dryEyeDurBlock) dryEyeDurBlock.classList.remove("unanswered");
 
   updateCameraUI();
   updateEyeButtons();
@@ -1879,4 +2203,4 @@ loadVoices();
 updateReport();
 </script>
 </body>
-</html>
+  </html>
